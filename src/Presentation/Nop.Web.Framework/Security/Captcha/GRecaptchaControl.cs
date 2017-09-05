@@ -20,12 +20,12 @@ namespace Nop.Web.Framework.Security.Captcha
 
         private readonly ReCaptchaVersion _version;
 
-        public GRecaptchaControl(ReCaptchaVersion version = ReCaptchaVersion.Version1)
+        public GRecaptchaControl (ReCaptchaVersion version = ReCaptchaVersion.Version1)
         {
             _version = version;
         }
 
-        public string RenderControl()
+        public string RenderControl ()
         {
             SetTheme();
 
@@ -36,11 +36,11 @@ namespace Nop.Web.Framework.Security.Captcha
                 scriptCaptchaOptionsTag.Attributes.Add("type", MimeTypes.TextJavascript);
                 scriptCaptchaOptionsTag.InnerHtml.AppendHtml(
                     $"var RecaptchaOptions = {{ theme: '{Theme}', tabindex: 0 }}; ");
-                
+
                 var webHelper = EngineContext.Current.Resolve<IWebHelper>();
                 var scriptLoadApiTag = new TagBuilder("script");
                 scriptLoadApiTag.TagRenderMode = TagRenderMode.Normal;
-                var scriptSrc = webHelper.IsCurrentConnectionSecured() ? 
+                var scriptSrc = webHelper.IsCurrentConnectionSecured() ?
                     string.Format(RECAPTCHA_API_URL_HTTPS_VERSION1, PublicKey) :
                     string.Format(RECAPTCHA_API_URL_HTTP_VERSION1, PublicKey);
                 scriptLoadApiTag.Attributes.Add("src", scriptSrc);
@@ -54,14 +54,14 @@ namespace Nop.Web.Framework.Security.Captcha
                 scriptCallbackTag.Attributes.Add("type", MimeTypes.TextJavascript);
                 scriptCallbackTag.InnerHtml.AppendHtml(
                     $"var onloadCallback = function() {{grecaptcha.render('{Id}', {{'sitekey' : '{PublicKey}', 'theme' : '{Theme}' }});}};");
-               
+
                 var captchaTag = new TagBuilder("div");
                 captchaTag.TagRenderMode = TagRenderMode.Normal;
                 captchaTag.Attributes.Add("id", Id);
-               
+
                 var scriptLoadApiTag = new TagBuilder("script");
                 scriptLoadApiTag.TagRenderMode = TagRenderMode.Normal;
-                scriptLoadApiTag.Attributes.Add("src", RECAPTCHA_API_URL_VERSION2 + (string.IsNullOrEmpty(Language) ? "" : $"&hl={Language}"
+                scriptLoadApiTag.Attributes.Add("src", RECAPTCHA_API_URL_VERSION2 + ( string.IsNullOrEmpty(Language) ? "" : $"&hl={Language}"
                                                        ));
                 scriptLoadApiTag.Attributes.Add("async", null);
                 scriptLoadApiTag.Attributes.Add("defer", null);
@@ -72,9 +72,9 @@ namespace Nop.Web.Framework.Security.Captcha
             throw new NotSupportedException("Specified version is not supported");
         }
 
-        private void SetTheme()
+        private void SetTheme ()
         {
-            var themes = new[] {"white", "blackglass", "red", "clean", "light", "dark"};
+            var themes = new[] { "white", "blackglass", "red", "clean", "light", "dark" };
 
             if (_version == ReCaptchaVersion.Version1)
             {
@@ -96,23 +96,26 @@ namespace Nop.Web.Framework.Security.Captcha
             }
             else if (_version == ReCaptchaVersion.Version2)
             {
-                switch (Theme.ToLower())
-                {
-                    case "clean":
-                    case "red":
-                    case "white":
-                        Theme = "light";
-                        break;
-                    case "blackglass":
-                        Theme = "dark";
-                        break;
-                    default:
-                        if (!themes.Contains(Theme.ToLower()))
-                        {
+                if (string.IsNullOrWhiteSpace(Theme))
+                    Theme = "light";
+                else
+                    switch (Theme.ToLower())
+                    {
+                        case "clean":
+                        case "red":
+                        case "white":
                             Theme = "light";
-                        }
-                        break;
-                }
+                            break;
+                        case "blackglass":
+                            Theme = "dark";
+                            break;
+                        default:
+                            if (!themes.Contains(Theme.ToLower()))
+                            {
+                                Theme = "light";
+                            }
+                            break;
+                    }
             }
         }
     }

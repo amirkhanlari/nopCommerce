@@ -31,19 +31,37 @@
 	<!-- We copy the entire \App_Data directory. But we ignore InstalledPlugins.txt and Settings.txt files  -->
 	<Content Include="App_Data\**" CopyToPublishDirectory="PreserveNewest" Exclude="App_Data\*.txt" />
 	
-	<Compile Remove="Plugins\**" />
-	<EmbeddedResource Remove="Plugins\**" />
-	<None Remove="Plugins\**" />
-	
 	<!-- We copy the entire \Plugins and \Themes directories.
 	But we ignore cshtml and config files to avoid "Duplicate 'Content' items were included" error during publishing.
 	We also can use "CheckForDuplicateItemsContinueOnError" as per https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/build/Microsoft.NET.Sdk.DefaultItems.targets -->
-	<Content Include="Plugins\**" CopyToPublishDirectory="PreserveNewest" Exclude="Plugins\**\*.cshtml" />
 	<Content Include="Themes\**" CopyToPublishDirectory="PreserveNewest" Exclude="Themes\**\*.cshtml;Themes\**\*.config" />
     
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Plugins\DiscountRules.CustomerRoles\" />
+    <Folder Include="Plugins\DiscountRules.HasOneProduct\" />
+    <Folder Include="Plugins\ExchangeRate.EcbExchange\" />
+    <Folder Include="Plugins\ExternalAuth.Facebook\" />
+    <Folder Include="Plugins\Feed.GoogleShopping\" />
+    <Folder Include="Plugins\Payments.CheckMoneyOrder\" />
+    <Folder Include="Plugins\Payments.Manual\" />
+    <Folder Include="Plugins\Payments.PayPalDirect\" />
+    <Folder Include="Plugins\Payments.PayPalStandard\" />
+    <Folder Include="Plugins\Payments.PurchaseOrder\" />
+    <Folder Include="Plugins\Pickup.PickupInStore\" />
+    <Folder Include="Plugins\Shipping.AustraliaPost\" />
+    <Folder Include="Plugins\Shipping.CanadaPost\" />
+    <Folder Include="Plugins\Shipping.Fedex\" />
+    <Folder Include="Plugins\Shipping.FixedOrByWeight\" />
+    <Folder Include="Plugins\Shipping.UPS\" />
+    <Folder Include="Plugins\Shipping.USPS\" />
+    <Folder Include="Plugins\Tax.FixedOrByCountryStateZip\" />
+    <Folder Include="Plugins\Widgets.GoogleAnalytics\" />
+    <Folder Include="Plugins\Widgets.NivoSlider\" />
   </ItemGroup>
     
   <!-- This target execute after "Build" target.
