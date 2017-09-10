@@ -38,11 +38,12 @@ namespace Nop.Web.Framework.Controllers
         #region Rendering
 
         /// <summary>
-        /// Render componentto string
+        /// Render component to string
         /// </summary>
         /// <param name="componentName">Component name</param>
+        /// <param name="arguments">Arguments</param>
         /// <returns>Result</returns>
-        protected virtual string RenderViewComponentToString(string componentName)
+        protected virtual string RenderViewComponentToString(string componentName, object arguments = null)
         {
             //original implementation: https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNetCore.Mvc.ViewFeatures/Internal/ViewComponentResultExecutor.cs
             //we customized it to allow running from controllers
@@ -57,7 +58,7 @@ namespace Nop.Web.Framework.Controllers
 
             var context = actionContextAccessor.ActionContext;
 
-            var viewComponentResult = ViewComponent(componentName);
+            var viewComponentResult = ViewComponent(componentName, arguments);
 
             var viewData = this.ViewData;
             if (viewData == null)
@@ -245,10 +246,10 @@ namespace Nop.Web.Framework.Controllers
         }
 
         /// <summary>
-        /// Error's json data for kendo grid
+        /// Error's JSON data for kendo grid
         /// </summary>
         /// <param name="errorMessage">Error message</param>
-        /// <returns>Error's json data</returns>
+        /// <returns>Error's JSON data</returns>
         protected JsonResult ErrorForKendoGridJson(string errorMessage)
         {
             var gridModel = new DataSourceResult
@@ -344,13 +345,12 @@ namespace Nop.Web.Framework.Controllers
         }
 
         /// <summary>
-        /// Access denied json data for kendo grid
+        /// Access denied JSON data for kendo grid
         /// </summary>
-        /// <returns>Access denied json data</returns>
+        /// <returns>Access denied JSON data</returns>
         protected JsonResult AccessDeniedKendoGridJson()
         {
             var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
-
             return ErrorForKendoGridJson(localizationService.GetResource("Admin.AccessDenied.Description"));
         }
         

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -1031,17 +1032,19 @@ namespace Nop.Web.Controllers
         }
         
         [HttpPost]
-        public virtual IActionResult CheckoutAttributeChange(IFormCollection form)
+        public virtual IActionResult CheckoutAttributeChange(IFormCollection form, bool isEditable)
         {
             var cart = _workContext.CurrentCustomer.ShoppingCartItems
                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
 
+            //save selected attributes
             ParseAndSaveCheckoutAttributes(cart, form);
             var attributeXml = _workContext.CurrentCustomer.GetAttribute<string>(SystemCustomerAttributeNames.CheckoutAttributes,
                 _genericAttributeService, _storeContext.CurrentStore.Id);
 
+            //conditions
             var enabledAttributeIds = new List<int>();
             var disabledAttributeIds = new List<int>();
             var attributes = _checkoutAttributeService.GetAllCheckoutAttributes(_storeContext.CurrentStore.Id, !cart.RequiresShipping());
@@ -1057,8 +1060,14 @@ namespace Nop.Web.Controllers
                 }
             }
 
+            //update blocks
+            var ordetotalssectionhtml = this.RenderViewComponentToString("OrderTotals", new { isEditable = isEditable });
+            var selectedcheckoutattributesssectionhtml = this.RenderViewComponentToString("SelectedCheckoutAttributes");
+
             return Json(new
             {
+                ordetotalssectionhtml = ordetotalssectionhtml,
+                selectedcheckoutattributesssectionhtml = selectedcheckoutattributesssectionhtml,
                 enabledattributeids = enabledAttributeIds.ToArray(),
                 disabledattributeids = disabledAttributeIds.ToArray()
             });
@@ -1492,9 +1501,26 @@ namespace Nop.Web.Controllers
             //parse and save checkout attributes
             ParseAndSaveCheckoutAttributes(cart, form);
 
-            if (string.IsNullOrEmpty(zipPostalCode))
-                return Content(_localizationService.GetResource("ShoppingCart.EstimateShipping.ZipPostalCode.Required"));
+            var errors = new StringBuilder();
 
+            if (string.IsNullOrEmpty(zipPostalCode))
+            {
+                errors.Append(_localizationService.GetResource("ShoppingCart.EstimateShipping.ZipPostalCode.Required"));
+            }
+
+            if (countryId == null || countryId == 0)
+            {
+                if(errors.Length > 0)
+                    errors.Append("<br>");
+
+                errors.Append(_localizationService.GetResource("ShoppingCart.EstimateShipping.Country.Required"));
+            }
+
+            if (errors.Length > 0)
+            {
+                return Content(errors.ToString());
+            }
+            
             var model = _shoppingCartModelFactory.PrepareEstimateShippingResultModel(cart, countryId, stateProvinceId, zipPostalCode);
             return PartialView("_EstimateShippingResult", model);
         }

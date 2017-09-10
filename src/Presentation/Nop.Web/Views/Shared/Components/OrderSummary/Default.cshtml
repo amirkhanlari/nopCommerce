@@ -1,8 +1,8 @@
 @model ShoppingCartModel
 @using Nop.Core
 @using Nop.Core.Domain.Tax
-@inject IWebHelper webHelper;
-@inject IWorkContext workContext;
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
 <div class="order-summary-content">
     @await Component.InvokeAsync("Widget", new { widgetZone = "order_summary_content_before" })
     @await Html.PartialAsync("_OrderReviewData", Model.OrderReviewData)
@@ -214,14 +214,9 @@
                 }
                 @if (Model.IsEditable)
                 {
-                    @await Html.PartialAsync("_CheckoutAttributes", Model.CheckoutAttributes)
+                    @await Html.PartialAsync("_CheckoutAttributes", Model)
                 }
-                @if (!String.IsNullOrEmpty(Model.CheckoutAttributeInfo))
-                {
-                    <div class="selected-checkout-attributes">
-                        @Html.Raw(Model.CheckoutAttributeInfo)
-                    </div>
-                }
+                @await Component.InvokeAsync("SelectedCheckoutAttributes")
             </div>
             <div class="cart-footer">
                 @await Component.InvokeAsync("Widget", new { widgetZone = "order_summary_cart_footer" })
