@@ -14,7 +14,6 @@ using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
-using Nop.Core.Extensions;
 using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Customers;
@@ -57,11 +56,12 @@ namespace Nop.Services.ExportImport
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ICustomerAttributeFormatter _customerAttributeFormatter;
         private readonly OrderSettings _orderSettings;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
 
         #endregion
 
         #region Ctor
-
+        
         public ExportManager(ICategoryService categoryService,
             IManufacturerService manufacturerService,
             ICustomerService customerService,
@@ -79,7 +79,8 @@ namespace Nop.Services.ExportImport
             CatalogSettings catalogSettings,
             IGenericAttributeService genericAttributeService,
             ICustomerAttributeFormatter customerAttributeFormatter,
-            OrderSettings orderSettings)
+            OrderSettings orderSettings,
+            ISpecificationAttributeService specificationAttributeService)
         {
             this._categoryService = categoryService;
             this._manufacturerService = manufacturerService;
@@ -99,6 +100,7 @@ namespace Nop.Services.ExportImport
             this._genericAttributeService = genericAttributeService;
             this._customerAttributeFormatter = customerAttributeFormatter;
             this._orderSettings = orderSettings;
+            this._specificationAttributeService = specificationAttributeService;
         }
 
         #endregion
@@ -108,58 +110,59 @@ namespace Nop.Services.ExportImport
         protected virtual void WriteCategories(XmlWriter xmlWriter, int parentCategoryId)
         {
             var categories = _categoryService.GetAllCategoriesByParentCategoryId(parentCategoryId, true);
-            if (categories != null && categories.Any())
+            if (categories == null || !categories.Any())
+                return;
+
+            foreach (var category in categories)
             {
-                foreach (var category in categories)
+                xmlWriter.WriteStartElement("Category");
+
+                xmlWriter.WriteString("Id", category.Id);
+
+                xmlWriter.WriteString("Name", category.Name);
+                xmlWriter.WriteString("Description", category.Description);
+                xmlWriter.WriteString("CategoryTemplateId", category.CategoryTemplateId);
+                xmlWriter.WriteString("MetaKeywords", category.MetaKeywords, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("MetaDescription", category.MetaDescription, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("MetaTitle", category.MetaTitle, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("SeName", category.GetSeName(0), IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("ParentCategoryId", category.ParentCategoryId);
+                xmlWriter.WriteString("PictureId", category.PictureId);
+                xmlWriter.WriteString("PageSize", category.PageSize, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("AllowCustomersToSelectPageSize", category.AllowCustomersToSelectPageSize, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("PageSizeOptions", category.PageSizeOptions, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("PriceRanges", category.PriceRanges, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("ShowOnHomePage", category.ShowOnHomePage, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("IncludeInTopMenu", category.IncludeInTopMenu, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("Published", category.Published, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("Deleted", category.Deleted, true);
+                xmlWriter.WriteString("DisplayOrder", category.DisplayOrder);
+                xmlWriter.WriteString("CreatedOnUtc", category.CreatedOnUtc, IgnoreExportCategoryProperty());
+                xmlWriter.WriteString("UpdatedOnUtc", category.UpdatedOnUtc, IgnoreExportCategoryProperty());
+
+                xmlWriter.WriteStartElement("Products");
+                var productCategories = _categoryService.GetProductCategoriesByCategoryId(category.Id, showHidden: true);
+                foreach (var productCategory in productCategories)
                 {
-                    xmlWriter.WriteStartElement("Category");
+                    var product = productCategory.Product;
+                    if (product == null || product.Deleted)
+                        continue;
 
-                    xmlWriter.WriteString("Id", category.Id);
-
-                    xmlWriter.WriteString("Name", category.Name);
-                    xmlWriter.WriteString("Description", category.Description);
-                    xmlWriter.WriteString("CategoryTemplateId", category.CategoryTemplateId);
-                    xmlWriter.WriteString("MetaKeywords", category.MetaKeywords, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("MetaDescription", category.MetaDescription, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("MetaTitle", category.MetaTitle, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("SeName", category.GetSeName(0), IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("ParentCategoryId", category.ParentCategoryId);
-                    xmlWriter.WriteString("PictureId", category.PictureId);
-                    xmlWriter.WriteString("PageSize", category.PageSize, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("AllowCustomersToSelectPageSize", category.AllowCustomersToSelectPageSize, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("PageSizeOptions", category.PageSizeOptions, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("PriceRanges", category.PriceRanges, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("ShowOnHomePage", category.ShowOnHomePage, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("IncludeInTopMenu", category.IncludeInTopMenu, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("Published", category.Published, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("Deleted", category.Deleted, true);
-                    xmlWriter.WriteString("DisplayOrder", category.DisplayOrder);
-                    xmlWriter.WriteString("CreatedOnUtc", category.CreatedOnUtc, IgnoreExportCategoryProperty());
-                    xmlWriter.WriteString("UpdatedOnUtc", category.UpdatedOnUtc, IgnoreExportCategoryProperty());
-
-                    xmlWriter.WriteStartElement("Products");
-                    var productCategories = _categoryService.GetProductCategoriesByCategoryId(category.Id, showHidden: true);
-                    foreach (var productCategory in productCategories)
-                    {
-                        var product = productCategory.Product;
-                        if (product != null && !product.Deleted)
-                        {
-                            xmlWriter.WriteStartElement("ProductCategory");
-                            xmlWriter.WriteString("ProductCategoryId", productCategory.Id);
-                            xmlWriter.WriteString("ProductId", productCategory.ProductId);
-                            xmlWriter.WriteString("ProductName", product.Name);
-                            xmlWriter.WriteString("IsFeaturedProduct", productCategory.IsFeaturedProduct);
-                            xmlWriter.WriteString("DisplayOrder", productCategory.DisplayOrder);
-                            xmlWriter.WriteEndElement();
-                        }
-                    }
-                    xmlWriter.WriteEndElement();
-
-                    xmlWriter.WriteStartElement("SubCategories");
-                    WriteCategories(xmlWriter, category.Id);
-                    xmlWriter.WriteEndElement();
+                    xmlWriter.WriteStartElement("ProductCategory");
+                    xmlWriter.WriteString("ProductCategoryId", productCategory.Id);
+                    xmlWriter.WriteString("ProductId", productCategory.ProductId);
+                    xmlWriter.WriteString("ProductName", product.Name);
+                    xmlWriter.WriteString("IsFeaturedProduct", productCategory.IsFeaturedProduct);
+                    xmlWriter.WriteString("DisplayOrder", productCategory.DisplayOrder);
                     xmlWriter.WriteEndElement();
                 }
+
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("SubCategories");
+                WriteCategories(xmlWriter, category.Id);
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndElement();
             }
         }
 
@@ -191,9 +194,10 @@ namespace Nop.Services.ExportImport
             string categoryNames = null;
             foreach (var pc in _categoryService.GetProductCategoriesByProductId(product.Id, true))
             {
-                categoryNames += pc.Category.Name;
+                categoryNames += _catalogSettings.ExportImportProductCategoryBreadcrumb ? pc.Category.GetFormattedBreadCrumb(_categoryService) : pc.Category.Name;
                 categoryNames += ";";
             }
+
             return categoryNames;
         }
 
@@ -210,6 +214,7 @@ namespace Nop.Services.ExportImport
                 manufacturerNames += pm.Manufacturer.Name;
                 manufacturerNames += ";";
             }
+
             return manufacturerNames;
         }
 
@@ -227,6 +232,7 @@ namespace Nop.Services.ExportImport
                 productTagNames += productTag.Name;
                 productTagNames += ";";
             }
+
             return productTagNames;
         }
 
@@ -258,23 +264,8 @@ namespace Nop.Services.ExportImport
                         break;
                 }
             }
+
             return new[] { picture1, picture2, picture3 };
-        }
-       
-        private bool IgnoreExportPoductProperty(Func<ProductEditorSettings, bool> func)
-        {
-            var productAdvancedMode = _workContext.CurrentCustomer.GetAttribute<bool>("product-advanced-mode");
-            return !productAdvancedMode && !func(_productEditorSettings);
-        }
-
-        private bool IgnoreExportCategoryProperty()
-        {
-            return !_workContext.CurrentCustomer.GetAttribute<bool>("category-advanced-mode");
-        }
-
-        private bool IgnoreExportManufacturerProperty()
-        {
-            return !_workContext.CurrentCustomer.GetAttribute<bool>("manufacturer-advanced-mode");
         }
 
         /// <summary>
@@ -298,7 +289,7 @@ namespace Nop.Services.ExportImport
                     var worksheet = xlPackage.Workbook.Worksheets.Add(typeof(T).Name);
                     var fWorksheet = xlPackage.Workbook.Worksheets.Add("DataForFilters");
                     fWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
-                    
+
                     //create Headers and format them 
                     var manager = new PropertyManager<T>(properties.Where(p => !p.Ignore));
                     manager.WriteCaption(worksheet, SetCaptionStyle);
@@ -312,11 +303,50 @@ namespace Nop.Services.ExportImport
 
                     xlPackage.Save();
                 }
+
                 return stream.ToArray();
             }
         }
 
-        private byte[] ExportProductsToXlsxWithAttributes(PropertyByName<Product>[] properties, IEnumerable<Product> itemsToExport)
+        protected virtual bool IgnoreExportPoductProperty(Func<ProductEditorSettings, bool> func)
+        {
+            var productAdvancedMode = true;
+            try
+            {
+                productAdvancedMode = _workContext.CurrentCustomer.GetAttribute<bool>("product-advanced-mode");
+            }
+            catch (ArgumentNullException)
+            {
+            }
+
+            return !productAdvancedMode && !func(_productEditorSettings);
+        }
+
+        protected virtual bool IgnoreExportCategoryProperty()
+        {
+            try
+            {
+                return !_workContext.CurrentCustomer.GetAttribute<bool>("category-advanced-mode");
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+        }
+
+        protected virtual bool IgnoreExportManufacturerProperty()
+        {
+            try
+            {
+                return !_workContext.CurrentCustomer.GetAttribute<bool>("manufacturer-advanced-mode");
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+        }
+
+        private PropertyManager<ExportProductAttribute> GetProductAttributeManager()
         {
             var attributeProperties = new[]
             {
@@ -348,7 +378,35 @@ namespace Nop.Services.ExportImport
                 new PropertyByName<ExportProductAttribute>("PictureId", p => p.PictureId)
             };
 
-            var attributeManager = new PropertyManager<ExportProductAttribute>(attributeProperties);
+            return new PropertyManager<ExportProductAttribute>(attributeProperties);
+        }
+
+        private PropertyManager<ExportSpecificationAttribute> GetSpecificationAttributeManager()
+        {
+            var attributeProperties = new[]
+            {
+                new PropertyByName<ExportSpecificationAttribute>("AttributeType", p => p.AttributeTypeId)
+                {
+                    DropDownElements = SpecificationAttributeType.Option.ToSelectList(useLocalization: false)
+                },
+                new PropertyByName<ExportSpecificationAttribute>("SpecificationAttribute", p => p.SpecificationAttributeId)
+                {
+                    DropDownElements = _specificationAttributeService.GetSpecificationAttributes().Select(sa => sa as BaseEntity).ToSelectList(p => (p as SpecificationAttribute)?.Name ?? string.Empty)
+                },
+                new PropertyByName<ExportSpecificationAttribute>("CustomValue", p => p.CustomValue),
+                new PropertyByName<ExportSpecificationAttribute>("SpecificationAttributeOptionId", p => p.SpecificationAttributeOptionId),
+                new PropertyByName<ExportSpecificationAttribute>("AllowFiltering", p => p.AllowFiltering),
+                new PropertyByName<ExportSpecificationAttribute>("ShowOnProductPage", p => p.ShowOnProductPage),
+                new PropertyByName<ExportSpecificationAttribute>("DisplayOrder", p => p.DisplayOrder)
+            };
+
+            return new PropertyManager<ExportSpecificationAttribute>(attributeProperties);
+        }
+        
+        private byte[] ExportProductsToXlsxWithAttributes(PropertyByName<Product>[] properties, IEnumerable<Product> itemsToExport)
+        {
+            var productAttributeManager = GetProductAttributeManager();
+            var specificationAttributeManager = GetSpecificationAttributeManager();
 
             using (var stream = new MemoryStream())
             {
@@ -362,8 +420,10 @@ namespace Nop.Services.ExportImport
                     var worksheet = xlPackage.Workbook.Worksheets.Add(typeof(Product).Name);
                     var fpWorksheet = xlPackage.Workbook.Worksheets.Add("DataForProductsFilters");
                     fpWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
-                    var faWorksheet = xlPackage.Workbook.Worksheets.Add("DataForProductAttributesFilters");
-                    faWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                    var fbaWorksheet = xlPackage.Workbook.Worksheets.Add("DataForProductAttributesFilters");
+                    fbaWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                    var fsaWorksheet = xlPackage.Workbook.Worksheets.Add("DataForSpecificationAttributesFilters");
+                    fsaWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
 
                     //create Headers and format them 
                     var manager = new PropertyManager<Product>(properties.Where(p => !p.Ignore));
@@ -375,62 +435,111 @@ namespace Nop.Services.ExportImport
                         manager.CurrentObject = item;
                         manager.WriteToXlsx(worksheet, row++, _catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities, fWorksheet: fpWorksheet);
 
-                        var attributes = item.ProductAttributeMappings.SelectMany(pam => pam.ProductAttributeValues.Select(pav => new ExportProductAttribute
+                        if (_catalogSettings.ExportImportProductAttributes)
                         {
-                            AttributeId = pam.ProductAttribute.Id,
-                            AttributeName = pam.ProductAttribute.Name,
-                            AttributeTextPrompt = pam.TextPrompt,
-                            AttributeIsRequired = pam.IsRequired,
-                            AttributeControlTypeId = pam.AttributeControlTypeId,
-                            AssociatedProductId = pav.AssociatedProductId,
-                            AttributeDisplayOrder = pam.DisplayOrder,
-                            Id = pav.Id,
-                            Name = pav.Name,
-                            AttributeValueTypeId = pav.AttributeValueTypeId,
-                            ColorSquaresRgb = pav.ColorSquaresRgb,
-                            ImageSquaresPictureId = pav.ImageSquaresPictureId,
-                            PriceAdjustment = pav.PriceAdjustment,
-                            WeightAdjustment = pav.WeightAdjustment,
-                            Cost = pav.Cost,
-                            CustomerEntersQty = pav.CustomerEntersQty,
-                            Quantity = pav.Quantity,
-                            IsPreSelected = pav.IsPreSelected,
-                            DisplayOrder = pav.DisplayOrder,
-                            PictureId = pav.PictureId
-                        })).ToList();
-
-                        attributes.AddRange(item.ProductAttributeMappings.Where(pam => !pam.ProductAttributeValues.Any()).Select(pam => new ExportProductAttribute
-                        {
-                            AttributeId = pam.ProductAttribute.Id,
-                            AttributeName = pam.ProductAttribute.Name,
-                            AttributeTextPrompt = pam.TextPrompt,
-                            AttributeIsRequired = pam.IsRequired,
-                            AttributeControlTypeId = pam.AttributeControlTypeId
-                        }));
-
-                        if (!attributes.Any())
-                            continue;
-
-                        attributeManager.WriteCaption(worksheet, SetCaptionStyle, row, ExportProductAttribute.ProducAttributeCellOffset);
-                        worksheet.Row(row).OutlineLevel = 1;
-                        worksheet.Row(row).Collapsed = true;
-
-                        foreach (var exportProducAttribute in attributes)
-                        {
-                            row++;
-                            attributeManager.CurrentObject = exportProducAttribute;
-                            attributeManager.WriteToXlsx(worksheet, row, _catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities, ExportProductAttribute.ProducAttributeCellOffset, faWorksheet);
-                            worksheet.Row(row).OutlineLevel = 1;
-                            worksheet.Row(row).Collapsed = true;
+                            row = ExportProductAttributes(item, productAttributeManager, worksheet, row, fbaWorksheet);
                         }
 
-                        row++;
+                        if (_catalogSettings.ExportImportProductSpecificationAttributes)
+                        {
+                            row = ExportSpecificationAttributes(item, specificationAttributeManager, worksheet, row, fsaWorksheet);
+                        }
                     }
 
                     xlPackage.Save();
                 }
+
                 return stream.ToArray();
             }
+        }
+
+        private int ExportProductAttributes(Product item, PropertyManager<ExportProductAttribute> attributeManager, ExcelWorksheet worksheet, int row, ExcelWorksheet faWorksheet)
+        {
+            var attributes = item.ProductAttributeMappings.SelectMany(pam => pam.ProductAttributeValues.Select(
+                pav => new ExportProductAttribute
+                {
+                    AttributeId = pam.ProductAttribute.Id,
+                    AttributeName = pam.ProductAttribute.Name,
+                    AttributeTextPrompt = pam.TextPrompt,
+                    AttributeIsRequired = pam.IsRequired,
+                    AttributeControlTypeId = pam.AttributeControlTypeId,
+                    AssociatedProductId = pav.AssociatedProductId,
+                    AttributeDisplayOrder = pam.DisplayOrder,
+                    Id = pav.Id,
+                    Name = pav.Name,
+                    AttributeValueTypeId = pav.AttributeValueTypeId,
+                    ColorSquaresRgb = pav.ColorSquaresRgb,
+                    ImageSquaresPictureId = pav.ImageSquaresPictureId,
+                    PriceAdjustment = pav.PriceAdjustment,
+                    WeightAdjustment = pav.WeightAdjustment,
+                    Cost = pav.Cost,
+                    CustomerEntersQty = pav.CustomerEntersQty,
+                    Quantity = pav.Quantity,
+                    IsPreSelected = pav.IsPreSelected,
+                    DisplayOrder = pav.DisplayOrder,
+                    PictureId = pav.PictureId
+                })).ToList();
+
+            attributes.AddRange(item.ProductAttributeMappings.Where(pam => !pam.ProductAttributeValues.Any()).Select(
+                pam => new ExportProductAttribute
+                {
+                    AttributeId = pam.ProductAttribute.Id,
+                    AttributeName = pam.ProductAttribute.Name,
+                    AttributeTextPrompt = pam.TextPrompt,
+                    AttributeIsRequired = pam.IsRequired,
+                    AttributeControlTypeId = pam.AttributeControlTypeId
+                }));
+
+            if (!attributes.Any())
+                return row;
+
+            attributeManager.WriteCaption(worksheet, SetCaptionStyle, row, ExportProductAttribute.ProducAttributeCellOffset);
+            worksheet.Row(row).OutlineLevel = 1;
+            worksheet.Row(row).Collapsed = true;
+
+            foreach (var exportProducAttribute in attributes)
+            {
+                row++;
+                attributeManager.CurrentObject = exportProducAttribute;
+                attributeManager.WriteToXlsx(worksheet, row, _catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities, ExportProductAttribute.ProducAttributeCellOffset, faWorksheet);
+                worksheet.Row(row).OutlineLevel = 1;
+                worksheet.Row(row).Collapsed = true;
+            }
+            
+            return row + 1;
+        }
+
+        private int ExportSpecificationAttributes(Product item, PropertyManager<ExportSpecificationAttribute> attributeManager, ExcelWorksheet worksheet, int row, ExcelWorksheet faWorksheet)
+        {
+            var attributes = item.ProductSpecificationAttributes.Select(
+                psa => new ExportSpecificationAttribute
+                {
+                    AttributeTypeId = psa.AttributeTypeId,
+                    CustomValue = psa.CustomValue, 
+                    AllowFiltering = psa.AllowFiltering,
+                    ShowOnProductPage = psa.ShowOnProductPage,
+                    DisplayOrder = psa.DisplayOrder,
+                    SpecificationAttributeOptionId = psa.SpecificationAttributeOptionId,
+                    SpecificationAttributeId = psa.SpecificationAttributeOption.SpecificationAttribute.Id,
+                }).ToList();
+
+            if (!attributes.Any())
+                return row;
+
+            attributeManager.WriteCaption(worksheet, SetCaptionStyle, row, ExportProductAttribute.ProducAttributeCellOffset);
+            worksheet.Row(row).OutlineLevel = 1;
+            worksheet.Row(row).Collapsed = true;
+
+            foreach (var exportProducAttribute in attributes)
+            {
+                row++;
+                attributeManager.CurrentObject = exportProducAttribute;
+                attributeManager.WriteToXlsx(worksheet, row, _catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities, ExportProductAttribute.ProducAttributeCellOffset, faWorksheet);
+                worksheet.Row(row).OutlineLevel = 1;
+                worksheet.Row(row).Collapsed = true;
+            }
+
+            return row + 1;
         }
 
         private byte[] ExportOrderToXlsxWithProducts(PropertyByName<Order>[] properties, IEnumerable<Order> itemsToExport)
@@ -501,6 +610,7 @@ namespace Nop.Services.ExportImport
 
                     xlPackage.Save();
                 }
+
                 return stream.ToArray();
             }
         }
@@ -571,8 +681,8 @@ namespace Nop.Services.ExportImport
                         }
                     }
                 }
-                xmlWriter.WriteEndElement();
 
+                xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndElement();
             }
 
@@ -634,8 +744,15 @@ namespace Nop.Services.ExportImport
         /// Export categories to XLSX
         /// </summary>
         /// <param name="categories">Categories</param>
-        public virtual byte[] ExportCategoriesToXlsx(IEnumerable<Category> categories)
+        public virtual byte[] ExportCategoriesToXlsx(IList<Category> categories)
         {
+            var parentCatagories = new List<Category>();
+            if (_catalogSettings.ExportImportCategoriesUsingCategoryName)
+            {
+                //performance optimization, load all parent categories in one SQL request
+                parentCatagories = _categoryService.GetCategoriesByIds(categories.Select(c => c.ParentCategoryId).Where(id => id != 0).ToArray());
+            }
+
             //property array
             var properties = new[]
             {
@@ -648,6 +765,7 @@ namespace Nop.Services.ExportImport
                 new PropertyByName<Category>("MetaTitle", p => p.MetaTitle, IgnoreExportCategoryProperty()),
                 new PropertyByName<Category>("SeName", p => p.GetSeName(0), IgnoreExportCategoryProperty()),
                 new PropertyByName<Category>("ParentCategoryId", p => p.ParentCategoryId),
+                new PropertyByName<Category>("ParentCategoryName", p => parentCatagories.FirstOrDefault(c => c.Id == p.ParentCategoryId)?.GetFormattedBreadCrumb(_categoryService), !_catalogSettings.ExportImportCategoriesUsingCategoryName),
                 new PropertyByName<Category>("Picture", p => GetPictures(p.PictureId)),
                 new PropertyByName<Category>("PageSize", p => p.PageSize, IgnoreExportCategoryProperty()),
                 new PropertyByName<Category>("AllowCustomersToSelectPageSize", p => p.AllowCustomersToSelectPageSize, IgnoreExportCategoryProperty()),
@@ -785,6 +903,7 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteString("Name", discount.Name);
                         xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
 
@@ -804,6 +923,7 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteString("EndDateTimeUtc", tierPrice.EndDateTimeUtc);
                         xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
 
@@ -830,21 +950,25 @@ namespace Nop.Services.ExportImport
                                 xmlWriter.WriteString("ValidationMinLength",
                                     productAttributeMapping.ValidationMinLength.Value);
                             }
+
                             if (productAttributeMapping.ValidationMaxLength.HasValue)
                             {
                                 xmlWriter.WriteString("ValidationMaxLength",
                                     productAttributeMapping.ValidationMaxLength.Value);
                             }
-                            if (String.IsNullOrEmpty(productAttributeMapping.ValidationFileAllowedExtensions))
+
+                            if (string.IsNullOrEmpty(productAttributeMapping.ValidationFileAllowedExtensions))
                             {
                                 xmlWriter.WriteString("ValidationFileAllowedExtensions",
                                     productAttributeMapping.ValidationFileAllowedExtensions);
                             }
+
                             if (productAttributeMapping.ValidationFileMaximumSize.HasValue)
                             {
                                 xmlWriter.WriteString("ValidationFileMaximumSize",
                                     productAttributeMapping.ValidationFileMaximumSize.Value);
                             }
+
                             xmlWriter.WriteString("DefaultValue", productAttributeMapping.DefaultValue);
                         }
                         //conditions
@@ -872,12 +996,14 @@ namespace Nop.Services.ExportImport
                             xmlWriter.WriteString("PictureId", productAttributeValue.PictureId);
                             xmlWriter.WriteEndElement();
                         }
-                        xmlWriter.WriteEndElement();
 
                         xmlWriter.WriteEndElement();
+                        xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
+
                 xmlWriter.WriteStartElement("ProductPictures");
                 var productPictures = product.ProductPictures;
                 foreach (var productPicture in productPictures)
@@ -888,6 +1014,7 @@ namespace Nop.Services.ExportImport
                     xmlWriter.WriteString("DisplayOrder", productPicture.DisplayOrder);
                     xmlWriter.WriteEndElement();
                 }
+
                 xmlWriter.WriteEndElement();
 
                 xmlWriter.WriteStartElement("ProductCategories");
@@ -904,6 +1031,7 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteEndElement();
                     }
                 }
+
                 xmlWriter.WriteEndElement();
 
                 if (!IgnoreExportPoductProperty(p => p.Manufacturers))
@@ -922,6 +1050,7 @@ namespace Nop.Services.ExportImport
                             xmlWriter.WriteEndElement();
                         }
                     }
+
                     xmlWriter.WriteEndElement();
                 }
 
@@ -940,6 +1069,7 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteString("DisplayOrder", productSpecificationAttribute.DisplayOrder);
                         xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
 
@@ -954,6 +1084,7 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteString("Name", productTag.Name);
                         xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
 
@@ -974,6 +1105,7 @@ namespace Nop.Services.ExportImport
         {
             var properties = new[]
             {
+                new PropertyByName<Product>("ProductId", p => p.Id, IgnoreExportPoductProperty(p => p.Id)),
                 new PropertyByName<Product>("ProductType", p => p.ProductTypeId, IgnoreExportPoductProperty(p => p.ProductType))
                 {
                     DropDownElements = ProductType.SimpleProduct.ToSelectList(useLocalization: false)
@@ -1126,9 +1258,17 @@ namespace Nop.Services.ExportImport
             };
 
             var productList = products.ToList();
-            var productAdvancedMode = _workContext.CurrentCustomer.GetAttribute<bool>("product-advanced-mode");
 
-            if (_catalogSettings.ExportImportProductAttributes)
+            var productAdvancedMode=true;
+            try
+            {
+                productAdvancedMode = _workContext.CurrentCustomer.GetAttribute<bool>("product-advanced-mode");
+            }
+            catch(ArgumentNullException)
+            {
+            }
+
+            if (_catalogSettings.ExportImportProductAttributes || _catalogSettings.ExportImportProductSpecificationAttributes)
             {
                 if (productAdvancedMode || _productEditorSettings.ProductAttributes)
                     return ExportProductsToXlsxWithAttributes(properties, productList);
@@ -1235,6 +1375,7 @@ namespace Nop.Services.ExportImport
                             xmlWriter.WriteString("TotalInclTax", orderItem.PriceInclTax);
                             xmlWriter.WriteEndElement();
                         }
+
                         xmlWriter.WriteEndElement();
                     }
                 }
@@ -1249,17 +1390,16 @@ namespace Nop.Services.ExportImport
                         xmlWriter.WriteStartElement("Shipment");
                         xmlWriter.WriteElementString("ShipmentId", null, shipment.Id.ToString());
                         xmlWriter.WriteElementString("TrackingNumber", null, shipment.TrackingNumber);
-                        xmlWriter.WriteElementString("TotalWeight", null, shipment.TotalWeight.HasValue ? shipment.TotalWeight.Value.ToString() : String.Empty);
-
-                        xmlWriter.WriteElementString("ShippedDateUtc", null, shipment.ShippedDateUtc.HasValue ? 
-                            shipment.ShippedDateUtc.ToString() : String.Empty);
-                        xmlWriter.WriteElementString("DeliveryDateUtc", null, shipment.DeliveryDateUtc.HasValue ? 
-                            shipment.DeliveryDateUtc.Value.ToString() : String.Empty);
+                        xmlWriter.WriteElementString("TotalWeight", null, shipment.TotalWeight?.ToString() ?? string.Empty);
+                        xmlWriter.WriteElementString("ShippedDateUtc", null, shipment.ShippedDateUtc.HasValue ? shipment.ShippedDateUtc.ToString() : string.Empty);
+                        xmlWriter.WriteElementString("DeliveryDateUtc", null, shipment.DeliveryDateUtc?.ToString() ?? string.Empty);
                         xmlWriter.WriteElementString("CreatedOnUtc", null, shipment.CreatedOnUtc.ToString());
                         xmlWriter.WriteEndElement();
                     }
+
                     xmlWriter.WriteEndElement();
                 }
+
                 xmlWriter.WriteEndElement();
             }
 
@@ -1448,7 +1588,7 @@ namespace Nop.Services.ExportImport
                 foreach (var store in _storeService.GetAllStores())
                 {
                     var newsletter = _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAndStoreId(customer.Email, store.Id);
-                    bool subscribedToNewsletters = newsletter != null && newsletter.Active;
+                    var subscribedToNewsletters = newsletter != null && newsletter.Active;
                     xmlWriter.WriteElementString($"Newsletter-in-store-{store.Id}", null, subscribedToNewsletters.ToString());
                 }
 
@@ -1495,6 +1635,7 @@ namespace Nop.Services.ExportImport
                 sb.Append(subscription.StoreId);
                 sb.Append(Environment.NewLine); //new line
             }
+
             return sb.ToString();
         }
 
@@ -1523,9 +1664,10 @@ namespace Nop.Services.ExportImport
                 sb.Append(state.DisplayOrder);
                 sb.Append(Environment.NewLine); //new line
             }
+
             return sb.ToString();
         }
 
-#endregion
+        #endregion
     }
 }

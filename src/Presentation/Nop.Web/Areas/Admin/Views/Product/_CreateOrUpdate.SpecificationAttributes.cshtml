@@ -6,6 +6,7 @@
     <p>
         @T("Admin.Catalog.Products.SpecificationAttributes.Hint")
     </p>
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_product_details_specification_attributes_top", additionalData = Model.Id })
     @if (Model.Id > 0)
     {
         /*hide "add spec" table if no attributes are defined*/
@@ -15,7 +16,7 @@
                 <div class="panel-body">
                     <div id="specificationattributes-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#specificationattributes-grid").kendoGrid({
                                 dataSource: {
@@ -100,7 +101,7 @@
                                         encoded: false,
                                         editor: function setDropDownEditor(container, options) {
                                                     if (options.model.AttributeTypeId == @((int)SpecificationAttributeType.Option)) {
-                                                        var dropDownList = $('<input required data-text-field="Name" data-value-field="Id" data-bind="value:ValueRaw"/>')
+                                                        var dropDownList = $('<input required data-text-field="Name" data-value-field="Id" data-bind="value:SpecificationAttributeOptionId"/>')
                                                             .appendTo(container).kendoDropDownList().data("kendoDropDownList");
                                                         $.ajax({
                                                             type: "GET",
@@ -209,10 +210,10 @@
                                     //some validation
                                     if (attributeTypeId == @(((int) SpecificationAttributeType.Option).ToString())) {
                                         //option
-                                        alert('Select specification attribute option');
+                                        alert('@T("Admin.Catalog.Products.SpecificationAttributes.SelectOption")');
                                 } else {
                                     //other (text, hyperlink, etc)
-                                    alert('First, please create at least one specification attribute option');
+                                    alert('@T("Admin.Catalog.Products.SpecificationAttributes.NoAttributeOptions")');
                                 }
                             } else {
                                     $('#addProductSpec').attr('disabled', true);
@@ -363,4 +364,5 @@
             </div>
         </div>
     }
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_product_details_specification_attributes_bottom", additionalData = Model.Id })
 </div>

@@ -2,10 +2,11 @@
 using Nop.Core.Domain.Catalog;
 using Nop.Services.Configuration;
 using Nop.Services.Stores;
+using Nop.Web.Framework.Components;
 
 namespace Nop.Web.Areas.Admin.Components
 {
-    public class MultistoreDisabledWarningViewComponent : ViewComponent
+    public class MultistoreDisabledWarningViewComponent : NopViewComponent
     {
         private readonly CatalogSettings _catalogSettings;
         private readonly ISettingService _settingService;
@@ -26,7 +27,7 @@ namespace Nop.Web.Areas.Admin.Components
             //action displaying notification (warning) to a store owner that "limit per store" feature is ignored
 
             //default setting
-            bool enabled = _catalogSettings.IgnoreStoreLimitations;
+            var enabled = _catalogSettings.IgnoreStoreLimitations;
             if (!enabled)
             {
                 //overridden settings

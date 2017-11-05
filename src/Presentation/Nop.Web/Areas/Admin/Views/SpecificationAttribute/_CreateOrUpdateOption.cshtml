@@ -11,7 +11,7 @@
 
 @{
     //pre-set some color (required for farbtastic)
-    if (String.IsNullOrEmpty(Model.ColorSquaresRgb))
+    if (string.IsNullOrEmpty(Model.ColorSquaresRgb))
     {
         Model.ColorSquaresRgb = "#FFFFFF";
     }
@@ -44,6 +44,7 @@
 <div class="content">
     <div class="form-horizontal">
         <div class="panel-group">
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_specification_attribute_option_details_top", additionalData = Model.Id })
             <div class="panel panel-default panel-popup">
                 <div class="panel-body">
                     @(Html.LocalizedEditor<SpecificationAttributeOptionModel, SpecificationAttributeOptionLocalizedModel>("specificationattribute-localized",
@@ -107,6 +108,7 @@
                     </div>
                 </div>
             </div>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_specification_attribute_option_details_bottom", additionalData = Model.Id })
         </div>
     </div>
 </div>

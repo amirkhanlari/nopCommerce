@@ -20,6 +20,9 @@ using Nop.Services.Stores;
 
 namespace Nop.Services.Messages
 {
+    /// <summary>
+    /// Workflow message service
+    /// </summary>
     public partial class WorkflowMessageService : IWorkflowMessageService
     {
         #region Fields
@@ -40,6 +43,20 @@ namespace Nop.Services.Messages
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="messageTemplateService">Message template service</param>
+        /// <param name="queuedEmailService">Queued email service</param>
+        /// <param name="languageService">Language service</param>
+        /// <param name="tokenizer">Tokenizer</param>
+        /// <param name="emailAccountService">Email account service</param>
+        /// <param name="messageTokenProvider">Message token provider</param>
+        /// <param name="storeService">Store service</param>
+        /// <param name="storeContext">Store context</param>
+        /// <param name="commonSettings">Common settings</param>
+        /// <param name="emailAccountSettings">Email account settings</param>
+        /// <param name="eventPublisher">Event publisher</param>
         public WorkflowMessageService(IMessageTemplateService messageTemplateService,
             IQueuedEmailService queuedEmailService,
             ILanguageService languageService,
@@ -69,6 +86,12 @@ namespace Nop.Services.Messages
 
         #region Utilities
 
+        /// <summary>
+        /// Get message template
+        /// </summary>
+        /// <param name="messageTemplateName">Message template name</param>
+        /// <param name="storeId">Store identifier</param>
+        /// <returns>Message template</returns>
         protected virtual MessageTemplate GetActiveMessageTemplate(string messageTemplateName, int storeId)
         {
             var messageTemplate = _messageTemplateService.GetMessageTemplateByName(messageTemplateName, storeId);
@@ -85,6 +108,12 @@ namespace Nop.Services.Messages
             return messageTemplate;
         }
 
+        /// <summary>
+        /// Get EmailAccount to use with a message templates
+        /// </summary>
+        /// <param name="messageTemplate">Message template</param>
+        /// <param name="languageId">Language identifier</param>
+        /// <returns>EmailAccount</returns>
         protected virtual EmailAccount GetEmailAccountOfMessageTemplate(MessageTemplate messageTemplate, int languageId)
         {
             var emailAccountId = messageTemplate.GetLocalized(mt => mt.EmailAccountId, languageId);
@@ -98,9 +127,14 @@ namespace Nop.Services.Messages
             if (emailAccount == null)
                 emailAccount = _emailAccountService.GetAllEmailAccounts().FirstOrDefault();
             return emailAccount;
-
         }
 
+        /// <summary>
+        /// Ensure language is active
+        /// </summary>
+        /// <param name="languageId">Language identifier</param>
+        /// <param name="storeId">Store identifier</param>
+        /// <returns>Return a value language identifier</returns>
         protected virtual int EnsureLanguageIsActive(int languageId, int storeId)
         {
             //load language by specified ID
@@ -260,7 +294,6 @@ namespace Nop.Services.Messages
             _messageTokenProvider.AddStoreTokens(tokens, store, emailAccount);
             _messageTokenProvider.AddCustomerTokens(tokens, customer);
 
-
             //event notification
             _eventPublisher.MessageTokensAdded(messageTemplate, tokens);
 
@@ -296,7 +329,6 @@ namespace Nop.Services.Messages
             var tokens = new List<Token>();
             _messageTokenProvider.AddStoreTokens(tokens, store, emailAccount);
             _messageTokenProvider.AddCustomerTokens(tokens, customer);
-
 
             //event notification
             _eventPublisher.MessageTokensAdded(messageTemplate, tokens);
@@ -1193,7 +1225,7 @@ namespace Nop.Services.Messages
             //event notification
             _eventPublisher.MessageTokensAdded(messageTemplate, tokens);
 
-            string toEmail = returnRequest.Customer.IsGuest() ? 
+            var toEmail = returnRequest.Customer.IsGuest() ? 
                 orderItem.Order.BillingAddress.Email :
                 returnRequest.Customer.Email;
             var toName = returnRequest.Customer.IsGuest() ? 
@@ -1869,7 +1901,7 @@ namespace Nop.Services.Messages
 
             //retrieve localized message template data
             var bcc = messageTemplate.GetLocalized(mt => mt.BccEmailAddresses, languageId);
-            if (String.IsNullOrEmpty(subject))
+            if (string.IsNullOrEmpty(subject))
                 subject = messageTemplate.GetLocalized(mt => mt.Subject, languageId);
             var body = messageTemplate.GetLocalized(mt => mt.Body, languageId);
 

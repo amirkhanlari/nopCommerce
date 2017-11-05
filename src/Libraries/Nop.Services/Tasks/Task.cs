@@ -45,7 +45,7 @@ namespace Nop.Services.Tasks
 
             var type = Type.GetType(ScheduleTask.Type);
             if (type == null)
-                return;
+                throw new Exception($"Schedule task ({ScheduleTask.Type}) cannot by instantiated");
 
             object instance = null;
             try
@@ -75,6 +75,11 @@ namespace Nop.Services.Tasks
             scheduleTaskService.UpdateTask(ScheduleTask);
         }
 
+        /// <summary>
+        /// Is task already running?
+        /// </summary>
+        /// <param name="scheduleTask">Schedule task</param>
+        /// <returns>Result</returns>
         protected virtual bool IsTaskAlreadyRunning(ScheduleTask scheduleTask)
         {
             //task run for the first time

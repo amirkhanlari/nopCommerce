@@ -12,6 +12,7 @@
     </h1>
     <div class="pull-right">
         &nbsp;
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_shipping_provider_list_buttons" })
     </div>
 </div>
 
@@ -20,9 +21,12 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <p>
+                        @T("Admin.Configuration.Shipping.Providers.DownloadMorePlugins")
+                    </p>
                     <div id="shippingproviders-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#shippingproviders-grid").kendoGrid({
                                 dataSource: {

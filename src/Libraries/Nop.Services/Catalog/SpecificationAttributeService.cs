@@ -169,7 +169,6 @@ namespace Nop.Services.Catalog
             return _specificationAttributeOptionRepository.GetById(specificationAttributeOptionId);
         }
 
-
         /// <summary>
         /// Get specification attribute options by identifiers
         /// </summary>
@@ -186,7 +185,7 @@ namespace Nop.Services.Catalog
             var specificationAttributeOptions = query.ToList();
             //sort by passed identifiers
             var sortedSpecificationAttributeOptions = new List<SpecificationAttributeOption>();
-            foreach (int id in specificationAttributeOptionIds)
+            foreach (var id in specificationAttributeOptionIds)
             {
                 var sao = specificationAttributeOptions.Find(x => x.Id == id);
                 if (sao != null)
@@ -261,6 +260,22 @@ namespace Nop.Services.Catalog
             _eventPublisher.EntityUpdated(specificationAttributeOption);
         }
 
+        /// <summary>
+        /// Returns a list of IDs of not existing specification attribute options
+        /// </summary>
+        /// <param name="attributeOptionIds">The IDs of the attribute options to check</param>
+        /// <returns>List of IDs not existing specification attribute options</returns>
+        public virtual int[] GetNotExistingSpecificationAttributeOptions(int[] attributeOptionIds)
+        {
+            if (attributeOptionIds == null)
+                throw new ArgumentNullException(nameof(attributeOptionIds));
+
+            var query = _specificationAttributeOptionRepository.Table;
+            var queryFilter = attributeOptionIds.Distinct().ToArray();
+            var filter = query.Select(a => a.Id).Where(m => queryFilter.Contains(m)).ToList();
+            return queryFilter.Except(filter).ToArray();
+        }
+
         #endregion
 
         #region Product specification attribute
@@ -293,8 +308,8 @@ namespace Nop.Services.Catalog
         public virtual IList<ProductSpecificationAttribute> GetProductSpecificationAttributes(int productId = 0,
             int specificationAttributeOptionId = 0, bool? allowFiltering = null, bool? showOnProductPage = null)
         {
-            string allowFilteringCacheStr = allowFiltering.HasValue ? allowFiltering.ToString() : "null";
-            string showOnProductPageCacheStr = showOnProductPage.HasValue ? showOnProductPage.ToString() : "null";
+            var allowFilteringCacheStr = allowFiltering.HasValue ? allowFiltering.ToString() : "null";
+            var showOnProductPageCacheStr = showOnProductPage.HasValue ? showOnProductPage.ToString() : "null";
             var key = string.Format(PRODUCTSPECIFICATIONATTRIBUTE_ALLBYPRODUCTID_KEY, 
                 productId, specificationAttributeOptionId, allowFilteringCacheStr, showOnProductPageCacheStr);
             

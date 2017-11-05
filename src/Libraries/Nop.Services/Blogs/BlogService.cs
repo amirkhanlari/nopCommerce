@@ -27,6 +27,14 @@ namespace Nop.Services.Blogs
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="blogPostRepository">Blog post repository</param>
+        /// <param name="blogCommentRepository">Blog comment repository</param>
+        /// <param name="storeMappingRepository">Store mapping repository</param>
+        /// <param name="catalogSettings">Catalog settings</param>
+        /// <param name="eventPublisher">Event publisher</param>
         public BlogService(IRepository<BlogPost> blogPostRepository,
             IRepository<BlogComment> blogCommentRepository,
             IRepository<StoreMapping> storeMappingRepository,
@@ -162,7 +170,7 @@ namespace Nop.Services.Blogs
             foreach (var blogPost in blogPostsAll)
             {
                 var tags = blogPost.ParseTags();
-                if (!String.IsNullOrEmpty(tags.FirstOrDefault(t => t.Equals(tag, StringComparison.InvariantCultureIgnoreCase))))
+                if (!string.IsNullOrEmpty(tags.FirstOrDefault(t => t.Equals(tag, StringComparison.InvariantCultureIgnoreCase))))
                     taggedBlogPosts.Add(blogPost);
             }
 
@@ -186,7 +194,7 @@ namespace Nop.Services.Blogs
             foreach (var blogPost in blogPosts)
             {
                 var tags = blogPost.ParseTags();
-                foreach (string tag in tags)
+                foreach (var tag in tags)
                 {
                     var foundBlogPostTag = blogPostTags.Find(bpt => bpt.Name.Equals(tag, StringComparison.InvariantCultureIgnoreCase));
                     if (foundBlogPostTag == null)
@@ -311,7 +319,7 @@ namespace Nop.Services.Blogs
             var comments = query.ToList();
             //sort by passed identifiers
             var sortedComments = new List<BlogComment>();
-            foreach (int id in commentIds)
+            foreach (var id in commentIds)
             {
                 var comment = comments.Find(x => x.Id == id);
                 if (comment != null)

@@ -36,6 +36,19 @@ namespace Nop.Services.Catalog
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="workContext">Work context</param>
+        /// <param name="storeContext">Store context</param>
+        /// <param name="discountService">Discount service</param>
+        /// <param name="categoryService">Category service</param>
+        /// <param name="manufacturerService">Manufacturer service</param>
+        /// <param name="productAttributeParser">Product atrribute parser</param>
+        /// <param name="productService">Product service</param>
+        /// <param name="cacheManager">Cache manager</param>
+        /// <param name="shoppingCartSettings">Shopping cart settings</param>
+        /// <param name="catalogSettings">Catalog settings</param>
         public PriceCalculationService(IWorkContext workContext,
             IStoreContext storeContext,
             IDiscountService discountService, 
@@ -63,18 +76,34 @@ namespace Nop.Services.Catalog
 
         #region Nested classes
 
+        /// <summary>
+        /// Product price (for caching)
+        /// </summary>
         [Serializable]
         protected class ProductPriceForCaching
         {
+            /// <summary>
+            /// Ctor
+            /// </summary>
             public ProductPriceForCaching()
             {
                 this.AppliedDiscounts = new List<DiscountForCaching>();
             }
 
+            /// <summary>
+            /// Price
+            /// </summary>
             public decimal Price { get; set; }
+            /// <summary>
+            /// Applied discount amount
+            /// </summary>
             public decimal AppliedDiscountAmount { get; set; }
+            /// <summary>
+            /// Applied discounts
+            /// </summary>
             public List<DiscountForCaching> AppliedDiscounts { get; set; }
         }
+
         #endregion
 
         #region Utilities
@@ -247,7 +276,7 @@ namespace Nop.Services.Catalog
                 throw new ArgumentNullException(nameof(product));
 
             appliedDiscounts = null;
-            decimal appliedDiscountAmount = decimal.Zero;
+            var appliedDiscountAmount = decimal.Zero;
 
             //we don't apply discounts to products with price entered by a customer
             if (product.CustomerEntersPrice)
@@ -315,6 +344,7 @@ namespace Nop.Services.Catalog
                 null, null,
                 out discountAmount, out appliedDiscounts);
         }
+
         /// <summary>
         /// Gets the final price
         /// </summary>
@@ -341,6 +371,7 @@ namespace Nop.Services.Catalog
             return GetFinalPrice(product, customer, null, additionalCharge, includeDiscounts, quantity,
                 rentalStartDate, rentalEndDate, out discountAmount, out appliedDiscounts);
         }
+
         /// <summary>
         /// Gets the final price
         /// </summary>
@@ -390,7 +421,7 @@ namespace Nop.Services.Catalog
                 var result = new ProductPriceForCaching();
 
                 //initial price
-                decimal price = overriddenProductPrice.HasValue ? overriddenProductPrice.Value : product.Price;
+                var price = overriddenProductPrice.HasValue ? overriddenProductPrice.Value : product.Price;
 
                 //tier prices
                 var tierPrice = product.GetPreferredTierPrice(customer, _storeContext.CurrentStore.Id, quantity);
@@ -408,7 +439,7 @@ namespace Nop.Services.Catalog
                 if (includeDiscounts)
                 {
                     //discount
-                    decimal tmpDiscountAmount = GetDiscountAmount(product, customer, price, out List<DiscountForCaching> tmpAppliedDiscounts);
+                    var tmpDiscountAmount = GetDiscountAmount(product, customer, price, out List<DiscountForCaching> tmpAppliedDiscounts);
                     price = price - tmpDiscountAmount;
 
                     if (tmpAppliedDiscounts != null)
@@ -437,8 +468,6 @@ namespace Nop.Services.Catalog
             return cachedPrice.Price;
         }
 
-
-
         /// <summary>
         /// Gets the shopping cart unit price (one item)
         /// </summary>
@@ -453,6 +482,7 @@ namespace Nop.Services.Catalog
             return GetUnitPrice(shoppingCartItem, includeDiscounts,
                 out discountAmount, out appliedDiscounts);
         }
+
         /// <summary>
         /// Gets the shopping cart unit price (one item)
         /// </summary>
@@ -481,6 +511,7 @@ namespace Nop.Services.Catalog
                 out discountAmount,
                 out appliedDiscounts);
         }
+
         /// <summary>
         /// Gets the shopping cart unit price (one item)
         /// </summary>
@@ -534,7 +565,7 @@ namespace Nop.Services.Catalog
             else
             {
                 //summarize price of all attributes
-                decimal attributesTotalPrice = decimal.Zero;
+                var attributesTotalPrice = decimal.Zero;
                 var attributeValues = _productAttributeParser.ParseProductAttributeValues(attributesXml);
                 if (attributeValues != null)
                 {
@@ -586,6 +617,7 @@ namespace Nop.Services.Catalog
 
             return finalPrice;
         }
+
         /// <summary>
         /// Gets the shopping cart item sub total
         /// </summary>
@@ -597,6 +629,7 @@ namespace Nop.Services.Catalog
         {
             return GetSubTotal(shoppingCartItem, includeDiscounts, out decimal _, out List<DiscountForCaching> _, out int? _);
         }
+
         /// <summary>
         /// Gets the shopping cart item sub total
         /// </summary>
@@ -662,7 +695,6 @@ namespace Nop.Services.Catalog
             return subTotal;
         }
 
-
         /// <summary>
         /// Gets the product cost (one item)
         /// </summary>
@@ -674,7 +706,7 @@ namespace Nop.Services.Catalog
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
-            decimal cost = product.ProductCost;
+            var cost = product.ProductCost;
             var attributeValues = _productAttributeParser.ParseProductAttributeValues(attributesXml);
             foreach (var attributeValue in attributeValues)
             {
@@ -701,8 +733,6 @@ namespace Nop.Services.Catalog
 
             return cost;
         }
-
-
 
         /// <summary>
         /// Get a price adjustment of a product attribute value

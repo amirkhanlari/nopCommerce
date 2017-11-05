@@ -7,6 +7,7 @@
 <div class="content">
     <div class="form-horizontal">
         <div class="panel-group">
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_campaign_details_top", additionalData = Model.Id })
             @if (Model.Id > 0)
             {
                 <div class="panel panel-default">
@@ -54,6 +55,28 @@
 
             <div class="panel panel-default">
                 <div class="panel panel-body">
+                    <div class="form-group">
+                        <script type="text/javascript">
+                            function toggleLoadedAllowedTokens() {
+                                $('#pnlAllowedTokens').toggle();
+                                if ($('#pnlAllowedTokens').css('display') == 'none') {
+                                    $('#allowedTokensShowHide').html('@T("Admin.Common.Show")');
+                                } else {
+                                    $('#allowedTokensShowHide').html('@T("Admin.Common.Hide")');
+                                }
+                            }
+                        </script>
+
+                        <div class="col-md-3">
+                            <nop-label asp-for="AllowedTokens" />
+                        </div>
+                        <div class="col-md-9">
+                            <a id="allowedTokensShowHide" href="javascript:toggleLoadedAllowedTokens();">@T("Admin.Common.Show")</a>
+                            <div id="pnlAllowedTokens" style="display: none">
+                                <div class="form-text-row">@Model.AllowedTokens</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <nop-label asp-for="Name" />
@@ -133,30 +156,9 @@
                             <span asp-validation-for="CustomerRoleId"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <script type="text/javascript">
-                            function toggleLoadedAllowedTokens() {
-                                $('#pnlAllowedTokens').toggle();
-                                if ($('#pnlAllowedTokens').css('display') == 'none') {
-                                    $('#allowedTokensShowHide').html('@T("Admin.Common.Show")');
-                                } else {
-                                    $('#allowedTokensShowHide').html('@T("Admin.Common.Hide")');
-                                }
-                            }
-                        </script>
-
-                        <div class="col-md-3">
-                            <nop-label asp-for="AllowedTokens" />
-                        </div>
-                        <div class="col-md-9">
-                            <a id="allowedTokensShowHide" href="javascript:toggleLoadedAllowedTokens();">@T("Admin.Common.Show")</a>
-                            <div id="pnlAllowedTokens" style="display: none">
-                                <div class="form-text-row">@Model.AllowedTokens</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_campaign_details_bottom", additionalData = Model.Id })
         </div>
     </div>
 </div>

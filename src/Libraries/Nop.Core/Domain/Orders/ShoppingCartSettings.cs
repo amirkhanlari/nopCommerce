@@ -1,8 +1,10 @@
-﻿
-using Nop.Core.Configuration;
+﻿using Nop.Core.Configuration;
 
 namespace Nop.Core.Domain.Orders
 {
+    /// <summary>
+    /// Shopping cart settings
+    /// </summary>
     public class ShoppingCartSettings : ISettings
     {
         /// <summary>

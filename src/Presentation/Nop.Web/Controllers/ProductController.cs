@@ -17,6 +17,7 @@ using Nop.Services.Security;
 using Nop.Services.Seo;
 using Nop.Services.Stores;
 using Nop.Web.Factories;
+using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Framework.Mvc.Filters;
@@ -53,7 +54,7 @@ namespace Nop.Web.Controllers
 
         #endregion
 
-        #region Constructors
+        #region Ctor
 
         public ProductController(IProductModelFactory productModelFactory,
             IProductService productService,
@@ -162,7 +163,7 @@ namespace Nop.Web.Controllers
                 //a vendor should have access only to his products
                 if (_workContext.CurrentVendor == null || _workContext.CurrentVendor.Id == product.VendorId)
                 {
-                    DisplayEditLink(Url.Action("Edit", "Product", new { id = product.Id, area = "Admin" }));
+                    DisplayEditLink(Url.Action("Edit", "Product", new { id = product.Id, area = AreaNames.Admin }));
                 }
             }
 
@@ -223,7 +224,7 @@ namespace Nop.Web.Controllers
             var feed = new RssFeed(
                 $"{_storeContext.CurrentStore.GetLocalized(x => x.Name)}: New products", 
                 "Information about products",
-                new Uri(_webHelper.GetStoreLocation(false)),
+                new Uri(_webHelper.GetStoreLocation()),
                 DateTime.UtcNow);
 
             if (!_catalogSettings.NewProductsEnabled)
@@ -239,9 +240,9 @@ namespace Nop.Web.Controllers
                 pageSize: _catalogSettings.NewProductsNumber);
             foreach (var product in products)
             {
-                string productUrl = Url.RouteUrl("Product", new { SeName = product.GetSeName() }, _webHelper.IsCurrentConnectionSecured() ? "https" : "http");
-                string productName = product.GetLocalized(x => x.Name);
-                string productDescription = product.GetLocalized(x => x.ShortDescription);
+                var productUrl = Url.RouteUrl("Product", new { SeName = product.GetSeName() }, _webHelper.IsCurrentConnectionSecured() ? "https" : "http");
+                var productName = product.GetLocalized(x => x.Name);
+                var productDescription = product.GetLocalized(x => x.ShortDescription);
                 var item = new RssItem(productName, productDescription, new Uri(productUrl), $"urn:store:{_storeContext.CurrentStore.Id}:newProducts:product:{product.Id}", product.CreatedOnUtc);
                 items.Add(item);
                 //uncomment below if you want to add RSS enclosure for pictures
@@ -323,10 +324,10 @@ namespace Nop.Web.Controllers
             if (ModelState.IsValid)
             {
                 //save review
-                int rating = model.AddProductReview.Rating;
+                var rating = model.AddProductReview.Rating;
                 if (rating < 1 || rating > 5)
                     rating = _catalogSettings.DefaultProductRatingValue;
-                bool isApproved = !_catalogSettings.ProductReviewsMustBeApproved;
+                var isApproved = !_catalogSettings.ProductReviewsMustBeApproved;
 
                 var productReview = new ProductReview
                 {
@@ -438,7 +439,7 @@ namespace Nop.Web.Controllers
             });
         }
 
-        public virtual IActionResult CustomerProductReviews(int? page)
+        public virtual IActionResult CustomerProductReviews(int? pageNumber)
         {
             if (_workContext.CurrentCustomer.IsGuest())
                 return Challenge();
@@ -448,7 +449,7 @@ namespace Nop.Web.Controllers
                 return RedirectToRoute("CustomerInfo");
             }
 
-            var model = _productModelFactory.PrepareCustomerProductReviewsModel(page);
+            var model = _productModelFactory.PrepareCustomerProductReviewsModel(pageNumber);
             return View(model);
         }
 

@@ -17,6 +17,7 @@
         </h1>
         <div class="pull-right">
             &nbsp;
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_product_tag_list_buttons" })
         </div>
     </div>
 
@@ -26,7 +27,7 @@
                 <div class="panel-body">
                     <div id="product-tags-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#product-tags-grid").kendoGrid({
                                 dataSource: {

@@ -12,6 +12,7 @@
     </h1>
     <div class="pull-right">
         &nbsp;
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_tax_category_list_buttons" })
     </div>
 </div>
 
@@ -22,7 +23,7 @@
                 <div class="panel-body">
                     <div id="tax-categories-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#tax-categories-grid").kendoGrid({
                                 dataSource: {

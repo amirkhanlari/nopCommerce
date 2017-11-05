@@ -50,11 +50,29 @@ namespace Nop.Services.Seo
         private readonly NewsSettings _newsSettings;
         private readonly ForumSettings _forumSettings;
         private readonly SecuritySettings _securitySettings;
+        private readonly IProductTagService _productTagService;
 
         #endregion
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="storeContext">Store context</param>
+        /// <param name="categoryService">Category service</param>
+        /// <param name="productService">Product service</param>
+        /// <param name="manufacturerService">Manufacturer service</param>
+        /// <param name="topicService">Topic service</param>
+        /// <param name="webHelper">Web helper</param>
+        /// <param name="urlHelperFactory">URL g=helper factory</param>
+        /// <param name="actionContextAccessor">Action context accessor</param>
+        /// <param name="commonSettings">Common settings</param>
+        /// <param name="blogSettings">Blog settings</param>
+        /// <param name="newsSettings">News settings</param>
+        /// <param name="forumSettings">Forum settings</param>
+        /// <param name="securitySettings">Security settings</param>
+        /// <param name="productTagService">Product tag service</param>
         public SitemapGenerator(IStoreContext storeContext,
             ICategoryService categoryService,
             IProductService productService,
@@ -67,7 +85,8 @@ namespace Nop.Services.Seo
             BlogSettings blogSettings,
             NewsSettings newsSettings,
             ForumSettings forumSettings,
-            SecuritySettings securitySettings)
+            SecuritySettings securitySettings,
+            IProductTagService productTagService)
         {
             this._storeContext = storeContext;
             this._categoryService = categoryService;
@@ -82,6 +101,7 @@ namespace Nop.Services.Seo
             this._newsSettings = newsSettings;
             this._forumSettings = forumSettings;
             this._securitySettings = securitySettings;
+            this._productTagService = productTagService;
         }
 
         #endregion
@@ -93,6 +113,12 @@ namespace Nop.Services.Seo
         /// </summary>
         protected class SitemapUrl
         {
+            /// <summary>
+            /// Ctor
+            /// </summary>
+            /// <param name="location">URL of the page</param>
+            /// <param name="frequency">Update frequency</param>
+            /// <param name="updatedOn">Updated on</param>
             public SitemapUrl(string location, UpdateFrequency frequency, DateTime updatedOn)
             {
                 Location = location;
@@ -192,6 +218,10 @@ namespace Nop.Services.Seo
             if (_commonSettings.SitemapIncludeProducts)
                 sitemapUrls.AddRange(GetProductUrls());
 
+            //product tags
+            if (_commonSettings.SitemapIncludeProductTags)
+                sitemapUrls.AddRange(GetProductTagUrls());
+
             //topics
             sitemapUrls.AddRange(GetTopicUrls());
 
@@ -205,7 +235,7 @@ namespace Nop.Services.Seo
         /// Get category URLs for the sitemap
         /// </summary>
         /// <param name="parentCategoryId">Parent category identifier</param>
-        /// <returns>Collection of sitemap URLs</returns>
+        /// <returns>Sitemap URLs</returns>
         protected virtual IEnumerable<SitemapUrl> GetCategoryUrls(int parentCategoryId)
         {
             var urlHelper = GetUrlHelper();
@@ -223,7 +253,7 @@ namespace Nop.Services.Seo
         /// <summary>
         /// Get manufacturer URLs for the sitemap
         /// </summary>
-        /// <returns>Collection of sitemap URLs</returns>
+        /// <returns>Sitemap URLs</returns>
         protected virtual IEnumerable<SitemapUrl> GetManufacturerUrls()
         {
             var urlHelper = GetUrlHelper();
@@ -237,7 +267,7 @@ namespace Nop.Services.Seo
         /// <summary>
         /// Get product URLs for the sitemap
         /// </summary>
-        /// <returns>Collection of sitemap URLs</returns>
+        /// <returns>Sitemap URLs</returns>
         protected virtual IEnumerable<SitemapUrl> GetProductUrls()
         {
             var urlHelper = GetUrlHelper();
@@ -250,9 +280,23 @@ namespace Nop.Services.Seo
         }
 
         /// <summary>
+        /// Get product tag URLs for the sitemap
+        /// </summary>
+        /// <returns>Sitemap URLs</returns>
+        protected virtual IEnumerable<SitemapUrl> GetProductTagUrls()
+        {
+            var urlHelper = GetUrlHelper();
+            return _productTagService.GetAllProductTags().Select(productTag =>
+            {
+                var url = urlHelper.RouteUrl("ProductsByTag", new { productTagId = productTag.Id, SeName = productTag.GetSeName() }, GetHttpProtocol());
+                return new SitemapUrl(url, UpdateFrequency.Weekly, DateTime.UtcNow);
+            });
+        }
+
+        /// <summary>
         /// Get topic URLs for the sitemap
         /// </summary>
-        /// <returns>Collection of sitemap URLs</returns>
+        /// <returns>Sitemap URLs</returns>
         protected virtual IEnumerable<SitemapUrl> GetTopicUrls()
         {
             var urlHelper = GetUrlHelper();
@@ -266,7 +310,7 @@ namespace Nop.Services.Seo
         /// <summary>
         /// Get custom URLs for the sitemap
         /// </summary>
-        /// <returns>Collection of sitemap URLs</returns>
+        /// <returns>Sitemap URLs</returns>
         protected virtual IEnumerable<SitemapUrl> GetCustomUrls()
         {
             var storeLocation = _webHelper.GetStoreLocation();

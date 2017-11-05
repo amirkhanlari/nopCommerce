@@ -7,14 +7,14 @@ using Nop.Services;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Security;
+using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
-using Nop.Web.Framework.Security;
 
 namespace Nop.Plugin.Shipping.Fedex.Controllers
 {
     [AuthorizeAdmin]
-    [Area("Admin")]
+    [Area(AreaNames.Admin)]
     public class ShippingFedexController : BasePluginController
     {
         #region Fields
@@ -108,14 +108,14 @@ namespace Nop.Plugin.Shipping.Fedex.Controllers
 
             // Save selected services
             var carrierServicesOfferedDomestic = new StringBuilder();
-            int carrierServicesDomesticSelectedCount = 0;
+            var carrierServicesDomesticSelectedCount = 0;
             if (model.CheckedCarrierServices != null)
             {
                 foreach (var cs in model.CheckedCarrierServices)
                 {
                     carrierServicesDomesticSelectedCount++;
-                    string serviceId = FedexServices.GetServiceId(cs);
-                    if (!String.IsNullOrEmpty(serviceId))
+                    var serviceId = FedexServices.GetServiceId(cs);
+                    if (!string.IsNullOrEmpty(serviceId))
                         carrierServicesOfferedDomestic.AppendFormat("{0}:", serviceId);
                 }
             }

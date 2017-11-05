@@ -26,6 +26,7 @@
                 @T("Admin.System.QueuedEmails.DeleteAll")
             </button>
             <nop-action-confirmation asp-button-id="delete-all" />
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_queued_email_list_buttons" })
         </div>
     </div>
 
@@ -116,7 +117,7 @@
                     <div class="panel-body">
                         <div id="queuedEmails-grid"></div>
 
-                        <script>
+                        <script type="text/javascript">
                             $(document).ready(function() {
                                 $("#queuedEmails-grid").kendoGrid({
                                     dataSource: {

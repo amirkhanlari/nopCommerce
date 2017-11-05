@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Nop.Services.Cms;
 using Nop.Web.Areas.Admin.Models.Cms;
+using Nop.Web.Framework.Components;
 
 namespace Nop.Web.Areas.Admin.Components
 {
-    public class AdminWidgetViewComponent : ViewComponent
+    public class AdminWidgetViewComponent : NopViewComponent
     {
         private readonly IWidgetService _widgetService;
 
@@ -19,10 +21,17 @@ namespace Nop.Web.Areas.Admin.Components
         {
             var model = new List<RenderWidgetModel>();
 
+            //add widget zone to view component arguments
+            additionalData = new RouteValueDictionary()
+            {
+                { "widgetZone", widgetZone },
+                { "additionalData", additionalData }
+            };
+
             var widgets = _widgetService.LoadActiveWidgetsByWidgetZone(widgetZone);
             foreach (var widget in widgets)
             {
-                widget.GetPublicViewComponent(out string viewComponentName);
+                widget.GetPublicViewComponent(widgetZone, out string viewComponentName);
 
                 var widgetModel = new RenderWidgetModel
                 {

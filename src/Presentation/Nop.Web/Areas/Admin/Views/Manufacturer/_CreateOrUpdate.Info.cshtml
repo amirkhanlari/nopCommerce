@@ -18,6 +18,7 @@
 </script>
 
 <div class="panel-group">
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_manufacturer_details_info_top", additionalData = Model.Id })
     <div class="panel panel-default">
         <div class="panel-body">
             @(Html.LocalizedEditor<ManufacturerModel, ManufacturerLocalizedModel>("manufacturer-info-localized",
@@ -100,31 +101,33 @@
                     <span asp-validation-for="AllowCustomersToSelectPageSize"></span>
                 </div>
             </div>
-            <div id="pnlPageSize" class="form-group advanced-setting">
-                <div class="col-md-3">
-                    <nop-label asp-for="PageSize" />
+            <nop-nested-setting asp-for="AllowCustomersToSelectPageSize">
+                <div id="pnlPageSize" class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        <nop-label asp-for="PageSize" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="PageSize" />
+                        <span asp-validation-for="PageSize"></span>
+                    </div>
                 </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="PageSize" />
-                    <span asp-validation-for="PageSize"></span>
+                <div id="pnlPageSizeOptions" class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        <nop-label asp-for="PageSizeOptions" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="PageSizeOptions" />
+                        <span asp-validation-for="PageSizeOptions"></span>
+                    </div>
                 </div>
-            </div>
-            <div id="pnlPageSizeOptions" class="form-group advanced-setting">
-                <div class="col-md-3">
-                    <nop-label asp-for="PageSizeOptions" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="PageSizeOptions" />
-                    <span asp-validation-for="PageSizeOptions"></span>
-                </div>
-            </div>
+            </nop-nested-setting>
             <div class="form-group advanced-setting">
                 <div class="col-md-3">
                     <nop-label asp-for="SelectedDiscountIds" />
                 </div>
                 <div class="col-md-9">
                     <nop-select asp-for="SelectedDiscountIds" asp-items="Model.AvailableDiscounts" asp-multiple="true" />
-                    <script>
+                    <script type="text/javascript">
             $(document).ready(function() {
                 var discountsIdsInput = $('#@Html.IdFor(model => model.SelectedDiscountIds)').data("kendoMultiSelect");
                 discountsIdsInput.setOptions({
@@ -155,7 +158,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <nop-select asp-for="SelectedCustomerRoleIds" asp-items="Model.AvailableCustomerRoles" asp-multiple="true" />
-                            <script>
+                            <script type="text/javascript">
                     $(document).ready(function() {
                         var rolesIdsInput = $('#@Html.IdFor(model => model.SelectedCustomerRoleIds)').data("kendoMultiSelect");
                         rolesIdsInput.setOptions({
@@ -191,7 +194,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <nop-select asp-for="SelectedStoreIds" asp-items="Model.AvailableStores" asp-multiple="true" />
-                            <script>
+                            <script type="text/javascript">
                     $(document).ready(function() {
                         var storesIdsInput = $('#@Html.IdFor(model => model.SelectedStoreIds)').data("kendoMultiSelect");
                         storesIdsInput.setOptions({
@@ -239,4 +242,5 @@
             </div>
         </div>
     </div>
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_manufacturer_details_info_bottom", additionalData = Model.Id })
 </div>

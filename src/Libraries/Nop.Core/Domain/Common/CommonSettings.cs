@@ -3,14 +3,19 @@ using Nop.Core.Configuration;
 
 namespace Nop.Core.Domain.Common
 {
+    /// <summary>
+    /// Common settings
+    /// </summary>
     public class CommonSettings : ISettings
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public CommonSettings()
         {
             SitemapCustomUrls = new List<string>();
             IgnoreLogWordlist = new List<string>();
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether the contacts form should have "Subject"
@@ -35,18 +40,27 @@ namespace Nop.Core.Domain.Common
         /// Gets or sets a value indicating whether sitemap is enabled
         /// </summary>
         public bool SitemapEnabled { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether to include categories to sitemap
         /// </summary>
         public bool SitemapIncludeCategories { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether to include manufacturers to sitemap
         /// </summary>
         public bool SitemapIncludeManufacturers { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether to include products to sitemap
         /// </summary>
         public bool SitemapIncludeProducts { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to include product tags to sitemap
+        /// </summary>
+        public bool SitemapIncludeProductTags { get; set; }
+
         /// <summary>
         /// A list of custom URLs to be added to sitemap.xml (include page names only)
         /// </summary>

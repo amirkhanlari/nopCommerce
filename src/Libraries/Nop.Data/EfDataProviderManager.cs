@@ -1,20 +1,29 @@
-﻿using System;
-using Nop.Core;
+﻿using Nop.Core;
 using Nop.Core.Data;
 
 namespace Nop.Data
 {
+    /// <summary>
+    /// Entity Framework data provider manager
+    /// </summary>
     public partial class EfDataProviderManager : BaseDataProviderManager
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="settings">Data settings</param>
         public EfDataProviderManager(DataSettings settings):base(settings)
         {
         }
 
+        /// <summary>
+        /// Load data provider
+        /// </summary>
+        /// <returns>Data provider</returns>
         public override IDataProvider LoadDataProvider()
         {
-
             var providerName = Settings.DataProvider;
-            if (String.IsNullOrWhiteSpace(providerName))
+            if (string.IsNullOrWhiteSpace(providerName))
                 throw new NopException("Data Settings doesn't contain a providerName");
 
             switch (providerName.ToLowerInvariant())
@@ -27,6 +36,5 @@ namespace Nop.Data
                     throw new NopException($"Not supported dataprovider name: {providerName}");
             }
         }
-
     }
 }

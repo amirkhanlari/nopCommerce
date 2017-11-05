@@ -23,6 +23,10 @@ namespace Nop.Web.Framework.Mvc.Rss
             Init(title, description, link, lastBuildDate);
         }
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="link">URL</param>
         public RssFeed(Uri link)
         {
             Init(string.Empty, string.Empty, link, DateTimeOffset.Now);
@@ -142,7 +146,7 @@ namespace Nop.Web.Framework.Mvc.Rss
             root.Add(channel);
             document.Add(root);
 
-            return XmlHelper.XmlDecode(document.ToString());
+            return document.ToString();
         }
     }
 }

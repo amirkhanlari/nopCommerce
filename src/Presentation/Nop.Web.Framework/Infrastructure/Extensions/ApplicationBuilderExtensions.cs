@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +11,9 @@ using Nop.Core.Domain;
 using Nop.Core.Http;
 using Nop.Core.Infrastructure;
 using Nop.Services.Authentication;
+using Nop.Services.Logging;
 using Nop.Services.Security;
+using System.Threading.Tasks;
 using Nop.Web.Framework.Globalization;
 using Nop.Web.Framework.Mvc.Routing;
 using StackExchange.Profiling.Storage;
@@ -39,7 +42,7 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
         {
             var nopConfig = EngineContext.Current.Resolve<NopConfig>();
             var hostingEnvironment = EngineContext.Current.Resolve<IHostingEnvironment>();
-            bool useDetailedExceptionPage = nopConfig.DisplayFullErrorStack || hostingEnvironment.IsDevelopment();
+            var useDetailedExceptionPage = nopConfig.DisplayFullErrorStack || hostingEnvironment.IsDevelopment();
             if (useDetailedExceptionPage)
             {
                 //get detailed exceptions for developing and testing purposes
@@ -50,6 +53,35 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
                 //or use special exception handler
                 application.UseExceptionHandler("/errorpage.htm");
             }
+
+            //log errors
+            application.UseExceptionHandler(handler =>
+            {
+                handler.Run(context =>
+                {
+                    var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+                    if (exception == null)
+                        return Task.CompletedTask;
+
+                    try
+                    {
+                        //check whether database is installed
+                        if (DataSettingsHelper.DatabaseIsInstalled())
+                        {
+                            //get current customer
+                            var currentCustomer = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+
+                            //log error
+                            EngineContext.Current.Resolve<ILogger>().Error(exception.Message, exception, currentCustomer);
+                        }
+                    }
+                    finally
+                    {
+                        //rethrow the exception to show the error page
+                        throw exception;
+                    }
+                });
+            });
         }
 
         /// <summary>
@@ -61,7 +93,7 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
             application.UseStatusCodePages(async context =>
             {
                 //handle 404 Not Found
-                if (context.HttpContext.Response.StatusCode == 404)
+                if (context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
                 {
                     var webHelper = EngineContext.Current.Resolve<IWebHelper>();
                     if (!webHelper.IsStaticResource())
@@ -100,6 +132,26 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
         }
 
         /// <summary>
+        /// Adds a special handler that checks for responses with the 400 status code (bad request)
+        /// </summary>
+        /// <param name="application">Builder for configuring an application's request pipeline</param>
+        public static void UseBadRequestResult(this IApplicationBuilder application)
+        {
+            application.UseStatusCodePages(context =>
+            {
+                //handle 404 (Bad request)
+                if (context.HttpContext.Response.StatusCode == StatusCodes.Status400BadRequest)
+                {
+                    var logger = EngineContext.Current.Resolve<ILogger>();
+                    var workContext = EngineContext.Current.Resolve<IWorkContext>();
+                    logger.Error("Error 400. Bad request", null, customer: workContext.CurrentCustomer);
+                }
+
+                return Task.CompletedTask;
+            });
+        }
+
+        /// <summary>
         /// Configure middleware checking whether requested page is keep alive page
         /// </summary>
         /// <param name="application">Builder for configuring an application's request pipeline</param>
@@ -123,6 +175,10 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
         /// <param name="application">Builder for configuring an application's request pipeline</param>
         public static void UseNopAuthentication(this IApplicationBuilder application)
         {
+            //check whether database is installed
+            if (!DataSettingsHelper.DatabaseIsInstalled())
+                return;
+
             application.UseMiddleware<AuthenticationMiddleware>();
         }
 

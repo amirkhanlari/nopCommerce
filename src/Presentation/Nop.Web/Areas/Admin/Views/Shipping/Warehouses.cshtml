@@ -15,6 +15,7 @@
             <i class="fa fa-plus-square"></i>
             @T("Admin.Common.AddNew")
         </a>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_warehouse_list_buttons" })
     </div>
 </div>
 
@@ -25,7 +26,7 @@
                 <div class="panel-body">
                     <div id="warehouse-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#warehouse-grid").kendoGrid({
                                 dataSource: {

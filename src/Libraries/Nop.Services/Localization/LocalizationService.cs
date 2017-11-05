@@ -29,7 +29,21 @@ namespace Nop.Services.Localization
         /// <remarks>
         /// {0} : language ID
         /// </remarks>
+        private const string LOCALSTRINGRESOURCES_ALL_PUBLIC_KEY = "Nop.lsr.all.public-{0}";
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : language ID
+        /// </remarks>
         private const string LOCALSTRINGRESOURCES_ALL_KEY = "Nop.lsr.all-{0}";
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : language ID
+        /// </remarks>
+        private const string LOCALSTRINGRESOURCES_ALL_ADMIN_KEY = "Nop.lsr.all.admin-{0}";
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -42,6 +56,10 @@ namespace Nop.Services.Localization
         /// Key pattern to clear cache
         /// </summary>
         private const string LOCALSTRINGRESOURCES_PATTERN_KEY = "Nop.lsr.";
+        /// <summary>
+        /// Key pattern to split resource by group
+        /// </summary>
+        private const string ADMIN_LOCALSTRINGRESOURCES_PATTERN = "Admin.";
 
         #endregion
 
@@ -68,7 +86,6 @@ namespace Nop.Services.Localization
         /// <param name="logger">Logger</param>
         /// <param name="workContext">Work context</param>
         /// <param name="lsrRepository">Locale string resource repository</param>
-        /// <param name="languageService">Language service</param>
         /// <param name="dataProvider">Data provider</param>
         /// <param name="dbContext">Database Context</param>
         /// <param name="commonSettings">Common settings</param>
@@ -99,6 +116,10 @@ namespace Nop.Services.Localization
 
         #region Utilities
 
+        /// <summary>
+        /// Insert resources
+        /// </summary>
+        /// <param name="resources">Resources</param>
         protected virtual void InsertLocaleStringResources(IList<LocaleStringResource> resources)
         {
             if (resources == null)
@@ -117,6 +138,10 @@ namespace Nop.Services.Localization
             }
         }
 
+        /// <summary>
+        /// Update resources
+        /// </summary>
+        /// <param name="resources">Resources</param>
         protected virtual void UpdateLocaleStringResources(IList<LocaleStringResource> resources)
         {
             if (resources == null)
@@ -133,6 +158,19 @@ namespace Nop.Services.Localization
             {
                 _eventPublisher.EntityUpdated(resource);
             }
+        }
+
+        private static Dictionary<string, KeyValuePair<int, string>> ResourceValuesToDictionary(IEnumerable<LocaleStringResource> locales)
+        {
+            //format: <name, <id, value>>
+            var dictionary = new Dictionary<string, KeyValuePair<int, string>>();
+            foreach (var locale in locales)
+            {
+                var resourceName = locale.ResourceName.ToLowerInvariant();
+                if (!dictionary.ContainsKey(resourceName))
+                    dictionary.Add(resourceName, new KeyValuePair<int, string>(locale.Id, locale.ResourceValue));
+            }
+            return dictionary;
         }
 
         #endregion
@@ -254,15 +292,42 @@ namespace Nop.Services.Localization
             //event notification
             _eventPublisher.EntityUpdated(localeStringResource);
         }
-
+        
         /// <summary>
         /// Gets all locale string resources by language identifier
         /// </summary>
         /// <param name="languageId">Language identifier</param>
+        /// <param name="loadPublicLocales">A value indicating whether to load data for the public store only (if "false", then for admin area only. If null, then load all locales. We use it for performance optimization of the site startup</param>
         /// <returns>Locale string resources</returns>
-        public virtual Dictionary<string, KeyValuePair<int,string>> GetAllResourceValues(int languageId)
+        public virtual Dictionary<string, KeyValuePair<int,string>> GetAllResourceValues(int languageId, bool? loadPublicLocales)
         {
-            string key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, languageId);
+            var key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, languageId);
+
+            //get all locale string resources by language identifier
+            if (!loadPublicLocales.HasValue || _cacheManager.IsSet(key))
+            {
+                var rez = _cacheManager.Get(key, () =>
+                {
+                    //we use no tracking here for performance optimization
+                    //anyway records are loaded only for read-only operations
+                    var query = from l in _lsrRepository.TableNoTracking
+                        orderby l.ResourceName
+                        where l.LanguageId == languageId
+                        select l;
+
+                    return ResourceValuesToDictionary(query);
+                });
+
+                //remove separated resource 
+                _cacheManager.Remove(string.Format(LOCALSTRINGRESOURCES_ALL_PUBLIC_KEY, languageId));
+                _cacheManager.Remove(string.Format(LOCALSTRINGRESOURCES_ALL_ADMIN_KEY, languageId));
+
+                return rez;
+            }
+
+            //performance optimization of the site startup
+            key = string.Format(loadPublicLocales.Value ? LOCALSTRINGRESOURCES_ALL_PUBLIC_KEY : LOCALSTRINGRESOURCES_ALL_ADMIN_KEY, languageId);
+
             return _cacheManager.Get(key, () =>
             {
                 //we use no tracking here for performance optimization
@@ -271,16 +336,8 @@ namespace Nop.Services.Localization
                             orderby l.ResourceName
                             where l.LanguageId == languageId
                             select l;
-                var locales = query.ToList();
-                //format: <name, <id, value>>
-                var dictionary = new Dictionary<string, KeyValuePair<int, string>>();
-                foreach (var locale in locales)
-                {
-                    var resourceName = locale.ResourceName.ToLowerInvariant();
-                    if (!dictionary.ContainsKey(resourceName))
-                        dictionary.Add(resourceName, new KeyValuePair<int, string>(locale.Id, locale.ResourceValue));
-                }
-                return dictionary;
+                query = loadPublicLocales.Value ? query.Where(r =>  !r.ResourceName.StartsWith(ADMIN_LOCALSTRINGRESOURCES_PATTERN)) : query.Where(r => r.ResourceName.StartsWith(ADMIN_LOCALSTRINGRESOURCES_PATTERN));
+                return ResourceValuesToDictionary(query);
             });
         }
 
@@ -309,14 +366,14 @@ namespace Nop.Services.Localization
         public virtual string GetResource(string resourceKey, int languageId,
             bool logIfNotFound = true, string defaultValue = "", bool returnEmptyIfNotFound = false)
         {
-            string result = string.Empty;
+            var result = string.Empty;
             if (resourceKey == null)
                 resourceKey = string.Empty;
             resourceKey = resourceKey.Trim().ToLowerInvariant();
             if (_localizationSettings.LoadAllLocaleRecordsOnStartup)
             {
                 //load all records (we know they are cached)
-                var resources = GetAllResourceValues(languageId);
+                var resources = GetAllResourceValues(languageId, !resourceKey.StartsWith(ADMIN_LOCALSTRINGRESOURCES_PATTERN, StringComparison.InvariantCultureIgnoreCase));
                 if (resources.ContainsKey(resourceKey))
                 {
                     result = resources[resourceKey].Value;
@@ -325,8 +382,8 @@ namespace Nop.Services.Localization
             else
             {
                 //gradual loading
-                string key = string.Format(LOCALSTRINGRESOURCES_BY_RESOURCENAME_KEY, languageId, resourceKey);
-                string lsr = _cacheManager.Get(key, () =>
+                var key = string.Format(LOCALSTRINGRESOURCES_BY_RESOURCENAME_KEY, languageId, resourceKey);
+                var lsr = _cacheManager.Get(key, () =>
                 {
                     var query = from l in _lsrRepository.Table
                                 where l.ResourceName == resourceKey
@@ -338,12 +395,12 @@ namespace Nop.Services.Localization
                 if (lsr != null) 
                     result = lsr;
             }
-            if (String.IsNullOrEmpty(result))
+            if (string.IsNullOrEmpty(result))
             {
                 if (logIfNotFound)
                     _logger.Warning($"Resource string ({resourceKey}) is not found. Language ID = {languageId}");
                 
-                if (!String.IsNullOrEmpty(defaultValue))
+                if (!string.IsNullOrEmpty(defaultValue))
                 {
                     result = defaultValue;
                 }
@@ -373,7 +430,6 @@ namespace Nop.Services.Localization
             xmlWriter.WriteAttributeString("Name", language.Name);
             xmlWriter.WriteAttributeString("SupportedVersion", NopVersion.CurrentVersion);
 
-
             var resources = GetAllResources(language.Id);
             foreach (var resource in resources)
             {
@@ -400,7 +456,7 @@ namespace Nop.Services.Localization
             if (language == null)
                 throw new ArgumentNullException(nameof(language));
 
-            if (String.IsNullOrEmpty(xml))
+            if (string.IsNullOrEmpty(xml))
                 return;
             if (_commonSettings.UseStoredProceduresIfSupported && _dataProvider.StoredProceduredSupported)
             {
@@ -451,13 +507,13 @@ namespace Nop.Services.Localization
 
                 foreach (XmlNode node in nodes)
                 {
-                    string name = node.Attributes["Name"].InnerText.Trim();
-                    string value = "";
+                    var name = node.Attributes["Name"].InnerText.Trim();
+                    var value = "";
                     var valueNode = node.SelectSingleNode("Value");
                     if (valueNode != null)
                         value = valueNode.InnerText;
 
-                    if (String.IsNullOrEmpty(name))
+                    if (string.IsNullOrEmpty(name))
                         continue;
 
                     //do not use "Insert"/"Update" methods because they clear cache

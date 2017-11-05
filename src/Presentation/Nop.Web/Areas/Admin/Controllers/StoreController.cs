@@ -30,7 +30,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
         #endregion
 
-        #region Constructors
+        #region Ctor
 
         public StoreController(IStoreService storeService,
             ISettingService settingService,
@@ -252,7 +252,6 @@ namespace Nop.Web.Areas.Admin.Controllers
                         .ToList();
                         _settingService.DeleteSettings(settingsToDelete);
                 }
-
 
                 SuccessNotification(_localizationService.GetResource("Admin.Configuration.Stores.Deleted"));
                 return RedirectToAction("List");

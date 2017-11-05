@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Configuration;
-using Nop.Core.Extensions;
 using Nop.Core.Infrastructure.DependencyManagement;
 using Nop.Core.Infrastructure.Mapper;
 using Nop.Core.Plugins;
@@ -35,6 +34,10 @@ namespace Nop.Core.Infrastructure
 
         #region Utilities
 
+        /// <summary>
+        /// Get IServiceProvider
+        /// </summary>
+        /// <returns>IServiceProvider</returns>
         protected IServiceProvider GetServiceProvider()
         {
             var accessor = ServiceProvider.GetService<IHttpContextAccessor>();
@@ -162,7 +165,7 @@ namespace Nop.Core.Infrastructure
             if (assembly != null)
                 return assembly;
 
-            //get assembly fron TypeFinder
+            //get assembly from TypeFinder
             var tf = Resolve<ITypeFinder>();
             assembly = tf.GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
             return assembly;
@@ -268,6 +271,7 @@ namespace Nop.Core.Infrastructure
         /// <returns>Resolved service</returns>
         public virtual object ResolveUnregistered(Type type)
         {
+            Exception innerException = null;
             foreach (var constructor in type.GetConstructors())
             {
                 try
@@ -284,9 +288,12 @@ namespace Nop.Core.Infrastructure
                     //all is ok, so create instance
                     return Activator.CreateInstance(type, parameters.ToArray());
                 }
-                catch (NopException) { }
+                catch (Exception ex)
+                {
+                    innerException = ex;
+                }
             }
-            throw new NopException("No constructor was found that had all the dependencies satisfied.");
+            throw new NopException("No constructor was found that had all the dependencies satisfied.", innerException);
         }
 
         #endregion

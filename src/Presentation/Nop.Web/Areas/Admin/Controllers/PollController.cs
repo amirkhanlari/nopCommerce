@@ -27,7 +27,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
 		#endregion
 
-		#region Constructors
+		#region Ctor
 
         public PollController(IPollService pollService, ILanguageService languageService,
             IDateTimeHelper dateTimeHelper, ILocalizationService localizationService,
@@ -139,7 +139,6 @@ namespace Nop.Web.Areas.Admin.Controllers
                     return RedirectToAction("Edit", new { id = poll.Id });
                 }
                 return RedirectToAction("List");
-
             }
 
             //If we got this far, something failed, redisplay form

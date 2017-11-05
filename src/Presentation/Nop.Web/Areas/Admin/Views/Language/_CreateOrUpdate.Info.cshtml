@@ -1,5 +1,6 @@
 ﻿@model LanguageModel
 <div class="panel-group">
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_language_details_info_top", additionalData = Model.Id })
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="form-group">
@@ -45,7 +46,7 @@
                 <div class="col-md-9">
                     <nop-editor asp-for="FlagImageFileName" asp-render-form-control-class="false" />
                     <span asp-validation-for="FlagImageFileName"></span>
-                    <script>
+                    <script type="text/javascript">
                         $(function() {
                             $('#FlagImageFileName').kendoDropDownList({
                                 dataTextField: "Text",
@@ -96,7 +97,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <nop-select asp-for="SelectedStoreIds" asp-items="Model.AvailableStores" asp-multiple="true" />
-                            <script>
+                            <script type="text/javascript">
                                 $(document).ready(function() {
                                     var storesIdsInput = $('#@Html.IdFor(model => model.SelectedStoreIds)').data("kendoMultiSelect");
                                     storesIdsInput.setOptions({
@@ -144,4 +145,5 @@
             </div>
         </div>
     </div>
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_language_details_info_bottom", additionalData = Model.Id })
 </div>

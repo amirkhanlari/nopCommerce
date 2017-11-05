@@ -82,6 +82,7 @@
                     </li>
                 </ul>
             </div>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_order_list_buttons" })
         </div>
     </div>
     <div class="content">
@@ -264,7 +265,7 @@
                     <div class="panel-body">
                         <div id="orders-grid"></div>
 
-                        <script>
+                        <script type="text/javascript">
     $(document).ready(function() {
         $("#orders-grid").kendoGrid({
             dataSource: {

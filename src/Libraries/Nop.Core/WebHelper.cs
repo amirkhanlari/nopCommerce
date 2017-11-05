@@ -35,6 +35,11 @@ namespace Nop.Core
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="hostingConfig">Hosting config</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
         public WebHelper(HostingConfig hostingConfig, IHttpContextAccessor httpContextAccessor)
         {
             this._hostingConfig = hostingConfig;
@@ -67,12 +72,20 @@ namespace Nop.Core
             return true;
         }
 
+        /// <summary>
+        /// Is IP address specified
+        /// </summary>
+        /// <param name="address">IP address</param>
+        /// <returns>Result</returns>
         protected virtual bool IsIpAddressSet(IPAddress address)
         {
             return address != null && address.ToString() != NullIpAddress;
         }
 
-
+        /// <summary>
+        /// Try to write web.config file
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool TryWriteWebConfig()
         {
             try
@@ -120,7 +133,7 @@ namespace Nop.Core
                 {
                     //the X-Forwarded-For (XFF) HTTP header field is a de facto standard for identifying the originating IP address of a client
                     //connecting to a web server through an HTTP proxy or load balancer
-                    var forwardedHttpHeaderKey = "X-FORWARD-FOR";
+                    var forwardedHttpHeaderKey = "X-FORWARDED-FOR";
                     if (!string.IsNullOrEmpty(_hostingConfig.ForwardedHttpHeader))
                     {
                         //but in some cases server use other HTTP header
@@ -321,8 +334,8 @@ namespace Nop.Core
             if (anchor == null)
                 anchor = string.Empty;
 
-            string str = string.Empty;
-            string str2 = string.Empty;
+            var str = string.Empty;
+            var str2 = string.Empty;
             if (url.Contains("#"))
             {
                 str2 = url.Substring(url.IndexOf("#") + 1);
@@ -338,11 +351,11 @@ namespace Nop.Core
                 if (!string.IsNullOrEmpty(str))
                 {
                     var dictionary = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-                    foreach (string str3 in str.Split(new[] { '&' }))
+                    foreach (var str3 in str.Split(new[] { '&' }))
                     {
                         if (!string.IsNullOrEmpty(str3))
                         {
-                            string[] strArray = str3.Split(new[] { '=' });
+                            var strArray = str3.Split(new[] { '=' });
                             if (strArray.Length == 2)
                             {
                                 if (!dictionary.ContainsKey(strArray[0]))
@@ -361,11 +374,11 @@ namespace Nop.Core
                             }
                         }
                     }
-                    foreach (string str4 in queryStringModification.Split(new[] { '&' }))
+                    foreach (var str4 in queryStringModification.Split(new[] { '&' }))
                     {
                         if (!string.IsNullOrEmpty(str4))
                         {
-                            string[] strArray2 = str4.Split(new[] { '=' });
+                            var strArray2 = str4.Split(new[] { '=' });
                             if (strArray2.Length == 2)
                             {
                                 dictionary[strArray2[0]] = strArray2[1];
@@ -377,7 +390,7 @@ namespace Nop.Core
                         }
                     }
                     var builder = new StringBuilder();
-                    foreach (string str5 in dictionary.Keys)
+                    foreach (var str5 in dictionary.Keys)
                     {
                         if (builder.Length > 0)
                         {
@@ -418,7 +431,7 @@ namespace Nop.Core
             if (queryString == null)
                 queryString = string.Empty;
 
-            string str = string.Empty;
+            var str = string.Empty;
             if (url.Contains("?"))
             {
                 str = url.Substring(url.IndexOf("?") + 1);
@@ -429,11 +442,11 @@ namespace Nop.Core
                 if (!string.IsNullOrEmpty(str))
                 {
                     var dictionary = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-                    foreach (string str3 in str.Split(new[] { '&' }))
+                    foreach (var str3 in str.Split(new[] { '&' }))
                     {
                         if (!string.IsNullOrEmpty(str3))
                         {
-                            string[] strArray = str3.Split(new[] { '=' });
+                            var strArray = str3.Split(new[] { '=' });
                             if (strArray.Length == 2)
                             {
                                 dictionary[strArray[0]] = strArray[1];
@@ -447,7 +460,7 @@ namespace Nop.Core
                     dictionary.Remove(queryString);
 
                     var builder = new StringBuilder();
-                    foreach (string str5 in dictionary.Keys)
+                    foreach (var str5 in dictionary.Keys)
                     {
                         if (builder.Length > 0)
                         {
@@ -493,7 +506,7 @@ namespace Nop.Core
             //_applicationLifetime.StopApplication();
 
             //"touch" web.config to force restart
-            bool success = TryWriteWebConfig();
+            var success = TryWriteWebConfig();
             if (!success)
             {
                 throw new NopException("nopCommerce needs to be restarted due to a configuration change, but was unable to do so." + Environment.NewLine +
@@ -512,7 +525,7 @@ namespace Nop.Core
             {
                 var response = _httpContextAccessor.HttpContext.Response;
                 //ASP.NET 4 style - return response.IsRequestBeingRedirected;
-                int[] redirectionStatusCodes = {301, 302};
+                int[] redirectionStatusCodes = { StatusCodes.Status301MovedPermanently, StatusCodes.Status302Found};
                 return redirectionStatusCodes.Contains(response.StatusCode);
             }
         }

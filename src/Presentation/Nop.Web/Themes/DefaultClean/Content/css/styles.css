@@ -1875,17 +1875,24 @@ label, label + * {
 }
 .overview .delivery,
 .variant-overview .delivery {
-	margin: 25px 0;
 	overflow: hidden;
 }
-.overview .free-shipping,
+.overview .free-shipping, 
 .variant-overview .free-shipping {
-	display: inline-block;
-	margin: 0 0 10px;
+	display: none;
+	margin: 10px 0;
 	background: url('../images/shipping.png') left center no-repeat;
 	padding: 2px 0 2px 28px;
 	font-weight: bold;
 	color: #444;
+}
+.overview .free-shipping.visible,
+.variant-overview .free-shipping.visible {
+    display: inline-block;
+}
+.overview .delivery-date,
+.variant-overview .delivery-date {
+    margin: 10px 0;
 }
 .overview .min-qty-notification,
 .variant-overview .min-qty-notification {
@@ -1998,6 +2005,13 @@ label, label + * {
 	text-align: center;
     font-size: 15px;
 	color: #444;
+}
+.overview .qty-dropdown,
+.variant-overview .qty-dropdown {
+    height: 43px;
+    padding: 0 12px;
+    font-size: 15px;
+    color: #444;
 }
 .overview .add-to-cart-button,
 .variant-overview .add-to-cart-button {
@@ -2777,16 +2791,15 @@ label, label + * {
 	color: #4ab2f1;
 }
 
-.apply-vendor-page .accept-terms-of-service {
-    margin: 0 0 20px;
+.apply-vendor-page .terms-of-service {
     text-align: center;
 }
-.apply-vendor-page .accept-terms-of-service > * {
+.apply-vendor-page .terms-of-service > * {
     display: inline-block;
     line-height: 32px;
 }
-.apply-vendor-page .accept-terms-of-service span,
-.apply-vendor-page .accept-terms-of-service a {
+.apply-vendor-page .terms-of-service span,
+.apply-vendor-page .terms-of-service a {
     color: #4ab2f1;
     cursor: pointer;
 }

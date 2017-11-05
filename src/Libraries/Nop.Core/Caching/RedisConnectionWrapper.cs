@@ -25,22 +25,16 @@ namespace Nop.Core.Caching
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="config">Config</param>
         public RedisConnectionWrapper(NopConfig config)
         {
             this._config = config;
-
             this._connectionString = new Lazy<string>(GetConnectionString);
             this._redisLockFactory = CreateRedisLockFactory();
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Get the key used to store the protection key list (used with the PersistDataProtectionKeysToRedis option enabled)
-        /// </summary>
-        public string DataProtectionKeysName => "Nop.DataProtectionKeys";
 
         #endregion
 
@@ -67,11 +61,8 @@ namespace Nop.Core.Caching
             {
                 if (_connection != null && _connection.IsConnected) return _connection;
 
-                if (_connection != null)
-                {
-                    //Connection disconnected. Disposing connection...
-                    _connection.Dispose();
-                }
+                //Connection disconnected. Disposing connection...
+                _connection?.Dispose();
 
                 //Creating new instance of Redis Connection
                 _connection = ConnectionMultiplexer.Connect(_connectionString.Value);
@@ -147,7 +138,7 @@ namespace Nop.Core.Caching
         /// <summary>
         /// Delete all the keys of the database
         /// </summary>
-        /// <param name="db">Database number; pass null to use the default value<</param>
+        /// <param name="db">Database number; pass null to use the default value</param>
         public void FlushDatabase(int? db = null)
         {
             var endPoints = GetEndPoints();
@@ -187,12 +178,10 @@ namespace Nop.Core.Caching
         public void Dispose()
         {
             //dispose ConnectionMultiplexer
-            if (_connection != null)
-                _connection.Dispose();
+            _connection?.Dispose();
 
             //dispose RedisLockFactory
-            if (_redisLockFactory != null)
-                _redisLockFactory.Dispose();
+            _redisLockFactory?.Dispose();
         }
 
         #endregion

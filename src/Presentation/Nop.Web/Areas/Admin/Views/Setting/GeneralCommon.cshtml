@@ -1,12 +1,10 @@
 ﻿@model GeneralCommonSettingsModel
-
 @{
     //page title
     ViewBag.Title = T("Admin.Configuration.Settings.GeneralCommon").Text;
     //active menu item (system name)
     Html.SetActiveMenuItemSystemName("General settings");
 }
-
 
 <form asp-controller="Setting" asp-action="GeneralCommon" method="post">
     <div class="content-header clearfix">
@@ -18,10 +16,11 @@
                 <i class="fa fa-floppy-o"></i>
                 @T("Admin.Common.Save")
             </button>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_general_common_settings_buttons" })
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#@Html.IdFor(model => model.StoreInformationSettings.SitemapEnabled)").click(toggleSitemapSettings);
             $("#@Html.IdFor(model => model.LocalizationSettings.LoadAllLocaleRecordsOnStartup)").click(toggleLoadAllLocaleRecordsOnStartup);
@@ -31,10 +30,10 @@
 
         function toggleSitemapSettings() {
             if ($('#@Html.IdFor(model => model.StoreInformationSettings.SitemapEnabled)').is(':checked')) {
-                $("#pnlSitemapIncludeCategories, #pnlSitemapIncludeManufacturers, #pnlSitemapIncludeProducts").show();
+                $("#pnlSitemapIncludeCategories, #pnlSitemapIncludeManufacturers, #pnlSitemapIncludeProducts, #pnlSitemapIncludeProductTags").show();
             }
             else {
-                $("#pnlSitemapIncludeCategories, #pnlSitemapIncludeManufacturers, #pnlSitemapIncludeProducts").hide();
+                $("#pnlSitemapIncludeCategories, #pnlSitemapIncludeManufacturers, #pnlSitemapIncludeProducts, #pnlSitemapIncludeProductTags").hide();
             }
         }
 
@@ -54,6 +53,7 @@
             <div asp-validation-summary="All"></div>
 
             <div class="panel-group">
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_general_common_settings_top" })
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         @T("Admin.Configuration.Settings.GeneralCommon.BlockTitle.Common")
@@ -71,9 +71,8 @@
                                         <div class="checkbox">
                                             <label>
                                                 <span>
-                                                    <input type="radio" name="@Html.NameFor(x => x.StoreInformationSettings.DefaultStoreTheme)" value="@theme.ThemeName"
-                                                           @if (theme.ThemeName == Model.StoreInformationSettings.DefaultStoreTheme) { <text> checked="checked" </text>    }>
-                                                    @theme.ThemeTitle
+                                                    <input type="radio" name="@Html.NameFor(x => x.StoreInformationSettings.DefaultStoreTheme)" value="@theme.SystemName" @if (theme.SystemName.Equals(Model.StoreInformationSettings.DefaultStoreTheme, StringComparison.InvariantCultureIgnoreCase)) { <text> checked="checked" </text> }>
+                                                    @theme.FriendlyName
                                                 </span>
                                                 <img src="@Url.Content(theme.PreviewImageUrl)" alt="@theme.PreviewText" title="@theme.PreviewText">
                                             </label>
@@ -81,7 +80,7 @@
                                     }
                                 </div>
                                 <span asp-validation-for="StoreInformationSettings.DefaultStoreTheme"></span>
-                                <em>@T("Admin.Configuration.Settings.GeneralCommon.DefaultStoreTheme.GetMore") <a href="https://www.nopcommerce.com/marketplace.aspx?category=4&utm_source=admin-panel&utm_medium=theme-settings&utm_campaign=admin-panel" target="_blank">https://www.nopcommerce.com/marketplace.aspx</a></em>
+                                <p><em>@T("Admin.Configuration.Settings.GeneralCommon.DefaultStoreTheme.GetMore")</em></p>
                             </div>
                         </div>
                         <div class="form-group" @(Model.StoreInformationSettings.AvailableStoreThemes.Count == 1 ? Html.Raw("style=\"display:none\"") : null)>
@@ -298,36 +297,48 @@
                                 <span asp-validation-for="StoreInformationSettings.SitemapEnabled"></span>
                             </div>
                         </div>
-                        <div class="form-group advanced-setting" id="pnlSitemapIncludeCategories">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeCategories_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeCategories" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="StoreInformationSettings.SitemapIncludeCategories" />
+                        <nop-nested-setting asp-for="StoreInformationSettings.SitemapEnabled">
+                            <div class="form-group advanced-setting" id="pnlSitemapIncludeCategories">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeCategories_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeCategories" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="StoreInformationSettings.SitemapIncludeCategories" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="StoreInformationSettings.SitemapIncludeCategories" />
+                                    <span asp-validation-for="StoreInformationSettings.SitemapIncludeCategories"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="StoreInformationSettings.SitemapIncludeCategories" />
-                                <span asp-validation-for="StoreInformationSettings.SitemapIncludeCategories"></span>
+                            <div class="form-group advanced-setting" id="pnlSitemapIncludeManufacturers">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeManufacturers_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeManufacturers" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="StoreInformationSettings.SitemapIncludeManufacturers" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="StoreInformationSettings.SitemapIncludeManufacturers" />
+                                    <span asp-validation-for="StoreInformationSettings.SitemapIncludeManufacturers"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group advanced-setting" id="pnlSitemapIncludeManufacturers">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeManufacturers_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeManufacturers" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="StoreInformationSettings.SitemapIncludeManufacturers" />
+                            <div class="form-group advanced-setting" id="pnlSitemapIncludeProducts">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeProducts_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeProducts" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="StoreInformationSettings.SitemapIncludeProducts" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="StoreInformationSettings.SitemapIncludeProducts" />
+                                    <span asp-validation-for="StoreInformationSettings.SitemapIncludeProducts"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="StoreInformationSettings.SitemapIncludeManufacturers" />
-                                <span asp-validation-for="StoreInformationSettings.SitemapIncludeManufacturers"></span>
+                            <div class="form-group advanced-setting" id="pnlSitemapIncludeProductTags">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeProductTags_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeProductTags" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="StoreInformationSettings.SitemapIncludeProductTags" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="StoreInformationSettings.SitemapIncludeProductTags" />
+                                    <span asp-validation-for="StoreInformationSettings.SitemapIncludeProductTags"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group advanced-setting" id="pnlSitemapIncludeProducts">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="StoreInformationSettings.SitemapIncludeProducts_OverrideForStore" asp-input="StoreInformationSettings.SitemapIncludeProducts" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="StoreInformationSettings.SitemapIncludeProducts" />
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="StoreInformationSettings.SitemapIncludeProducts" />
-                                <span asp-validation-for="StoreInformationSettings.SitemapIncludeProducts"></span>
-                            </div>
-                        </div>
+                        </nop-nested-setting>
                     </div>
                 </div>
 
@@ -563,126 +574,128 @@
                                 <span asp-validation-for="CaptchaSettings.Enabled"></span>
                             </div>
                         </div>
-                        <div class="form-group" id="ssCaptchaShowOnLoginPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnLoginPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnLoginPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnLoginPage"/>
+                        <nop-nested-setting asp-for="CaptchaSettings.Enabled">
+                            <div class="form-group" id="ssCaptchaShowOnLoginPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnLoginPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnLoginPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnLoginPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnLoginPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnLoginPage"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnLoginPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnLoginPage"></span>
+                            <div class="form-group" id="ssCaptchaShowOnRegistrationPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnRegistrationPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnRegistrationPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnRegistrationPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnRegistrationPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnRegistrationPage"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnRegistrationPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnRegistrationPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnRegistrationPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnRegistrationPage"/>
+                            <div class="form-group" id="ssCaptchaShowOnContactUsPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnContactUsPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnContactUsPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnContactUsPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnContactUsPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnContactUsPage"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnRegistrationPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnRegistrationPage"></span>
+                            <div class="form-group" id="ssCaptchaShowOnEmailWishlistToFriendPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnEmailWishlistToFriendPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnContactUsPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnContactUsPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnContactUsPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnContactUsPage"/>
+                            <div class="form-group" id="ssCaptchaShowOnEmailProductToFriendPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnEmailProductToFriendPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnEmailProductToFriendPage"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnContactUsPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnContactUsPage"></span>
+                            <div class="form-group" id="ssCaptchaShowOnBlogCommentPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnBlogCommentPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnBlogCommentPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnBlogCommentPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnBlogCommentPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnBlogCommentPage"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnEmailWishlistToFriendPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnEmailWishlistToFriendPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage"/>
+                            <div class="form-group" id="ssCaptchaShowOnNewsCommentPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnNewsCommentPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnNewsCommentPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnNewsCommentPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnNewsCommentPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnNewsCommentPage"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage"></span>
+                            <div class="form-group" id="ssCaptchaShowOnProductReviewPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnProductReviewPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnProductReviewPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnProductReviewPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnProductReviewPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnProductReviewPage"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnEmailProductToFriendPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnEmailProductToFriendPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage"/>
+                            <div class="form-group" id="ssCaptchaShowOnApplyVendorPagepnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnApplyVendorPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnApplyVendorPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ShowOnApplyVendorPage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ShowOnApplyVendorPage" />
+                                    <span asp-validation-for="CaptchaSettings.ShowOnApplyVendorPage"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnEmailProductToFriendPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnEmailProductToFriendPage"></span>
+                            <div class="form-group" id="ssReCaptchaVersionpnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaVersion_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaVersion" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ReCaptchaVersion" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-select asp-for="CaptchaSettings.ReCaptchaVersion" asp-items="Model.CaptchaSettings.AvailableReCaptchaVersions" />
+                                    <span asp-validation-for="CaptchaSettings.ReCaptchaVersion"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnBlogCommentPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnBlogCommentPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnBlogCommentPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnBlogCommentPage"/>
+                            <div class="form-group" id="ssReCaptchaPublicKeypnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaPublicKey_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaPublicKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ReCaptchaPublicKey" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ReCaptchaPublicKey" />
+                                    <span asp-validation-for="CaptchaSettings.ReCaptchaPublicKey"></span>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnBlogCommentPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnBlogCommentPage"></span>
+                            <div class="form-group" id="ssReCaptchaPrivateKeypnl">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaPrivateKey_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaPrivateKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="CaptchaSettings.ReCaptchaPrivateKey" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="CaptchaSettings.ReCaptchaPrivateKey" />
+                                    <span asp-validation-for="CaptchaSettings.ReCaptchaPrivateKey"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnNewsCommentPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnNewsCommentPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnNewsCommentPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnNewsCommentPage"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnNewsCommentPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnNewsCommentPage"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnProductReviewPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnProductReviewPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnProductReviewPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnProductReviewPage"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnProductReviewPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnProductReviewPage"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="ssCaptchaShowOnApplyVendorPagepnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ShowOnApplyVendorPage_OverrideForStore" asp-input="CaptchaSettings.ShowOnApplyVendorPage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ShowOnApplyVendorPage"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ShowOnApplyVendorPage" />
-                                <span asp-validation-for="CaptchaSettings.ShowOnApplyVendorPage"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="ssReCaptchaVersionpnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaVersion_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaVersion" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ReCaptchaVersion"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-select asp-for="CaptchaSettings.ReCaptchaVersion" asp-items="Model.CaptchaSettings.AvailableReCaptchaVersions" />
-                                <span asp-validation-for="CaptchaSettings.ReCaptchaVersion"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="ssReCaptchaPublicKeypnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaPublicKey_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaPublicKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ReCaptchaPublicKey"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ReCaptchaPublicKey" />
-                                <span asp-validation-for="CaptchaSettings.ReCaptchaPublicKey"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="ssReCaptchaPrivateKeypnl">
-                            <div class="col-md-3">
-                                <nop-override-store-checkbox asp-for="CaptchaSettings.ReCaptchaPrivateKey_OverrideForStore" asp-input="CaptchaSettings.ReCaptchaPrivateKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                <nop-label asp-for="CaptchaSettings.ReCaptchaPrivateKey"/>
-                            </div>
-                            <div class="col-md-9">
-                                <nop-editor asp-for="CaptchaSettings.ReCaptchaPrivateKey" />
-                                <span asp-validation-for="CaptchaSettings.ReCaptchaPrivateKey"></span>
-                            </div>
-                        </div>
+                        </nop-nested-setting>
                     </div>
                     <script type="text/javascript">
                         $(document).ready(function () {
@@ -914,6 +927,7 @@
                         </div>
                     </div>
                 </div>
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_general_common_settings_bottom" })
             </div>
         </div>
     </div>

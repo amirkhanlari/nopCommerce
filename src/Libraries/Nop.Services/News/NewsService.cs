@@ -27,6 +27,14 @@ namespace Nop.Services.News
 
         #region Ctor
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="newsItemRepository">News item repository</param>
+        /// <param name="newsCommentRepository">News comment repository</param>
+        /// <param name="storeMappingRepository">Store mapping repository</param>
+        /// <param name="catalogSettings">Catalog settings</param>
+        /// <param name="eventPublisher">Event publisher</param>
         public NewsService(IRepository<NewsItem> newsItemRepository, 
             IRepository<NewsComment> newsCommentRepository,
             IRepository<StoreMapping> storeMappingRepository,
@@ -237,7 +245,7 @@ namespace Nop.Services.News
             var comments = query.ToList();
             //sort by passed identifiers
             var sortedComments = new List<NewsComment>();
-            foreach (int id in commentIds)
+            foreach (var id in commentIds)
             {
                 var comment = comments.Find(x => x.Id == id);
                 if (comment != null)

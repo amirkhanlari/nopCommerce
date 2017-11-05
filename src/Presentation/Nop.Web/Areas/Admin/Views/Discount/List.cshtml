@@ -20,6 +20,7 @@
             <i class="fa fa-plus-square"></i>
             @T("Admin.Common.AddNew")
         </a>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_discount_list_buttons" })
     </div>
 </div>
 
@@ -71,7 +72,7 @@
                 <div class="panel-body">
                     <div id="discounts-grid"></div>
 
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function() {
                             $("#discounts-grid").kendoGrid({
                                 dataSource: {

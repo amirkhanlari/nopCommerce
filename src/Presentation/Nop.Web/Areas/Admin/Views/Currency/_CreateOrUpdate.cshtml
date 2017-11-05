@@ -8,6 +8,7 @@
 <div class="content">
     <div class="form-horizontal">
         <div class="panel-group">
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_currency_details_top", additionalData = Model.Id })
             <div class="panel panel-default">
                 <div class="panel-body">
                     @(Html.LocalizedEditor<CurrencyModel, CurrencyLocalizedModel>("currency-info-localized",
@@ -95,7 +96,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <nop-select asp-for="SelectedStoreIds" asp-items="Model.AvailableStores" asp-multiple="true"/>
-                                    <script>
+                                    <script type="text/javascript">
                                         $(document).ready(function() {
                                             var storesIdsInput = $('#@Html.IdFor(model => model.SelectedStoreIds)')
                                                 .data("kendoMultiSelect");
@@ -164,6 +165,7 @@
                     }
                 </div>
             </div>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_currency_details_bottom", additionalData = Model.Id })
         </div>
     </div>
 </div>

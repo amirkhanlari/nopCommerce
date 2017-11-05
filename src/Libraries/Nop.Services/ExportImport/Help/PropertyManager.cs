@@ -69,6 +69,15 @@ namespace Nop.Services.ExportImport.Help
         }
 
         /// <summary>
+        /// Remove object by property name
+        /// </summary>
+        /// <param name="propertyName">Property name</param>
+        public void Remove(string propertyName)
+        {
+            _properties.Remove(propertyName);
+        }
+
+        /// <summary>
         /// Write object data to XLSX worksheet
         /// </summary>
         /// <param name="worksheet">Data worksheet</param>
@@ -185,7 +194,11 @@ namespace Nop.Services.ExportImport.Help
             get { return _properties.Values.ToArray(); }
         }
 
-        
+        /// <summary>
+        /// Set SelectList
+        /// </summary>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="list">SelectList</param>
         public void SetSelectList(string propertyName, SelectList list)
         {
             var tempProperty = GetProperty(propertyName);
@@ -193,6 +206,9 @@ namespace Nop.Services.ExportImport.Help
                 tempProperty.DropDownElements = list;
         }
 
+        /// <summary>
+        /// Is caption
+        /// </summary>
         public bool IsCaption
         {
             get { return _properties.Values.All(p => p.IsCaption); }

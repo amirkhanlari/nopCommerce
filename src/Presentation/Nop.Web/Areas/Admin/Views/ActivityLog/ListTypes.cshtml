@@ -17,6 +17,7 @@
                 <i class="fa fa-floppy-o"></i>
                 @T("Admin.Common.Save")
             </button>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_activity_types_list_buttons" })
         </div>
     </div>
 
@@ -27,10 +28,10 @@
                     <div class="panel-body">
                         <div id="activityLogType-grid"></div>
 
-                        <script>
+                        <script type="text/javascript">
                             //local datasource
                             var activityLogTypes = [
-                                @for (int i = 0; i < Model.Count; i++)
+                                @for (var i = 0; i < Model.Count; i++)
                                 {
                                     var alt = Model[i];
                                     <text>

@@ -34,7 +34,7 @@ namespace Nop.Web.Controllers
 
         #endregion
 
-		#region Constructors
+		#region Ctor
 
         public OrderController(IOrderModelFactory orderModelFactory,
             IOrderService orderService, 
@@ -82,7 +82,7 @@ namespace Nop.Web.Controllers
                 return Challenge();
 
             //get recurring payment identifier
-            int recurringPaymentId = 0;
+            var recurringPaymentId = 0;
             foreach (var formValue in form.Keys)
                 if (formValue.StartsWith("cancelRecurringPayment", StringComparison.InvariantCultureIgnoreCase))
                     recurringPaymentId = Convert.ToInt32(formValue.Substring("cancelRecurringPayment".Length));
@@ -102,10 +102,8 @@ namespace Nop.Web.Controllers
 
                 return View(model);
             }
-            else
-            {
-                return RedirectToRoute("CustomerOrders");
-            }
+
+            return RedirectToRoute("CustomerOrders");
         }
 
         //My account / Orders / Retry last recurring order
@@ -141,7 +139,7 @@ namespace Nop.Web.Controllers
 
         //My account / Reward points
         [HttpsRequirement(SslRequirement.Yes)]
-        public virtual IActionResult CustomerRewardPoints(int? page)
+        public virtual IActionResult CustomerRewardPoints(int? pageNumber)
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
@@ -149,7 +147,7 @@ namespace Nop.Web.Controllers
             if (!_rewardPointsSettings.Enabled)
                 return RedirectToRoute("CustomerInfo");
 
-            var model = _orderModelFactory.PrepareCustomerRewardPoints(page);
+            var model = _orderModelFactory.PrepareCustomerRewardPoints(pageNumber);
             return View(model);
         }
 
