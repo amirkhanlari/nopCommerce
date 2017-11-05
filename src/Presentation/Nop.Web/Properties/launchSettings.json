@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/shop",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:15536/",
       "sslPort": 0
@@ -16,12 +20,16 @@
       }
     },
     "Nop.Web": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:55390"
+    },
+    "test": {
+      "commandName": "IIS",
+      "launchBrowser": true
     }
   }
 }

@@ -10,7 +10,17 @@
     <PackageLicenseUrl>http://www.nopcommerce.com/licensev3.aspx</PackageLicenseUrl> 
     <PackageProjectUrl>http://www.nopcommerce.com/</PackageProjectUrl> 
     <RepositoryUrl>https://github.com/nopSolutions/nopCommerce</RepositoryUrl> 
-    <RepositoryType>Git</RepositoryType>    
+    <RepositoryType>Git</RepositoryType> 
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   
   <ItemGroup>
