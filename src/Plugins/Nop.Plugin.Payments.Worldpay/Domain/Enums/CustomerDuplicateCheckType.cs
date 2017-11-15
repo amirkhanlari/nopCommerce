@@ -7,7 +7,7 @@ namespace Nop.Plugin.Payments.Worldpay.Domain.Enums
     public enum CustomerDuplicateCheckType
     {
         /// <summary>
-        /// If Customer ID exists then return an error.
+        /// If Uustomer ID exists then return an error.
         /// </summary>
         Error = 0,
 

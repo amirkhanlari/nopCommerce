@@ -12,7 +12,6 @@ namespace Nop.Plugin.Payments.Worldpay.Domain.Requests
     public class CreateCardRequest : WorldpayPostRequest
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets a identifier for the customer whose payment method is being added.
         /// </summary>

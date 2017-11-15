@@ -52,6 +52,12 @@
   <ItemGroup>
     <Reference Include="System.Web.Services" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+  </ItemGroup>
   
   <!-- This target execute after "Build" target -->
   <Target Name="NopTarget" AfterTargets="Build">

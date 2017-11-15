@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Nop.Plugin.Payments.Worldpay.Domain.Enums;
 using Nop.Plugin.Payments.Worldpay.Domain.Enums.Converters;
 
@@ -28,11 +27,5 @@ namespace Nop.Plugin.Payments.Worldpay.Domain.Responses
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets a response date.
-        /// </summary>
-        [JsonProperty("responseDateTime")]
-        public DateTime ResponseDate { get; set; }        
     }
 }
