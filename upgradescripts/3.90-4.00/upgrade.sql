@@ -464,6 +464,66 @@ set @resources='
   <LocaleResource Name="Admin.Configuration.Plugins.Upload.Hint4">
     <Value>You can also manually upload a plugin or theme using FTP if this method doesn''t work for you.</Value>
   </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.AccessToken.Hint">
+    <Value>Get the automatically renewed OAuth access token by pressing button ''Obtain access token''.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.AccessTokenRenewalPeriod.Hint">
+    <Value>Access tokens expire after thirty days, so it is recommended that you specify 30 days for the period.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.AccessTokenRenewalPeriod">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.AccessTokenRenewalPeriod.Hint">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.AccessTokenRenewalPeriod.Max">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.TaskChanged">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.AccessTokenRenewalPeriod.Error">
+    <Value>Token renewal limit to {0} days max, but it is recommended that you specify {1} days for the period</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.System.Warnings.Shipping.NoComputationMethods">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.System.Warnings.Shipping.OnlyOneOffline">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.System.Warnings.Errors">
+    <Value>The store has some error(s). Please find more information on the Warnings page.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.UseSandbox">
+    <Value>Use sandbox</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.UseSandbox.Hint">
+    <Value>Determine whether to use sandbox credentials.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.SandboxAccessToken">
+    <Value>Sandbox access token</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.SandboxAccessToken.Hint">
+    <Value>Enter your sandbox access token, available from the application dashboard.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.SandboxApplicationId">
+    <Value>Sandbox application ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Square.Fields.SandboxApplicationId.Hint">
+    <Value>Enter your sandbox application ID, available from the application dashboard.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Worldpay.Fields.DeveloperId">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Worldpay.Fields.DeveloperId.Hint">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Worldpay.Fields.DeveloperVersion">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.Worldpay.Fields.DeveloperVersion.Hint">
+    <Value></Value>
+  </LocaleResource>
 </Language>
 '
 
@@ -941,4 +1001,33 @@ BEGIN
 	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
 	VALUES (N'UploadNewTheme', N'Upload a theme', N'true')
 END
+GO
+
+--delete setting
+DELETE FROM [Setting]
+WHERE [name] = N'squarepaymentsettings.accesstokenrenewalperiod'
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'squarepaymentsettings.usesandbox')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'squarepaymentsettings.usesandbox', N'true', 0)
+END
+GO
+
+--update schedule task type
+UPDATE [ScheduleTask]
+SET [Type] = 'Nop.Plugin.Payments.Square.Services.RenewAccessTokenTask'
+WHERE [Type] like 'Nop.Plugin.Payments.Square.Services.RenewAccessTokenTask%'
+GO
+
+--delete setting
+DELETE FROM [Setting]
+WHERE [name] = N'worldpaypaymentsettings.developerid'
+GO
+
+--delete setting
+DELETE FROM [Setting]
+WHERE [name] = N'worldpaypaymentsettings.developerversion'
 GO
