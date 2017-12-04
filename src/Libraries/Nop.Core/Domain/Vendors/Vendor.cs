@@ -87,6 +87,10 @@ namespace Nop.Core.Domain.Vendors
         public string PageSizeOptions { get; set; }
 
         /// <summary>
+        /// Gets or Sets vendor Comission
+        /// </summary>
+        public decimal VendorComission { get; set; }
+        /// <summary>
         /// Gets or sets vendor notes
         /// </summary>
         public virtual ICollection<VendorNote> VendorNotes

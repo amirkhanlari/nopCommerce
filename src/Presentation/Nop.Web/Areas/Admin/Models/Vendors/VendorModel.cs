@@ -49,7 +49,9 @@ namespace Nop.Web.Areas.Admin.Models.Vendors
 
         [NopResourceDisplayName("Admin.Vendors.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }
-        
+
+        [NopResourceDisplayName("Admin.Vendors.Fields.VendorComission")]
+        public decimal VendorComission { get; set; }
 
         [NopResourceDisplayName("Admin.Vendors.Fields.MetaKeywords")]
         public string MetaKeywords { get; set; }

@@ -40,37 +40,47 @@
                 </div>
             }
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_commonstatistics_after" })
-            @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageCustomers))
+            @if (!Model.IsLoggedInAsVendor && ( canManageOrders || canManageCustomers ))
             {
                 <div class="row">
+
                     @if (!Model.IsLoggedInAsVendor && canManageOrders)
                     {
                         <div class="col-md-6">
                             @await Html.PartialAsync("_OrderStatistics")
                         </div>
+
                     }
+
                     @if (!Model.IsLoggedInAsVendor && canManageCustomers)
                     {
+
                         <div class="col-md-6">
                             @await Html.PartialAsync("_CustomerStatistics")
                         </div>
+
                     }
                 </div>
+
             }
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_customerordercharts_after" })
             @if (!Model.IsLoggedInAsVendor && canManageOrders)
             {
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         @await Html.PartialAsync("_OrderAverageReport")
                     </div>
-                    <div class="col-md-4">
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
                         @await Html.PartialAsync("_OrderIncompleteReport")
                     </div>
                 </div>
             }
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_orderreports_after" })
-            @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageProducts))
+            @if (!Model.IsLoggedInAsVendor && ( canManageOrders || canManageProducts ))
             {
                 <div class="row">
                     @if (canManageOrders)

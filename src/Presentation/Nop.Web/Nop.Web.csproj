@@ -45,6 +45,12 @@
 
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="Themes\CleanModified\Views\Shared\Components\Logo\Default.cshtml" />
+    <None Include="Themes\CleanModified\Views\Shared\Components\TopMenu\Default.cshtml" />
+    <None Include="Themes\CleanModified\Views\Shared\Head.cshtml" />
+    <None Include="Themes\CleanModified\Views\Shared\_CategoryLine.TopMenu.cshtml" />
+    <None Include="Themes\CleanModified\Views\Shared\_Header.cshtml" />
+    <None Include="Themes\CleanModified\Views\_ViewImports.cshtml" />
 
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
