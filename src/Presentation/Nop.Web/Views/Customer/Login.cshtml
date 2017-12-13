@@ -63,27 +63,27 @@
                         @if (Model.UsernamesEnabled)
                         {
                             <div class="inputs">
-                                <label asp-for="Username" asp-postfix=":"></label>
-                                <input asp-for="Username" class="username" autofocus="autofocus" />
+                                <nop-label asp-for="Username" asp-postfix=":"/>
+                                <nop-editor asp-for="Username" class="username" autofocus="autofocus" />
                                 <span asp-validation-for="Username"></span>
                             </div>
                         }
                         else
                         {
                             <div class="inputs">
-                                <label asp-for="Email" asp-postfix=":"></label>
-                                <input asp-for="Email" class="email" autofocus="autofocus" />
+                                <nop-label asp-for="Email" asp-postfix=":"/>
+                                <nop-editor asp-for="Email" class="email" autofocus="autofocus" />
                                 <span asp-validation-for="Email"></span>
                             </div>
                         }
                         <div class="inputs">
-                            <label asp-for="Password" asp-postfix=":"></label>
-                            <input asp-for="Password" class="password" />
+                            <nop-label asp-for="Password" asp-postfix=":"/>
+                            <nop-editor asp-for="Password" class="password" />
                             <span asp-validation-for="Password"></span>
                         </div>
                         <div class="inputs reversed">
-                            <input asp-for="RememberMe" />
-                            <label asp-for="RememberMe"></label>
+                            <nop-editor asp-for="RememberMe" />
+                            <nop-label asp-for="RememberMe"/>
                             <span class="forgot-password">
                                 <a asp-route="PasswordRecovery">@T("Account.Login.ForgotPassword")</a>
                             </span>

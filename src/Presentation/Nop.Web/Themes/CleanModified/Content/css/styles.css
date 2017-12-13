@@ -6119,7 +6119,7 @@ pre {
 	clear: both;
 }
 .header-selectors-wrapper {
-	float: left;
+	float: right;
 	border: none;
 	padding: 0;
 }
@@ -6138,7 +6138,7 @@ pre {
 	text-align: left;
 }
 .header-links-wrapper {
-	float: right;
+	float: left;
 	padding: 0;
 }
 .header-links li {

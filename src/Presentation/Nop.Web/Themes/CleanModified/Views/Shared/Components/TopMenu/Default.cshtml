@@ -52,18 +52,18 @@
             @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_after" })
 
         </ul>
-        <form class="navbar-form navbar-right hidden-md" asp-route="ProductSearch" method="get" id="menuSearchbox">
+        <form class="navbar-form navbar-left hidden-md" asp-route="ProductSearch" method="get" id="menuSearchbox">
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="@T("Search.SearchBox.Tooltip")" aria-describedby="basic-addon2" id="small-searchphrase">
                 <span class="input-group-addon" id="basic-addon2">@T("Search.Button")</span>
             </div>
         </form>
         <script type="text/javascript" asp-location="Footer">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#small-searchphrase').autocomplete({
-                        delay: 500,
-                        minLength: 3,
-                        source: '@(Url.RouteUrl("ProductSearchAutoComplete"))',
+                    delay: 500,
+                    minLength: 3,
+                    source: '@(Url.RouteUrl("ProductSearchAutoComplete"))',
                         appendTo: '#menuSearchbox',
                         select: function(event, ui) {
                             $("#small-searchphrase").val(ui.item.label);
@@ -77,7 +77,7 @@
                         t = htmlEncode(t);
                         return $("<li></li>")
                             .data("item.autocomplete", item)
-                            .append("<a><span>" + t + "</span></a>")
+                            .append("<a>@Html.Raw("<img src='\" + item.productpictureurl + \"'>")<span>" + t + "</span></a>")
                             .appendTo(ul);
                     };
             });

@@ -304,7 +304,7 @@ label, label + * {
 
 .inputs.reversed {
 	margin: 0 0 20px;
-	text-align: center;
+	text-align: right;
 }
 .required {
 	margin: 0 3px 0 -8px; /*siblings offset*/
@@ -6117,7 +6117,7 @@ pre {
 	display: inline-block;
 	width: 265px;
 	margin: 0 0 0 10px;
-	text-align: left;
+	text-align: right;
 }
 .inputs input[type="text"],
 .inputs input[type="email"],
@@ -6178,7 +6178,7 @@ pre {
 	clear: both;
 }
 .header-selectors-wrapper {
-	float: right;
+	float: left;
 	border: none;
 	padding: 0;
 }
@@ -6197,7 +6197,7 @@ pre {
 	text-align: right;
 }
 .header-links-wrapper {
-	float: left;
+	float: right;
 	padding: 0;
 }
 .header-links li {
