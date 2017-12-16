@@ -679,6 +679,14 @@ namespace Nop.Plugin.Shipping.UPS
                             {
                                 break;
                             }
+                            if ((tr.Name == "RatedPackage") && (tr.NodeType == XmlNodeType.Element))
+                            {
+                                while (tr.Read())
+                                {
+                                    if ((tr.Name == "RatedPackage") && (tr.NodeType == XmlNodeType.EndElement))
+                                        break;
+                                }
+                            }
                             if ((tr.Name == "TotalCharges") && (tr.NodeType == XmlNodeType.Element))
                             {
                                 while (tr.Read())

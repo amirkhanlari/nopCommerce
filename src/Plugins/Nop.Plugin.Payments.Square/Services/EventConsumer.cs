@@ -16,7 +16,7 @@ namespace Nop.Plugin.Payments.Square.Services
     /// </summary>
     public class EventConsumer : 
         IConsumer<PageRenderingEvent>,
-        IConsumer<ModelReceived<BaseNopModel>>
+        IConsumer<ModelReceivedEvent<BaseNopModel>>
     {
         #region Fields
 
@@ -63,7 +63,8 @@ namespace Nop.Plugin.Payments.Square.Services
             if (eventMessage.Helper.ViewContext.ActionDescriptor is ControllerActionDescriptor actionDescriptor &&
                 actionDescriptor.ControllerName == "Checkout" && actionDescriptor.ActionName == "OnePageCheckout")
             {
-                eventMessage.Helper.AddScriptParts(ResourceLocation.Footer, "https://js.squareup.com/v2/paymentform");
+                eventMessage.Helper
+                    .AddScriptParts(ResourceLocation.Footer, "https://js.squareup.com/v2/paymentform", excludeFromBundle: true);
             }
         }
 
@@ -71,7 +72,7 @@ namespace Nop.Plugin.Payments.Square.Services
         /// Handle model received event
         /// </summary>
         /// <param name="eventMessage">Event message</param>
-        public void HandleEvent(ModelReceived<BaseNopModel> eventMessage)
+        public void HandleEvent(ModelReceivedEvent<BaseNopModel> eventMessage)
         {
             //whether received model is ScheduleTaskModel
             if (!(eventMessage?.Model is ScheduleTaskModel scheduleTaskModel))
