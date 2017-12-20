@@ -75,14 +75,14 @@
                         </div>
                     }
                     <div class="inputs">
-                        <label asp-for="FirstName" asp-postfix=":"></label>
-                        <input asp-for="FirstName" />
+                        <nop-label asp-for="FirstName" asp-postfix=":"/>
+                        <nop-editor asp-for="FirstName" />
                         <nop-required/>
                         <span asp-validation-for="FirstName"></span>
                     </div>
                     <div class="inputs">
-                        <label asp-for="LastName" asp-postfix=":"></label>
-                        <input asp-for="LastName" />
+                        <nop-label asp-for="LastName" asp-postfix=":"/>
+                        <nop-editor asp-for="LastName" />
                         <nop-required />
                         <span asp-validation-for="LastName"></span>
                     </div>
@@ -110,8 +110,8 @@
                         </div>
                     }
                     <div class="inputs">
-                        <label asp-for="Email" asp-postfix=":"></label>
-                        <input asp-for="Email" />
+                        <nop-label asp-for="Email" asp-postfix=":"/>
+                        <nop-editor asp-for="Email" />
                         <nop-required />
                         <span asp-validation-for="Email"></span>
                     </div>
@@ -130,8 +130,8 @@
                         if (Model.AllowUsersToChangeUsernames)
                         {
                             <div class="inputs">
-                                <label asp-for="Username" asp-postfix=":"></label>
-                                <input asp-for="Username" />
+                                <nop-label asp-for="Username" asp-postfix=":"/>
+                                <nop-editor asp-for="Username" />
                                 <nop-required />
                                 <span asp-validation-for="Username"></span>
                                 @if (Model.CheckUsernameAvailabilityEnabled)
@@ -143,7 +143,7 @@
                         else
                         {
                             <div class="inputs">
-                                <label asp-for="Username" asp-postfix=":"></label>
+                                <nop-label asp-for="Username" asp-postfix=":"/>
                                 <span class="readonly-username">@Model.Username</span>
                             </div>
                         }
@@ -160,8 +160,8 @@
                         @if (Model.CompanyEnabled)
                         {
                             <div class="inputs">
-                                <label asp-for="Company" asp-postfix=":"></label>
-                                <input asp-for="Company" />
+                                <nop-label asp-for="Company" asp-postfix=":"/>
+                                <nop-editor asp-for="Company" />
                                 @if (Model.CompanyRequired)
                                 {
                                     <nop-required />
@@ -172,8 +172,8 @@
                         @if (Model.DisplayVatNumber)
                         {
                             <div class="inputs">
-                                <label asp-for="VatNumber" asp-postfix=":"></label>
-                                <input asp-for="VatNumber" />
+                                <nop-label asp-for="VatNumber" asp-postfix=":"/>
+                                <nop-editor asp-for="VatNumber" />
                                 <span class="vat-status">@Model.VatNumberStatusNote</span>
                                 <span class="vat-note">
                                     <em>@T("Account.Fields.VatNumber.Note")</em>
@@ -197,8 +197,8 @@
                         @if (Model.StreetAddressEnabled)
                         {
                             <div class="inputs">
-                                <label asp-for="StreetAddress" asp-postfix=":"></label>
-                                <input asp-for="StreetAddress" />
+                                <nop-label asp-for="StreetAddress" asp-postfix=":"/>
+                                <nop-editor asp-for="StreetAddress" />
                                 @if (Model.StreetAddressRequired)
                                 {
                                     <nop-required />
@@ -209,8 +209,8 @@
                         @if (Model.StreetAddress2Enabled)
                         {
                             <div class="inputs">
-                                <label asp-for="StreetAddress2" asp-postfix=":"></label>
-                                <input asp-for="StreetAddress2" />
+                                <nop-label asp-for="StreetAddress2" asp-postfix=":"/>
+                                <nop-editor asp-for="StreetAddress2" />
                                 @if (Model.StreetAddress2Required)
                                 {
                                     <nop-required />
