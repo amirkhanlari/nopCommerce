@@ -3,7 +3,7 @@
   "FriendlyName": "ZarinPal",
   "SystemName": "Payments.ZarinPal",
   "Version": "1.04",
-  "SupportedVersions": [ "4.00" ],
+  "SupportedVersions": [ "4.10" ],
   "Author": "Amir Hosein Khanlari",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugin.Payments.ZarinPal.dll",
