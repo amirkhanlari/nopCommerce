@@ -1,39 +1,23 @@
 ﻿@model TopMenuModel.CategoryLineModel
-<li @Html.Raw("")>
-    <a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">@Model.Category.Name
-    @if (Model.Category.NumberOfProducts.HasValue)
-    {
-        <text> </text>@T("Categories.TotalProducts", Model.Category.NumberOfProducts.Value)
-    }
-    </a>
-    @{
-        //subcategories
-        var subCategories = Model.ResponsiveMobileMenu ?
-            //responsive (all categories)
-            Model.Category.SubCategories :
-            //standard design (only categories with "IncludeInTopMenu")
-            Model.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
-
-        var levelClass = "";
-        if (Model.Level == 0)
+@if (Model.Category.SubCategories.Count > 0)
+{
+    @await Html.PartialAsync("_SubCategoryLine.TopMenu", Model.Category)
+}
+else
+{
+<li>
+    <a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
+        @Model.Category.Name
+        @if (Model.Category.NumberOfProducts.HasValue)
         {
-            levelClass = "first-level";
-        }
-        if (subCategories.Count > 0)
-        {
-            <div class="sublist-toggle"></div>
-            <ul class="sublist @levelClass">
-                @foreach (var subCategory in subCategories)
+            <span class="head-number op-number">
+                @if (Model.Category.NumberOfProducts.Value < 0)
                 {
-                    var categoryLineModel = new TopMenuModel.CategoryLineModel
-                    {
-                        Category = subCategory,
-                        Level = Model.Level + 1,
-                        ResponsiveMobileMenu = Model.ResponsiveMobileMenu
-                    };
-                    @await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
+                    @:0@(Model.Category.NumberOfProducts.Value)
                 }
-            </ul>
+                @T("Categories.TotalProducts", Model.Category.NumberOfProducts.Value)
+            </span>
         }
-    }
+    </a>
 </li>
+}
