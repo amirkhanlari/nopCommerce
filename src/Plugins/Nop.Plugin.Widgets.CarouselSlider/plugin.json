@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Carousel Slider",
+  "SystemName": "Widgets.CarouselSlider",
+  "Version": "1.25",
+  "SupportedVersions": [ "4.10" ],
+  "Author": "GCC Team (Amir Hosein Khanlari)",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.CarouselSlider.dll",
+  "Description": "This plugin allows you to change the contents of main page slider"
+}

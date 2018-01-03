@@ -1,0 +1,137 @@
+﻿@model Nop.Plugin.Widgets.CarouselSlider.Models.PublicInfoModel
+@{
+    Layout = "";
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.CarouselSlider/Scripts/bootstrap.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.CarouselSlider/Scripts/jquery.min.js");
+    Html.AddCssFileParts("~/Plugins/Widgets.CarouselSlider/Content/CarouselSlider/bootstrap.min.css");
+
+}
+<style>
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        margin: auto;
+    }
+</style>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        @if (string.IsNullOrWhiteSpace(Model.Picture2Url) == false)
+        {
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        }
+        @if (string.IsNullOrWhiteSpace(Model.Picture3Url) == false)
+        {
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        }
+        @if (string.IsNullOrWhiteSpace(Model.Picture4Url) == false)
+        {
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        }
+        @if (string.IsNullOrWhiteSpace(Model.Picture5Url) == false)
+        {
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        }
+
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+
+        <div class="item active">
+            @{
+                var dataSlide1 = new ViewDataDictionary(ViewData)
+                {
+                    {"pictureUrl", Model.Picture1Url},
+                    { "text", Model.Text1},
+                    { "link", Model.Link1}
+                };
+
+                @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide1)
+            }
+        </div>
+
+        <div class="item">
+            @{
+                if (string.IsNullOrWhiteSpace(Model.Picture2Url) == false)
+                {
+                    var dataSlide2 = new ViewDataDictionary(ViewData)
+                    {
+                        {"pictureUrl", Model.Picture2Url},
+                        {"text", Model.Text2},
+                        {"link", Model.Link2}
+                    };
+
+                    @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide2)
+                }
+            }
+
+        </div>
+
+        <div class="item">
+            @{
+                if (string.IsNullOrWhiteSpace(Model.Picture3Url) == false)
+                {
+
+                    var dataSlide3 = new ViewDataDictionary(ViewData)
+                    {
+                        {"pictureUrl", Model.Picture3Url},
+                        {"text", Model.Text3},
+                        {"link", Model.Link3}
+                    };
+
+                    @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide3)
+                }
+            }
+
+        </div>
+
+        <div class="item">
+            @{
+                if (string.IsNullOrWhiteSpace(Model.Picture4Url) == false)
+                {
+
+                    var dataSlide4 = new ViewDataDictionary(ViewData)
+                    {
+                        {"pictureUrl", Model.Picture4Url},
+                        {"text", Model.Text4},
+                        {"link", Model.Link4}
+                    };
+
+                    @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide4)
+                }
+            }
+
+        </div>
+        
+        <div class="item">
+            @{
+                if (string.IsNullOrWhiteSpace(Model.Picture5Url) == false)
+                {
+
+                    var dataSlide5 = new ViewDataDictionary(ViewData)
+                    {
+                        {"pictureUrl", Model.Picture5Url},
+                        {"text", Model.Text5},
+                        {"link", Model.Link5}
+                    };
+
+                    @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide5)
+                }
+            }
+
+        </div>
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">@T("Previous")</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">@T("Next")</span>
+    </a>
+</div>

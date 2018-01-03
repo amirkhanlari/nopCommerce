@@ -1,0 +1,174 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Copyright>Copyright © Nop Solutions, Ltd</Copyright> 
+    <Company>GCC Team (Amir Hosein Khanlari)</Company> 
+    <Authors>GCC Team (Amir Hosein Khanlari)</Authors> 
+    <Version>1.25</Version> 
+    <Description>This plugin allows you to change the contents of main page slider</Description> 
+    <PackageLicenseUrl></PackageLicenseUrl> 
+    <PackageProjectUrl>http://www.nopcommerce.com/</PackageProjectUrl> 
+    <RepositoryUrl>https://github.com/nopSolutions/nopCommerce</RepositoryUrl> 
+    <RepositoryType>Git</RepositoryType>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove="Content\CarouselSlider\bootstrap.min.css" />
+    <None Remove="Content\CarouselSlider\license.txt" />
+    <None Remove="Content\CarouselSlider\README" />
+    <None Remove="Content\CarouselSlider\sample-images\banner1.jpg" />
+    <None Remove="Content\CarouselSlider\sample-images\banner2.jpg" />
+    <None Remove="Content\CarouselSlider\themes\bar\arrows.png" />
+    <None Remove="Content\CarouselSlider\themes\bar\bar.css" />
+    <None Remove="Content\CarouselSlider\themes\bar\bullets.png" />
+    <None Remove="Content\CarouselSlider\themes\bar\loading.gif" />
+    <None Remove="Content\CarouselSlider\themes\custom\arrows.png" />
+    <None Remove="Content\CarouselSlider\themes\custom\bullets.png" />
+    <None Remove="Content\CarouselSlider\themes\custom\custom.css" />
+    <None Remove="Content\CarouselSlider\themes\custom\loading.gif" />
+    <None Remove="Content\CarouselSlider\themes\dark\arrows.png" />
+    <None Remove="Content\CarouselSlider\themes\dark\bullets.png" />
+    <None Remove="Content\CarouselSlider\themes\dark\dark.css" />
+    <None Remove="Content\CarouselSlider\themes\dark\loading.gif" />
+    <None Remove="Content\CarouselSlider\themes\default\arrows.png" />
+    <None Remove="Content\CarouselSlider\themes\default\bullets.png" />
+    <None Remove="Content\CarouselSlider\themes\default\default.css" />
+    <None Remove="Content\CarouselSlider\themes\default\loading.gif" />
+    <None Remove="Content\CarouselSlider\themes\light\arrows.png" />
+    <None Remove="Content\CarouselSlider\themes\light\bullets.png" />
+    <None Remove="Content\CarouselSlider\themes\light\light.css" />
+    <None Remove="Content\CarouselSlider\themes\light\loading.gif" />
+    <None Remove="logo.jpg" />
+    <None Remove="plugin.json" />
+    <None Remove="Scripts\bootstrap.min.js" />
+    <None Remove="Scripts\jquery.min.js" />
+    <None Remove="Views\Configure.cshtml" />
+    <None Remove="Views\PublicInfo.cshtml" />
+    <None Remove="Views\_PublicInfo.SliderLine.cshtml" />
+    <None Remove="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.CarouselSlider</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.CarouselSlider</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Content\CarouselSlider\bootstrap.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\README">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\sample-images\banner1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\sample-images\banner2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\bar\arrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\bar\bar.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\bar\bullets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\bar\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\custom\arrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\custom\bullets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\custom\custom.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\custom\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\dark\arrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\dark\bullets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\dark\dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\dark\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\default\arrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\default\bullets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\default\default.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\default\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\light\arrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\light\bullets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\light\light.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\CarouselSlider\themes\light\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jquery.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Configure.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\PublicInfo.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_PublicInfo.SliderLine.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+  </ItemGroup>
+  
+  <!-- This target execute after "Build" target -->
+  <Target Name="NopTarget" AfterTargets="Build">
+    <!-- Delete unnecessary libraries from plugins path -->
+    <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+  </Target>
+
+</Project>
