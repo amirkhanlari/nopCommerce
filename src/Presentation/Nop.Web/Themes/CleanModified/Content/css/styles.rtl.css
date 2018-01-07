@@ -987,6 +987,9 @@ label, label + * {
 .follow-us .social .youtube a {
 	background-position: -114px 0;
 }
+.follow-us .social .telegram a {
+    background-position: -114px 0;
+}
 .follow-us .social .google-plus a {
 	background-position: -152px 0;
 }

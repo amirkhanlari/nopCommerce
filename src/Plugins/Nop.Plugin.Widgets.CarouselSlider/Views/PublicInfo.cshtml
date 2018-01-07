@@ -6,13 +6,7 @@
     Html.AddCssFileParts("~/Plugins/Widgets.CarouselSlider/Content/CarouselSlider/bootstrap.min.css");
 
 }
-<style>
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 100%;
-        margin: auto;
-    }
-</style>
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -51,11 +45,11 @@
                 @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide1)
             }
         </div>
+        @if (string.IsNullOrWhiteSpace(Model.Picture2Url) == false)
+        {
+            <div class="item">
+                @{
 
-        <div class="item">
-            @{
-                if (string.IsNullOrWhiteSpace(Model.Picture2Url) == false)
-                {
                     var dataSlide2 = new ViewDataDictionary(ViewData)
                     {
                         {"pictureUrl", Model.Picture2Url},
@@ -65,33 +59,30 @@
 
                     @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide2)
                 }
-            }
 
-        </div>
-
-        <div class="item">
-            @{
-                if (string.IsNullOrWhiteSpace(Model.Picture3Url) == false)
-                {
-
+            </div>
+                    }
+        @if (string.IsNullOrWhiteSpace(Model.Picture3Url)==false)
+        {
+            <div class="item">
+                @{
                     var dataSlide3 = new ViewDataDictionary(ViewData)
                     {
                         {"pictureUrl", Model.Picture3Url},
                         {"text", Model.Text3},
                         {"link", Model.Link3}
                     };
-
-                    @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide3)
                 }
-            }
+                @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide3)
 
-        </div>
 
-        <div class="item">
-            @{
-                if (string.IsNullOrWhiteSpace(Model.Picture4Url) == false)
-                {
 
+            </div>
+                    }
+        @if (string.IsNullOrWhiteSpace(Model.Picture4Url) == false)
+        {
+            <div class="item">
+                @{
                     var dataSlide4 = new ViewDataDictionary(ViewData)
                     {
                         {"pictureUrl", Model.Picture4Url},
@@ -101,28 +92,25 @@
 
                     @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide4)
                 }
-            }
 
-        </div>
-        
-        <div class="item">
-            @{
-                if (string.IsNullOrWhiteSpace(Model.Picture5Url) == false)
-                {
-
+            </div>
+                    }
+        @if (string.IsNullOrWhiteSpace(Model.Picture5Url) == false)
+        {
+            <div class="item">
+                @{
                     var dataSlide5 = new ViewDataDictionary(ViewData)
-                    {
-                        {"pictureUrl", Model.Picture5Url},
-                        {"text", Model.Text5},
-                        {"link", Model.Link5}
-                    };
+                                {
+                                    {"pictureUrl", Model.Picture5Url},
+                                    {"text", Model.Text5},
+                                    {"link", Model.Link5}
+                                };
 
                     @await Html.PartialAsync("~/Plugins/Widgets.CarouselSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide5)
                 }
-            }
 
-        </div>
-
+            </div>
+                    }
     </div>
 
     <!-- Left and right controls -->

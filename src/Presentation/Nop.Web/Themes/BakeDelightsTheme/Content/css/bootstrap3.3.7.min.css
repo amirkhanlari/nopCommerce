@@ -8938,22 +8938,62 @@ button.close {
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
-@font-face {
+/*@font-face {
     font-family: 'FontAwesome';
     src: url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.eot?v=4.7.0');
     src: url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('../../Themes/BakeDelightsTheme/Content/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
     font-weight: normal;
     font-style: normal
+}*/
+
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-style: normal;
+    font-weight: normal;
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.eot");
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.woff2") format("woff2"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.woff") format("woff"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.ttf") format("truetype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 
-.fa {
+.fab {
+    font-family: 'Font Awesome 5 Brands'; }
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.eot");
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.woff2") format("woff2"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.woff") format("woff"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.ttf") format("truetype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+}
+
+.far {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 400; }
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 900;
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.eot");
+    src: url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.woff2") format("woff2"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.woff") format("woff"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.ttf") format("truetype"), url("../../Themes/BakeDelightsTheme/Content/webfonts/fa-solid-900.svg#fontawesome") format("svg");
+}
+
+.fa,
+.fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+}
+
+/*.fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
-}
+}*/
 
 .fa-lg {
     font-size: 1.33333333em;
