@@ -261,6 +261,12 @@
     <Folder Include="Themes\BakeDelightsTheme\Views\Home\Components\HomepageProducts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Plugins\Widgets.CarouselSlider\Scripts\bootstrap.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <!-- This target execute after "Build" target.
     We use it to clean up folder with plugins from unnecessary and obsolete libraries. -->
   <Target Name="NopTarget" AfterTargets="Build">

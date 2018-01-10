@@ -3,7 +3,7 @@
     @*sorting*@
     @if (Model.AllowProductSorting)
     {
-        <div class="product-sorting col-xs-6 col-sm-4 col-md-4">
+        <div class="product-sorting col-xs-6 col-sm-6 col-md-6">
             <div class="row">
                 <div class="col-sm-5 col-md-4 product-span">
                     <label>@T("Catalog.OrderBy")</label>
@@ -22,7 +22,7 @@
                 <div class="col-sm-5 col-md-4 product-span">
                     <label>@T("Catalog.PageSize")</label>
                 </div>
-                <div class="col-sm-4 col-md-4 remove_left_padding">
+                <div class="col-sm-4 col-md-8 remove_left_padding">
                     @Html.DropDownList("products-pagesize", Model.PageSizeOptions, new { @class = "form-control dropdown-filter", onchange = "setLocation(this.value);" })
                 </div>
                 @*<div class="col-md-4 page">
@@ -34,7 +34,7 @@
     @*view mode*@
     @if (Model.AllowProductViewModeChanging)
     {
-        <div class="product-viewmode col-xs-12 col-sm-4 col-md-4">
+        <div class="product-viewmode col-xs-12 col-sm-2 col-md-2">
             <div class="row">
                 @*<div class="col-md-5 product-span">
                     <label>@T("Catalog.ViewMode")</label>
@@ -43,7 +43,7 @@
                 {
                     var gridMode = Model.AvailableViewModes[0];
                     var listMode = Model.AvailableViewModes[1];
-                    <div class="col-md-4 grid-list-icon">
+                    <div class="col-md-8 grid-list-icon">
                         <a class="viewmode-icon grid @if(gridMode.Selected){<text>selected</text>}" href="@gridMode.Value" title="@gridMode.Text"><i class="fa fa-th"></i>@*@gridMode.Text*@</a>
                         <a class="viewmode-icon list @if (listMode.Selected){<text>selected</text>}" href="@listMode.Value" title="@listMode.Text"><i class="fa fa-th-list"></i>@*@listMode.Text*@</a>
                     </div>

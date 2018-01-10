@@ -1467,7 +1467,9 @@ namespace Nop.Services.Orders
                     if (order.PaymentStatus == PaymentStatus.Authorized ||
                         order.PaymentStatus == PaymentStatus.Paid)
                     {
-                        SetOrderStatus(order, OrderStatus.Processing, false);
+                        //todo:check for work fine change status
+                        //  SetOrderStatus(order, OrderStatus.Processing, false);
+                        SetOrderStatus(order, OrderStatus.PreProcessing, false);
                     }
 
                     if (order.ShippingStatus == ShippingStatus.PartiallyShipped ||

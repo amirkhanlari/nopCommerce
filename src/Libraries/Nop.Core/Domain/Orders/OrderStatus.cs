@@ -9,10 +9,18 @@ namespace Nop.Core.Domain.Orders
         /// Pending
         /// </summary>
         Pending = 10,
+
+        /// <summary>
+        /// PreProcessing 
+        /// </summary>
+        PreProcessing = 15,
+
         /// <summary>
         /// Processing
         /// </summary>
         Processing = 20,
+
+
         /// <summary>
         /// Complete
         /// </summary>
