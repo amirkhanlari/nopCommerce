@@ -1084,6 +1084,7 @@ form#small-search-box-form .form-group {
 
     .footer-upper .social-wrapper {
         float: right;
+        margin-top: 20px;
     }
 
         .footer-upper .social-wrapper li {
@@ -1110,7 +1111,8 @@ form#small-search-box-form .form-group {
                 }
 
 .newsletter-subscribe-block .form-group {
-    margin-bottom: 0px;
+    padding: 0px;
+    margin: 0px;
     display: inline-block;
 }
 
@@ -1131,15 +1133,14 @@ form#small-search-box-form .form-group {
 }
 
 #newsletter-subscribe-block #newsletter-subscribe-button {
-    float: right;
+    float: left;
     width: auto;
 }
 
 #newsletter-subscribe-button {
     font-size: 15px;
-    padding: 12px;
     text-transform: uppercase;
-    margin-left: 30px;
+    margin-right: 10px;
     background-color: #2d9c6d;
 }
 
@@ -1154,6 +1155,7 @@ form#small-search-box-form .form-group {
 
 .newsletter-wrapper .title, .newsletter-email {
     text-align: center;
+    margin-top: 20px;
 }
 
 .newsletter-wrapper .title {
@@ -1161,6 +1163,7 @@ form#small-search-box-form .form-group {
 }
 
 .newsletter-wrapper strong {
+    float: right;
     text-align: center;
     font-size: 30px;
     font-weight: bold;
@@ -2812,7 +2815,7 @@ div#newsletter-subscribe-block .options {
 
 .registration-page .date-birth-text .date-picker-wrapper > select, .customer-info-page .date-birth-text .date-picker-wrapper > select {
     border: 1px solid #ccc;
-    padding: 5px 25px 5px 15px;
+    padding: 5px 25px 5px 25px;
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -5579,7 +5582,7 @@ a.eu-cookie-privacyinfo-tag {
 
 /* CUSTOMER ACCOUNT PAGE STYLE */
 .customer-info-page fieldset h3 {
-    text-align: left;
+    text-align: right;
     margin-bottom: 20px;
     font-size: 15px;
     text-transform: uppercase;
@@ -5608,7 +5611,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .account-page .form-group label {
-    text-align: left;
+    text-align: right;
 }
 
 .small-heading > strong {
