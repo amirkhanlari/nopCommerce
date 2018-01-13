@@ -10,7 +10,7 @@ using Nop.Services.Localization;
 
 namespace Nop.Plugin.Payments.Worldpay.Components
 {
-    [ViewComponent(Name = "PaymentWorldpay")]
+    [ViewComponent(Name = WorldpayPaymentDefaults.ViewComponentName)]
     public class PaymentWorldpayViewComponent : ViewComponent
     {
         #region Fields
