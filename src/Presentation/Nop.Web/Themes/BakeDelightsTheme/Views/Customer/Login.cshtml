@@ -24,44 +24,7 @@
     @await Html.PartialAsync("_ExternalAuthentication.Errors")
     <div class="page-body">
         <div class="customer-blocks">
-           <div class="row">
-                @if (Model.CheckoutAsGuest)
-                {
-                    <div class="col-sm-6 col-md-6">
-                       <div class="new-wrapper checkout-as-guest-or-register-block">
-                            <fieldset>        
-                                    <legend>@T("Account.Login.CheckoutAsGuestOrRegister")</legend>
-                        
-                                    <div class="text">
-                                        @await Component.InvokeAsync("TopicBlock", new { systemName = "CheckoutAsGuestOrRegister" })
-                                        <div class="buttons buttons col-sm-offset-1 col-md-offset-1 col-md-10">
-                                            <input type="button" class="btn btn-primary checkout-as-guest-button" onclick="location.href='@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")" />
-                                            <input type="button" class="btn btn-primary register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
-                                        </div>
-                                    </div>
-                            </fieldset>
-                       </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-sm-6 col-md-6">
-                        <div class="new-wrapper register-block">
-                            <fieldset>
-                                <legend>@T("Account.Login.NewCustomer")</legend>
-                                <div class="text">
-                                    @T("Account.Login.NewCustomerText")
-                                    <div class="form-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                            <input type="button" class="btn btn-primary register-button" onclick="location.href='@registerUrl    '" value="@T("Account.Register")" />  
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                }
+            <div class="row">
                 <div class="col-sm-6 col-md-6">
                     <div class="returning-wrapper">
                         <fieldset>
@@ -71,23 +34,23 @@
                                     <div asp-validation-summary="ModelOnly" class="message-error alert alert-danger">@T("Account.Login.Unsuccessful")</div>
                                     @if (Model.UsernamesEnabled)
                                     {
-                                    <div class="form-group">
-                                        <label class="col-xs-12 col-sm-12 col-md-12 control-label" asp-for="Username" asp-postfix=":"></label>
-                                        <div class="col-md-12">
-                                            <input asp-for="Username" class="username form-control" autofocus="autofocus" />
-                                            <span asp-validation-for="Username"></span>
+                                        <div class="form-group">
+                                            <label class="col-xs-12 col-sm-12 col-md-12 control-label" asp-for="Username" asp-postfix=":"></label>
+                                            <div class="col-md-12">
+                                                <input asp-for="Username" class="username form-control" autofocus="autofocus" />
+                                                <span asp-validation-for="Username"></span>
+                                            </div>
                                         </div>
-                                    </div>
                                     }
                                     else
                                     {
-                                    <div class="form-group">
-                                        <label class="col-xs-12 col-sm-12 col-md-12 control-label" asp-for="Email" asp-postfix=":"></label>
-                                        <div class="col-md-12">
-                                            <input asp-for="Email" class="email form-control" autofocus="autofocus" />
-                                            <span asp-validation-for="Email"></span>
+                                        <div class="form-group">
+                                            <label class="col-xs-12 col-sm-12 col-md-12 control-label" asp-for="Email" asp-postfix=":"></label>
+                                            <div class="col-md-12">
+                                                <input asp-for="Email" class="email form-control" autofocus="autofocus" />
+                                                <span asp-validation-for="Email"></span>
+                                            </div>
                                         </div>
-                                    </div>
                                     }
                                     <div class="form-group">
                                         <label class="col-xs-12 col-sm-12 col-md-12 control-label" asp-for="Password" asp-postfix=":"></label>
@@ -109,11 +72,11 @@
                                     </div>
                                     @if (Model.DisplayCaptcha)
                                     {
-                                    <div class="form-group">
-                                        <div class="captcha-box col-md-6">
-                                            <nop-captcha />
+                                        <div class="form-group">
+                                            <div class="captcha-box col-md-6">
+                                                <nop-captcha />
+                                            </div>
                                         </div>
-                                    </div>
                                     }
                                     <div class="form-group">
                                         <div class="col-md-3">
@@ -125,6 +88,44 @@
                         </fieldset>
                     </div>
                 </div>
+                @if (Model.CheckoutAsGuest)
+                {
+                    <div class="col-sm-6 col-md-6">
+                        <div class="new-wrapper checkout-as-guest-or-register-block">
+                            <fieldset>
+                                <legend>@T("Account.Login.CheckoutAsGuestOrRegister")</legend>
+
+                                <div class="text">
+                                    @await Component.InvokeAsync("TopicBlock", new {systemName = "CheckoutAsGuestOrRegister"})
+                                    <div class="buttons buttons col-sm-offset-1 col-md-offset-1 col-md-10">
+                                        <input type="button" class="btn btn-primary checkout-as-guest-button" onclick="location.href = '@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")"/>
+                                        <input type="button" class="btn btn-primary register-button" onclick="location.href = '@registerUrl'" value="@T("Account.Register")"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-6 col-md-6">
+                        <div class="new-wrapper register-block">
+                            <fieldset>
+                                <legend>@T("Account.Login.NewCustomer")</legend>
+                                <div class="text">
+                                    @T("Account.Login.NewCustomerText")
+                                    <div class="form-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+                                            <input type="button" class="btn btn-primary register-button" onclick="location.href = '@registerUrl    '" value="@T("Account.Register")"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                }
+
             </div>
            <div class="row">
                 <div class="external-authentication col-sm-12 col-md-12">

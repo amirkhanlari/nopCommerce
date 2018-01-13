@@ -24,10 +24,7 @@
             <div class="panel panel-default cart-item-table">
                 <table class="cart table table-bordered">
                     <colgroup>
-                        @if (Model.IsEditable)
-                        {
-                        <col width="1" />
-                        }
+                   
                         @if (Model.ShowSku)
                         {
                         <col width="1" />
@@ -40,15 +37,14 @@
                         <col width="1" />
                         <col width="1" />
                         <col width="1" />
+                        @if (Model.IsEditable)
+                        {
+                            <col width="1" />
+                        }
                     </colgroup>
                     <thead class="hidden-xs">
                         <tr class="cart-header-row">
-                            @if (Model.IsEditable)
-                            {
-                            <th>
-                                @T("ShoppingCart.Remove")
-                            </th>
-                            }
+                            
                             @if (Model.ShowSku)
                             {
                             <th>
@@ -73,6 +69,12 @@
                             <th class="end">
                                 @T("ShoppingCart.ItemTotal")
                             </th>
+                            @if (Model.IsEditable)
+                            {
+                                <th>
+                                    @T("ShoppingCart.Remove")
+                                </th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -80,20 +82,7 @@
                         {
                             /* This code used for desktop device */
                             <tr class="cart-item-row hidden-xs desktop-original">
-                                @if (Model.IsEditable)
-                                    {
-                                    <td class="remove-from-cart">
-                                        @if (item.DisableRemoval)
-                                        {
-                                            <text>&nbsp;</text>
-                                        }
-                                        else
-                                        {
-                                            <span class="visible-xs hidden-lg hidden-md hidden-sm">@T("ShoppingCart.Remove")</span>
-                                            <input type="checkbox" name="removefromcart" value="@(item.Id)" />
-                                        }
-                                    </td>
-                                    }
+                               
                                 @if (Model.ShowSku)
                                     {
                                     <td class="sku nobr">
@@ -175,42 +164,39 @@
                                 <td class="subtotal nobr end">
                                     <span class="product-subtotal">@item.SubTotal</span>
                                     @if (!string.IsNullOrEmpty(item.Discount))
-                                        {
+                                    {
                                         <div class="discount">
                                             @T("ShoppingCart.ItemYouSave", item.Discount)
                                         </div>
-                                            if (item.MaximumDiscountedQty.HasValue)
-                                            {
-                                        <div class="discount-additional-info">
-                                            @T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value)
-                                        </div>
-                                            }
+                                        if (item.MaximumDiscountedQty.HasValue)
+                                        {
+                                            <div class="discount-additional-info">
+                                                @T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value)
+                                            </div>
                                         }
+                                    }
                                 </td>
+                                @if (Model.IsEditable)
+                                {
+                                    <td class="remove-from-cart">
+                                        @if (item.DisableRemoval)
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                        else
+                                        {
+                                            <span class="visible-xs hidden-lg hidden-md hidden-sm">@T("ShoppingCart.Remove")</span>
+                                            <input type="checkbox" name="removefromcart" value="@(item.Id)" class="removefromcart"/>
+                                            <img class="removefromcartimg" src="~/Themes/BakeDelightsTheme/Content/images/remove-icon.png" data-productid="@(item.Id)">
+                                        }
+                                    </td>
+                                }
                             </tr>
                             /* This code used only for mobile device */
                             <tr class="shopping-cart-small-wrapper visible-xs mobile-duplicate">
                                 <td>
                                     <div class="product-wrapper">
-                                        <div class="remove-addtocart-checkbox">
-                                            @if (Model.IsEditable)
-                                                {
-                                                <div class="remove-from-cart">
-                                                    @if (item.DisableRemoval)
-                                                    {
-                                                        <text>&nbsp;</text>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="custom-checkbox">
-                                                            <input type="checkbox" name="removefromcart" value="@(item.Id)" id="@(item.Id)-res" />
-                                                            <label for="@(item.Id)-res"></label>
-                                                        </div>
-                                                    }
-                                                    <span>@T("ShoppingCart.Remove")</span>
-                                                </div>
-                                                }
-                                        </div>
+                                        
                                         <div class="product-content-wrapper">
                                             <div class="product-image">
                                                 @if (Model.ShowProductImages)
@@ -224,36 +210,57 @@
                                                 <div class="product">
                                                     <a href="@Url.RouteUrl("Product", new {SeName = item.ProductSeName})" class="product-name">@item.ProductName</a>
                                                     @if (!string.IsNullOrEmpty(item.AttributeInfo))
-                                                        {
+                                                    {
                                                         <div class="attributes">
                                                             @Html.Raw(item.AttributeInfo)
                                                         </div>
-                                                        }
+                                                    }
                                                     @if (!string.IsNullOrEmpty(item.RecurringInfo))
-                                                        {
+                                                    {
                                                         <div class="recurring-info">
                                                             @Html.Raw(item.RecurringInfo)
                                                         </div>
-                                                        }
+                                                    }
                                                     @if (item.Warnings.Count > 0)
-                                                        {
+                                                    {
                                                         <div class="message-error">
                                                             <ul>
                                                                 @for (int i = 0; i < item.Warnings.Count; i++)
-                                                                    {
+                                                                {
                                                                     <li>@item.Warnings[i]</li>
-                                                                    }
+                                                                }
                                                             </ul>
                                                         </div>
-                                                        }
+                                                    }
                                                 </div>
                                                 @if (Model.ShowSku)
-                                                    {
+                                                {
                                                     <div class="sku nobr">
                                                         @T("ShoppingCart.SKU"):
                                                         @item.Sku
                                                     </div>
-                                                    }
+                                                }
+                                            </div>
+                                            <div class="remove-addtocart-checkbox">
+                                                @if (Model.IsEditable)
+                                                {
+                                                    <div class="remove-from-cart">
+                                                        @if (item.DisableRemoval)
+                                                        {
+                                                            <text>&nbsp;</text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="custom-checkbox">
+                                                                <input type="checkbox" name="removefromcart" value="@(item.Id)" id="@(item.Id)-res" class="removefromcart"/>
+                                                                <img class="removefromcartimg" src="~/Themes/BakeDelightsTheme/Content/images/remove-icon.png" data-productid="@(item.Id)">
+
+                                                                <label for="@(item.Id)-res"></label>
+                                                            </div>
+                                                        }
+                                                        @*<span>@T("ShoppingCart.Remove")</span>*@
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                         <table>
@@ -498,6 +505,16 @@
             //desktop
             $("tr.desktop-original").html("");
         }
-    }
+                                        }
+
+    $(document).ready(function () {
+        $('.removefromcartimg').click(function (e) {
+            var productId = $(this).attr("data-productid");
+            $(":checkbox").filter(function () {
+                return this.value == productId;
+            }).prop("checked", "true");
+            $(".update-cart-button").trigger("click");
+        });
+    });
 </script>
 

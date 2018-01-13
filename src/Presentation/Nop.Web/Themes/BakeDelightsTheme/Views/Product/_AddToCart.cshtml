@@ -36,9 +36,10 @@
                 else
                 {
                     <div class="addtocart-quantity-box">
-                        <input asp-for="EnteredQuantity" class="qty-input form-control" type="text" />
                         <span class="increase-quantity" onclick="IncreaseQuantity(@Html.IdFor(model => model.EnteredQuantity));"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        <input asp-for="EnteredQuantity" class="qty-input form-control" type="text"/>
                         <span class="decrease-quantity" onclick="DecreaseQuantity(@Html.IdFor(model => model.EnteredQuantity));"><i class="fa fa-minus" aria-hidden="true"></i></span>
+
                     </div>
                     //when a customer clicks 'Enter' button we submit the "add to cart" button (if visible)
                     <script type="text/javascript" asp-location="Footer">

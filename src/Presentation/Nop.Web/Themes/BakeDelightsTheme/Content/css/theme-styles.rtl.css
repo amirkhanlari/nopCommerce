@@ -1822,10 +1822,11 @@ div#newsletter-subscribe-block .options {
 
 /* BREADCRUMB STYLE */
 .breadcrumb-wrapper .breadcrumb {
+    font-size: 15px;
     border: none;
     border-radius: 0px;
     clear: both;
-    text-align: center;
+    text-align: right;
     margin-bottom: 0;
     padding: 20px;
     background-color: transparent;
@@ -1834,7 +1835,7 @@ div#newsletter-subscribe-block .options {
     .breadcrumb-wrapper .breadcrumb li a {
         font-family: 'Marck Script', cursive;
         color: #303133;
-        font-size: 30px;
+        font-size: 15px;
         font-weight: 700;
         text-decoration: none;
     }
@@ -1857,7 +1858,7 @@ div#newsletter-subscribe-block .options {
     .breadcrumb-wrapper .breadcrumb li .current-item.active, .breadcrumb-wrapper .breadcrumb li .active {
         font-family: 'Marck Script', cursive;
         color: #2d9c6d;
-        font-size: 30px;
+        font-size: 15px;
         font-weight: 700;
         text-transform: capitalize;
     }
@@ -1872,7 +1873,7 @@ div#newsletter-subscribe-block .options {
     }
 
         .breadcrumb-wrapper .breadcrumb li:first-child a span i {
-            font-size: 30px;
+            font-size: 20px;
         }
 
 
@@ -2326,7 +2327,7 @@ div#newsletter-subscribe-block .options {
 }
 
     .product-selectors .product-span {
-        padding: 5px 0 0 10px !important;
+        padding: 5px 10px 0 10px !important;
     }
 
         .product-selectors .product-span label {
@@ -2815,7 +2816,7 @@ div#newsletter-subscribe-block .options {
 
 .registration-page .date-birth-text .date-picker-wrapper > select, .customer-info-page .date-birth-text .date-picker-wrapper > select {
     border: 1px solid #ccc;
-    padding: 5px 25px 5px 25px;
+    padding: 5px 15px 5px 25px;
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -2909,7 +2910,7 @@ div#newsletter-subscribe-block .options {
         width: 30px;
         height: 2px;
         position: absolute;
-        left: 15px;
+        /*left: 15px;*/
     }
 
 .not-found-page ul li {
@@ -3498,7 +3499,7 @@ a.eu-cookie-privacyinfo-tag {
 
 .product-details-page .addtocart-quantity-box {
     float: right;
-    margin-right: 35px;
+    margin-left: 35px;
 }
 
 .product-details-page .add-to-cart .qty-.dropdown {
@@ -3512,10 +3513,10 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .product-details-page .add-to-cart .quantity-box label {
-    font-weight: normal;
+    font-weight: bold;
     color: #555;
     float: right;
-    margin-right: 15px;
+    margin-left: 15px;
     line-height: 35px;
 }
 
@@ -3646,7 +3647,7 @@ a.eu-cookie-privacyinfo-tag {
     height: 106% !important;
 }
 
-.product-details-page .product-share-button {
+/*.product-details-page .product-share-button {
     clear: both;
 }
 
@@ -3884,7 +3885,7 @@ a.eu-cookie-privacyinfo-tag {
     float: right;
     padding-bottom: 10px;
     width: 100%;
-}
+}*/
 
 .variant-overview .tax-shipping-info {
     border: none;
@@ -4160,7 +4161,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .login-page .checkout-as-guest-or-register-block legend, .login-page .new-wrapper.register-block fieldset legend, .login-page .returning-wrapper fieldset legend {
-    text-align: left;
+    text-align: right;
     color: #000;
     font-size: 12px;
     text-transform: uppercase;
@@ -4213,7 +4214,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .login-page .returning-wrapper .control-label {
-    text-align: left;
+    text-align: right;
     padding-top: 0px;
     margin-bottom: 10px;
 }
@@ -4225,7 +4226,7 @@ a.eu-cookie-privacyinfo-tag {
 
 .login-page .forgot-password {
     margin-top: 1px;
-    float: right;
+    /* float: right; */
     margin-right: 15px;
 }
 
@@ -4244,7 +4245,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .login-page .checkbox label {
-    padding-left: 0;
+    padding-right: 20px;
 }
 
 .login-page .validation-summary-errors.alert.alert-danger {
@@ -4347,6 +4348,11 @@ a.eu-cookie-privacyinfo-tag {
     margin-top: 2px;
 }
 
+.registration-page .radio-inline span {
+    margin-right: 20px;
+    margin-top: 2px;
+}
+
 .registration-page .form-horizontal .radio-inline {
     padding-top: 0;
 }
@@ -4364,7 +4370,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .registration-page h3 {
-    text-align: left;
+    text-align: right;
     font-size: 15px;
     color: #303133;
     border-bottom: 1px solid #ddd;
@@ -4912,7 +4918,7 @@ a.eu-cookie-privacyinfo-tag {
     float: right;
 }
 
-.wishlist-page .wishlist-add-to-cart {
+/*.wishlist-page .wishlist-add-to-cart {
     float: right;
 }
 
@@ -4981,7 +4987,7 @@ a.eu-cookie-privacyinfo-tag {
 
 .removefromcart {
     display: none;
-}
+}*/
 
 
 
@@ -5582,7 +5588,7 @@ a.eu-cookie-privacyinfo-tag {
 
 /* CUSTOMER ACCOUNT PAGE STYLE */
 .customer-info-page fieldset h3 {
-    text-align: right;
+    text-align: left;
     margin-bottom: 20px;
     font-size: 15px;
     text-transform: uppercase;
@@ -5611,7 +5617,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .account-page .form-group label {
-    text-align: right;
+    text-align: left;
 }
 
 .small-heading > strong {
@@ -6892,6 +6898,7 @@ a.eu-cookie-privacyinfo-tag {
 
 .private-messages-page .nav-tabs {
     border: none;
+    float: right;
 }
 
     .private-messages-page .nav-tabs li a {
