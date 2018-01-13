@@ -595,6 +595,11 @@ namespace Nop.Plugin.Payments.ZarinPal
             base.Uninstall();
         }
 
+        public string GetPublicViewComponentName ()
+        {
+            return "PaymentZarinPal";
+        }
+
         #endregion
 
         #region Properties

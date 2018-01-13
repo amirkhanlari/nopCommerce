@@ -115,5 +115,10 @@ namespace Nop.Plugin.Widgets.CarouselSlider
 
             base.Uninstall();
         }
+
+        public string GetWidgetViewComponentName (string widgetZone)
+        {
+            return "WidgetsCarouselSlider";
+        }
     }
 }

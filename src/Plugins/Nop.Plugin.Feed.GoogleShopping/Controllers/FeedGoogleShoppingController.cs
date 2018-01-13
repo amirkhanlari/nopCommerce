@@ -22,6 +22,7 @@ using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Kendoui;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Framework.Mvc.Filters;
+using Nop.Services.Plugins;
 
 namespace Nop.Plugin.Feed.GoogleShopping.Controllers
 {
