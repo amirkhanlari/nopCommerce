@@ -1262,11 +1262,11 @@ form#small-search-box-form .form-group {
     }
 
 .footer-middle .payment-method ul li {
-    background: url(../images/payment-method.png) no-repeat left center;
+    background: url(../../../../Plugins/Payments.ZarinPal/logo.jpg) no-repeat left center;
     float: right;
     width: 50px;
     height: 30px;
-    margin-right: 5px;
+    margin-left: 5px;
     margin-bottom: 5px;
 }
 
@@ -5588,7 +5588,7 @@ a.eu-cookie-privacyinfo-tag {
 
 /* CUSTOMER ACCOUNT PAGE STYLE */
 .customer-info-page fieldset h3 {
-    text-align: left;
+    text-align: right;
     margin-bottom: 20px;
     font-size: 15px;
     text-transform: uppercase;

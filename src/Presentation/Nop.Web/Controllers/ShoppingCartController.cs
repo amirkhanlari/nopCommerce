@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -30,6 +31,7 @@ using Nop.Services.Shipping.Date;
 using Nop.Services.Tax;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Controllers;
+using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Security;
@@ -1348,6 +1350,114 @@ namespace Nop.Web.Controllers
                             sciModel.Warnings.Add(w);
             }
             return View(model);
+        }
+
+        //[HttpPost]
+        //public virtual IActionResult RefershCart(string form)
+        //{
+        //    string jsonData = string.Empty;
+
+        //    var model = new ShoppingCartModel();
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    serializer.MaxJsonLength = int.MaxValue;
+        //    jsonData = serializer.Serialize(model);
+
+
+        //    return Content(jsonData);
+
+        //}
+
+        //[AjaxOnly]
+        [HttpPost]
+        public virtual IActionResult RefershCartItems (IFormCollection form)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+                return RedirectToRoute("HomePage");
+
+            var cart = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+
+            var allIdsToRemove = form.ContainsKey("removefromcart") ?
+                form["removefromcart"].ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToList() :
+                new List<int>();
+
+            //current warnings <cart item identifier, warnings>
+            var innerWarnings = new Dictionary<int, IList<string>>();
+            foreach (var sci in cart)
+            {
+                var remove = allIdsToRemove.Contains(sci.Id);
+                if (remove)
+                    _shoppingCartService.DeleteShoppingCartItem(sci, ensureOnlyActiveCheckoutAttributes: true);
+                else
+                {
+                    foreach (var formKey in form.Keys)
+                        if (formKey.Equals($"itemquantity{sci.Id}", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            int newQuantity;
+                            if (int.TryParse(form[formKey][0], out newQuantity))
+                            {
+                                var currSciWarnings = _shoppingCartService.UpdateShoppingCartItem(_workContext.CurrentCustomer,
+                                    sci.Id, sci.AttributesXml, sci.CustomerEnteredPrice,
+                                    sci.RentalStartDateUtc, sci.RentalEndDateUtc,
+                                    newQuantity, true);
+                                innerWarnings.Add(sci.Id, currSciWarnings);
+                            }
+                            break;
+                        }
+                }
+            }
+
+
+            //updated cart
+            cart = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+            var model = new ShoppingCartModel();
+            model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            //update current warnings
+            foreach (var kvp in innerWarnings)
+            {
+                //kvp = <cart item identifier, warnings>
+                var sciId = kvp.Key;
+                var warnings = kvp.Value;
+                //find model
+                var sciModel = model.Items.FirstOrDefault(x => x.Id == sciId);
+                if (sciModel != null)
+                    foreach (var w in warnings)
+                        if (!sciModel.Warnings.Contains(w))
+                            sciModel.Warnings.Add(w);
+            }
+            string jsonData = string.Empty;
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            jsonData = serializer.Serialize(model);
+            return Content(jsonData);
+        }
+
+        [HttpPost]
+        public virtual IActionResult RefershCartOrderTotals (string isEditable)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+                return RedirectToRoute("HomePage");
+
+            var cart = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+            bool objisEditable;
+            bool.TryParse(isEditable, out objisEditable);
+            var model = _shoppingCartModelFactory.PrepareOrderTotalsModel(cart, objisEditable);
+
+            string jsonData = string.Empty;
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            jsonData = serializer.Serialize(model);
+            return Content(jsonData);
         }
 
         [HttpPost, ActionName("Cart")]

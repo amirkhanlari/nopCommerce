@@ -157,6 +157,10 @@ $(document).ready(function () {
 
 });
 
+function ToJS (json) {
+    return JSON.parse(JSON.stringify(json));
+}
+
 //Used js for Product Increase and Decrease Quantity Item
 function IncreaseQuantity(e) {
     var id = document.getElementById(e.id).value;

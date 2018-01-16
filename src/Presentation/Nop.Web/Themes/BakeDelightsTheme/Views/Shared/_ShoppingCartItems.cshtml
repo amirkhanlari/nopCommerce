@@ -1,0 +1,402 @@
+﻿@model ShoppingCartModel
+@using Nop.Core
+@inject IWebHelper webHelper
+
+<table class="cart table table-bordered" id="shopping-cart-table">
+<colgroup>
+
+    @if (Model.ShowSku)
+    {
+        <col width="1" />
+    }
+    @if (Model.ShowProductImages)
+    {
+        <col width="1" />
+    }
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    @if (Model.IsEditable)
+    {
+        <col width="1" />
+    }
+</colgroup>
+<thead class="hidden-xs">
+<tr class="cart-header-row">
+
+    @if (Model.ShowSku)
+    {
+        <th>
+            @T("ShoppingCart.SKU")
+        </th>
+    }
+    @if (Model.ShowProductImages)
+    {
+        <th class="picture">
+            @T("ShoppingCart.Image")
+        </th>
+    }
+    <th class="products-title">
+        @T("ShoppingCart.Product(s)")
+    </th>
+    <th>
+        @T("ShoppingCart.UnitPrice")
+    </th>
+    <th>
+        @T("ShoppingCart.Quantity")
+    </th>
+    <th class="end">
+        @T("ShoppingCart.ItemTotal")
+    </th>
+    @if (Model.IsEditable)
+    {
+        <th>
+            @T("ShoppingCart.Remove")
+        </th>
+    }
+</tr>
+</thead>
+<tbody>
+@foreach (var item in Model.Items)
+{
+    /* This code used for desktop device */
+    <tr class="cart-item-row hidden-xs desktop-original" id="troriginalitem@(item.Id)">
+
+        @if (Model.ShowSku)
+        {
+            <td class="sku nobr">
+                @item.Sku
+            </td>
+        }
+        @if (Model.ShowProductImages)
+        {
+            <td class="product-picture">
+                <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+            </td>
+        }
+        <td class="product">
+            <a href="@Url.RouteUrl("Product", new {SeName = item.ProductSeName})" class="product-name">@item.ProductName</a>
+            @if (!string.IsNullOrEmpty(item.AttributeInfo))
+            {
+                <div class="attributes">
+                    @Html.Raw(item.AttributeInfo)
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(item.RecurringInfo))
+            {
+                <div class="recurring-info">
+                    @Html.Raw(item.RecurringInfo)
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(item.RentalInfo))
+            {
+                <div class="rental-info">
+                    @Html.Raw(item.RentalInfo)
+                </div>
+            }
+            @if (Model.IsEditable && item.AllowItemEditing)
+            {
+                var editCartItemUrl = Url.RouteUrl("Product", new {SeName = item.ProductSeName});
+                editCartItemUrl = webHelper.ModifyQueryString(editCartItemUrl, "updatecartitemid=" + item.Id, null);
+                <div class="edit-item">
+                    <a href="@editCartItemUrl">@T("Common.Edit")</a>
+                </div>
+            }
+            @if (item.Warnings.Count > 0)
+            {
+                <div class="message-error">
+                    <ul>
+                        @foreach (var warning in item.Warnings)
+                        {
+                            <li>@warning</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </td>
+        <td class="unit-price nobr">
+            <span class="product-unit-price">@item.UnitPrice</span>
+        </td>
+        <td class="qty nobr">
+            @if (Model.IsEditable)
+            {
+                if (item.AllowedQuantities.Count > 0)
+                {
+                    <select name="itemquantity@(item.Id)" class="qty-dropdown form-control">
+                        @foreach (var qty in item.AllowedQuantities)
+                        {
+                            <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" onchange="RefreshOrder()" class="qty-input form-control" />
+                }
+
+            }
+            else
+            {
+                <span>@item.Quantity</span>
+            }
+        </td>
+        <td class="subtotal nobr end">
+            <span class="product-subtotal">@item.SubTotal</span>
+            @if (!string.IsNullOrEmpty(item.Discount))
+            {
+                <div class="discount">
+                    @T("ShoppingCart.ItemYouSave", item.Discount)
+                </div>
+                if (item.MaximumDiscountedQty.HasValue)
+                {
+                    <div class="discount-additional-info">
+                        @T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value)
+                    </div>
+                }
+            }
+        </td>
+        @if (Model.IsEditable)
+        {
+            <td class="remove-from-cart">
+                @if (item.DisableRemoval)
+                {
+                    <text>&nbsp;</text>
+                }
+                else
+                {
+                    <span class="visible-xs hidden-lg hidden-md hidden-sm">@T("ShoppingCart.Remove")</span>
+                    <input type="checkbox" name="removefromcart" value="@(item.Id)" class="removefromcart" />
+                    <img class="removefromcartimg" src="~/Themes/BakeDelightsTheme/Content/images/remove-icon.png" data-productid="@(item.Id)">
+                }
+            </td>
+        }
+    </tr>
+    /* This code used only for mobile device */
+    <tr class="shopping-cart-small-wrapper visible-xs mobile-duplicate">
+        <td>
+            <div class="product-wrapper">
+
+                <div class="product-content-wrapper">
+                    <div class="product-image">
+                        @if (Model.ShowProductImages)
+                        {
+                            <div class="product-picture">
+                                <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+                            </div>
+                        }
+                    </div>
+                    <div class="product-name-sku">
+                        <div class="product">
+                            <a href="@Url.RouteUrl("Product", new {SeName = item.ProductSeName})" class="product-name">@item.ProductName</a>
+                            @if (!string.IsNullOrEmpty(item.AttributeInfo))
+                            {
+                                <div class="attributes">
+                                    @Html.Raw(item.AttributeInfo)
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RecurringInfo))
+                            {
+                                <div class="recurring-info">
+                                    @Html.Raw(item.RecurringInfo)
+                                </div>
+                            }
+                            @if (item.Warnings.Count > 0)
+                            {
+                                <div class="message-error">
+                                    <ul>
+                                        @for (int i = 0; i < item.Warnings.Count; i++)
+                                        {
+                                            <li>@item.Warnings[i]</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                        @if (Model.ShowSku)
+                        {
+                            <div class="sku nobr">
+                                @T("ShoppingCart.SKU"):
+                                @item.Sku
+                            </div>
+                        }
+                    </div>
+                    <div class="remove-addtocart-checkbox">
+                        @if (Model.IsEditable)
+                        {
+                            <div class="remove-from-cart">
+                                @if (item.DisableRemoval)
+                                {
+                                    <text>&nbsp;</text>
+                                }
+                                else
+                                {
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" name="removefromcart" value="@(item.Id)" id="@(item.Id)-res" class="removefromcart" />
+                                        <img class="removefromcartimg" src="~/Themes/BakeDelightsTheme/Content/images/remove-icon.png" data-productid="@(item.Id)">
+
+                                        <label for="@(item.Id)-res"></label>
+                                    </div>
+                                }
+                                @*<span>@T("ShoppingCart.Remove")</span>*@
+                            </div>
+                        }
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>
+                            @T("ShoppingCart.UnitPrice")
+                        </th>
+                        <th>
+                            @T("ShoppingCart.Quantity")
+                        </th>
+                        <th class="end">
+                            @T("ShoppingCart.ItemTotal")
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="cart-item-row">
+                        <td class="unit-price nobr">
+                            <span class="product-unit-price">@item.UnitPrice</span>
+                        </td>
+                        <td class="qty nobr">
+                            @if (Model.IsEditable)
+                            {
+                                if (item.AllowedQuantities.Count > 0)
+                                {
+                                    <select name="itemquantity@(item.Id)" class="qty-dropdown form-control">
+                                        @foreach (var qty in item.AllowedQuantities)
+                                        {
+                                            <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <input name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" onchange="RefreshOrder()" class="qty-input form-control" />
+                                }
+
+                            }
+                            else
+                            {
+                                <span>@item.Quantity</span>
+                            }
+                        </td>
+                        <td class="subtotal nobr end">
+                            <span class="product-subtotal">@item.SubTotal</span>
+                            @if (!string.IsNullOrEmpty(item.Discount))
+                            {
+                                <div class="discount">
+                                    @T("ShoppingCart.ItemYouSave"): @item.Discount
+                                </div>
+                                if (item.MaximumDiscountedQty.HasValue)
+                                {
+                                    <div class="discount-additional-info">
+                                        @T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value)
+                                    </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+<script type="text/javascript">
+    function RefreshOrder() {
+        var data = $('#shopping-cart-form').serialize();
+        $.ajax({
+            url: '@Url.Action("RefershCartItems", "ShoppingCart")',
+            dataType: 'json',
+            data: data,
+            type: 'POST',
+            success: function(resultdata) {
+                for (var i = 0; i < resultdata.Items.length; i++) {
+                    var item = '#troriginalitem' + resultdata.Items[i].Id + ' >td.subtotal.nobr.end';
+                    $(item).find('span.product-subtotal').replaceWith('<span class="product-subtotal">' +
+                        resultdata.Items[i].SubTotal +
+                        '</span>');
+
+                }
+                refreshtotalsorder(resultdata.IsEditable);
+            }
+        });
+    }
+
+    function refreshtotalsorder(iseditable) {
+        var ob = new Object();
+        ob.isEditable = iseditable;
+        var data = JSON.stringify(ob);
+
+        $.ajax({
+            url: '@Url.Action("RefershCartOrderTotals", "ShoppingCart")',
+            dataType: 'json',
+            data: ob,
+            type: 'POST',
+            success: function (ordertotalsresult) {
+
+                //refresh SubTotal
+                $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.SubTotal').replaceWith('<span class="product-price SubTotal">' +
+                    ordertotalsresult.SubTotal +
+                    '</span>');
+
+                //refresh SubTotalDiscount
+                if (ordertotalsresult.SubTotalDiscount != '') {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.SubTotalDiscount').replaceWith('<span class="product-price SubTotalDiscount">' +
+                        ordertotalsresult.SubTotalDiscount +
+                        '</span>');
+                }
+                //refresh Shipping
+                if (ordertotalsresult.Shipping != '') {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.Shipping').replaceWith('<span class="product-price Shipping">' +
+                        ordertotalsresult.Shipping +
+                        '</span>');
+                }
+
+                //refresh DisplayTax
+                if (ordertotalsresult.DisplayTax==true) {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.Tax').replaceWith('<span class="product-price Tax">' +
+                        ordertotalsresult.Tax +
+                        '</span>');
+                }
+                //refresh OrderTotalDiscount
+                if (ordertotalsresult.OrderTotalDiscount!='') {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.OrderTotalDiscount').replaceWith('<span class="product-price OrderTotalDiscount">' +
+                        ordertotalsresult.OrderTotalDiscount +
+                        '</span>');
+                }
+                //refresh RedeemedRewardPoints
+                if (ordertotalsresult.RedeemedRewardPoints>0) {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.RedeemedRewardPoints').replaceWith('<span class="product-price RedeemedRewardPoints">' +
+                        ordertotalsresult.RedeemedRewardPoints +
+                        '</span>');
+                }
+
+
+                //refresh RedeemedRewardPoints
+                if (ordertotalsresult.OrderTotal!='') {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.order-total').replaceWith('<span class="product-price order-total"><strong>' +
+                        ordertotalsresult.OrderTotal +
+                        '</strong></span>');
+                }
+
+                //refresh WillEarnRewardPoints
+                if (ordertotalsresult.WillEarnRewardPoints>0) {
+                    $('.cart-total.table.table-bordered >tbody >tr').find('span.product-price.WillEarnRewardPoints').replaceWith('<span class="product-price WillEarnRewardPoints">' +
+                        ordertotalsresult.WillEarnRewardPoints +
+                        '</span>');
+                }
+
+            }
+        });
+    }
+
+</script>
