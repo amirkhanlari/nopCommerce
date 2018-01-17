@@ -13,6 +13,10 @@
     <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />

@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework> 
+    <Copyright>Copyright © Nop Templates</Copyright> 
+    <Company>Nop Templates, Ltd</Company> 
+    <Authors>Nop Templates, Ltd</Authors> 
+    <Version>2.00</Version> 
+    <Description>This plugin allows you to access/create Nop resources outside of the system</Description> 
+    <PackageLicenseUrl></PackageLicenseUrl> 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Nop.Plugin.Api</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Nop.Plugin.Api</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+  </PropertyGroup>
+  
+  <!-- This target execute after "Build" target -->
+  <Target Name="NopTarget" AfterTargets="Build">
+     <!--Delete unnecessary libraries from plugins path--> 
+    <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+  </Target>
+  <ItemGroup>
+    <None Remove="Views\Clients\ClientSettings.cshtml" />
+    <None Remove="Views\Clients\Create.cshtml" />
+    <None Remove="Views\Clients\CreateOrUpdate.cshtml" />
+    <None Remove="Views\Clients\Edit.cshtml" />
+    <None Remove="Views\Clients\List.cshtml" />
+    <None Remove="Views\Clients\_ViewStart.cshtml" />
+    <None Remove="Views\Settings.cshtml" />
+    <None Remove="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Clients\ClientSettings.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Clients\Create.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Clients\CreateOrUpdate.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Clients\Edit.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Clients\List.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Settings.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation">
+      <Version>2.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="IdentityServer4.EntityFramework">
+      <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <Version>2.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj" />
+    <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="upgrade_script.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
