@@ -140,6 +140,90 @@ set @resources='
   <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.ProductReview.Reply.CustomerNotification">
     <Value><![CDATA[This message template is used to notify customers when a store owner (or vendor) replies to their product reviews. You can set up this option by ticking the checkbox <strong>Notify customer about product review reply</strong> in Configuration - Settings - Catalog settings.]]></Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPaid.AffiliateNotification">
+	  <Value>This message template is used to notify an affiliate that the certain order was paid. The order gets the status Paid when the amount was charged.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPlaced.AffiliateNotification">
+	  <Value>This message template is used to notify an affiliate that the certain order was placed.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Common.SaveChanges">
+	  <Value>Save changes</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Common.CancelChanges">
+	  <Value>Cancel changes</Value>
+  </LocaleResource>      
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts">
+    <Value>Used by products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Product">
+    <Value>Product</Value>
+  </LocaleResource>    
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Published">
+    <Value>Published</Value>
+  </LocaleResource>   
+  <LocaleResource Name="Admin.Configuration.Stores.Fields.SecureUrl">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Stores.Fields.SecureUrl.Hint">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Stores.Fields.Url.Hint">
+    <Value>The URL of your store e.g. http://www.yourstore.com/ or https://www.yourstore.com/mystore/.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductReviewsSortByCreatedDateAscending">
+	  <Value>Sort by ascending</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductReviewsSortByCreatedDateAscending.Hint">
+	  <Value>Check if the product reviews should be sorted by creation date as ascending</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ExportImportSplitProductsFile">
+    <Value>Export/Import products. Allow splitting file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ExportImportSplitProductsFile.Hint">
+    <Value>Check if you want to import products from individual files of the optimal size, which were automatically created from the main file. This function will help you import a large amount of data with a smaller delay.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.CurrentCarts.CartsAndWishlists">
+    <Value>Shopping carts and wishlists</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.CurrentCarts">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.CurrentWishlists">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.ShoppingCartType.ShoppingCartType">
+    <Value>Shopping cart type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ShoppingCartType.ShoppingCartType.Hint">
+    <Value>Choose a shopping cart type.</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Customers.Customers.CurrentShoppingCart">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Customers.Customers.ShoppingCartAndWishlist">
+    <Value>Shopping cart and wishlist</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.CurrentWishlist">
+    <Value></Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustmentUsePercentage">
+    <Value>Price adjustment. Use percentage</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustmentUsePercentage.Hint">
+    <Value>Determines whether to apply a percentage to the product. If not enabled, a fixed value is used.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustmentUsePercentage">
+    <Value>Price adjustment. Use percentage</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustmentUsePercentage.Hint">
+    <Value>Determines whether to apply a percentage to the product. If not enabled, a fixed value is used.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustment.Hint">
+    <Value>The price adjustment applied when choosing this attribute value. For example ''10'' to add 10 dollars. Or 10% if ''Use percentage'' is ticked.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustment.Hint">
+    <Value>The price adjustment applied when choosing this attribute value. For example ''10'' to add 10 dollars. Or 10% if ''Use percentage'' is ticked.</Value>
+  </LocaleResource> 
 </Language>
 '
 
@@ -306,4 +390,107 @@ BEGIN
 	INSERT [Setting] ([Name], [Value], [StoreId])
 	VALUES (N'catalogsettings.notifycustomeraboutproductreviewreply', N'false', 0)
 END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'catalogsettings.uselinksinrequiredproductwarnings')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'catalogsettings.uselinksinrequiredproductwarnings', N'true', 0)
+END
+GO
+
+-- new message template
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MessageTemplate] WHERE [Name] = N'OrderPlaced.AffiliateNotification')
+BEGIN
+    DECLARE @NewLine AS CHAR(2) = CHAR(13) + CHAR(10)
+    INSERT [dbo].[MessageTemplate] ([Name], [BccEmailAddresses], [Subject], [Body], [IsActive], [AttachedDownloadId], [EmailAccountId], [LimitedToStores], [DelayPeriodId]) 
+    VALUES (N'OrderPlaced.AffiliateNotification', NULL, N'%Store.Name%. Order placed', N'<p>' + @NewLine + '<a href=\"%Store.URL%\">%Store.Name%</a>' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + '%Customer.FullName% (%Customer.Email%) has just placed an order.' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + 'Order Number: %Order.OrderNumber%' + @NewLine + '<br />' + @NewLine + 'Date Ordered: %Order.CreatedOn%' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + '%Order.Product(s)%' + @NewLine + '</p>' + @NewLine, 0, 0, 0, 0, 0)
+END
+GO
+
+-- new message template
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MessageTemplate] WHERE [Name] = N'OrderPaid.AffiliateNotification')
+BEGIN
+    DECLARE @NewLine AS CHAR(2) = CHAR(13) + CHAR(10)
+    INSERT [dbo].[MessageTemplate] ([Name], [BccEmailAddresses], [Subject], [Body], [IsActive], [AttachedDownloadId], [EmailAccountId], [LimitedToStores], [DelayPeriodId]) 
+    VALUES (N'OrderPaid.AffiliateNotification', NULL, N'%Store.Name%. Order #%Order.OrderNumber% paid', N'<p>' + @NewLine + '<a href=\"%Store.URL%\">%Store.Name%</a>' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + 'Order #%Order.OrderNumber% has been just paid.' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + 'Order Number: %Order.OrderNumber%' + @NewLine + '<br />' + @NewLine + 'Date Ordered: %Order.CreatedOn%' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + '%Order.Product(s)%' + @NewLine + '</p>' + @NewLine, 0, 0, 0, 0, 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'securitysettings.allownonasciicharactersinheaders')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'securitysettings.allownonasciicharactersinheaders', N'true', 0)
+END
+GO
+
+--drop column
+IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id = object_id('[Store]') AND NAME='SecureUrl')
+BEGIN
+	ALTER TABLE [Store] DROP COLUMN [SecureUrl]
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'catalogsettings.exportimportsplitproductsfile')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'catalogsettings.exportimportsplitproductsfile', N'false', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'catalogsettings.productreviewssortbycreateddateascending')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'catalogsettings.productreviewssortbycreateddateascending', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'catalogsettings.exportimportproductscountinonefile')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'catalogsettings.exportimportproductscountinonefile', N'500', 0)
+END
+GO
+
+--new column
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[ProductAttributeValue]') and NAME='PriceAdjustmentUsePercentage')
+BEGIN
+	ALTER TABLE [ProductAttributeValue]
+	ADD [PriceAdjustmentUsePercentage] bit NULL
+END
+GO
+
+UPDATE [ProductAttributeValue]
+SET [PriceAdjustmentUsePercentage] = 0
+WHERE [PriceAdjustmentUsePercentage] IS NULL
+GO
+
+ALTER TABLE [ProductAttributeValue] ALTER COLUMN [PriceAdjustmentUsePercentage] bit NOT NULL
+GO
+
+--new column
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[PredefinedProductAttributeValue]') and NAME='PriceAdjustmentUsePercentage')
+BEGIN
+	ALTER TABLE PredefinedProductAttributeValue
+	ADD [PriceAdjustmentUsePercentage] bit NULL
+END
+GO
+
+UPDATE [PredefinedProductAttributeValue]
+SET [PriceAdjustmentUsePercentage] = 0
+WHERE [PriceAdjustmentUsePercentage] IS NULL
+GO
+
+ALTER TABLE [PredefinedProductAttributeValue] ALTER COLUMN [PriceAdjustmentUsePercentage] bit NOT NULL
+GO
+
+--updated setting
+UPDATE [Setting]
+SET [Value] = N'true'
+WHERE [Name] = N'commonsettings.usestoredprocedureforloadingcategories'
 GO

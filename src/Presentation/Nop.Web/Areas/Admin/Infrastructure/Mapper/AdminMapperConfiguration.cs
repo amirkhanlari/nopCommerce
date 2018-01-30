@@ -919,16 +919,19 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.ShowProductReviewsOnAccountPage_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductReviewsPageSizeOnAccountPage_OverrideForStore, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductReviewsSortByCreatedDateAscending_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportProductAttributes_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportProductSpecificationAttributes_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportProductCategoryBreadcrumb_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportCategoriesUsingCategoryName_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportAllowDownloadImages_OverrideForStore, mo => mo.Ignore())
-                .ForMember(dest => dest.Form, mo => mo.Ignore());
+                .ForMember(dest => dest.Form, mo => mo.Ignore())
+                .ForMember(dest => dest.ExportImportSplitProductsFile_OverrideForStore, mo => mo.Ignore());
             CreateMap<CatalogSettingsModel, CatalogSettings>()
                 .ForMember(dest => dest.PublishBackProductWhenCancellingOrders, mo => mo.Ignore())
                 .ForMember(dest => dest.DefaultProductRatingValue, mo => mo.Ignore())
                 .ForMember(dest => dest.IncludeFeaturedProductsInNormalLists, mo => mo.Ignore())
+                .ForMember(dest => dest.UseLinksInRequiredProductWarnings, mo => mo.Ignore())
                 .ForMember(dest => dest.AjaxProcessAttributeChange, mo => mo.Ignore())
                 .ForMember(dest => dest.MaximumBackInStockSubscriptions, mo => mo.Ignore())
                 .ForMember(dest => dest.DisplayTierPricesWithDiscounts, mo => mo.Ignore())
@@ -939,7 +942,8 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.DefaultManufacturerPageSize, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductSortingEnumDisabled, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductSortingEnumDisplayOrder, mo => mo.Ignore())
-                .ForMember(dest => dest.ExportImportUseDropdownlistsForAssociatedEntities, mo => mo.Ignore());
+                .ForMember(dest => dest.ExportImportUseDropdownlistsForAssociatedEntities, mo => mo.Ignore())
+                .ForMember(dest => dest.ExportImportProductsCountInOneFile, mo => mo.Ignore());
             CreateMap<RewardPointsSettings, RewardPointsSettingsModel>()
                 .ForMember(dest => dest.PrimaryStoreCurrencyCode, mo => mo.Ignore())
                 .ForMember(dest => dest.ActiveStoreScopeConfiguration, mo => mo.Ignore())

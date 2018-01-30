@@ -5620,6 +5620,15 @@ namespace Nop.Services.Installation
                 },
                 new MessageTemplate
                 {
+                    Name = MessageTemplateSystemNames.OrderPlacedAffiliateNotification,
+                    Subject = "%Store.Name%. Order placed",
+                    Body = $"<p>{Environment.NewLine}<a href=\"%Store.URL%\">%Store.Name%</a>{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}%Customer.FullName% (%Customer.Email%) has just placed an order.{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order Number: %Order.OrderNumber%{Environment.NewLine}<br />{Environment.NewLine}Date Ordered: %Order.CreatedOn%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}%Order.Product(s)%{Environment.NewLine}</p>{Environment.NewLine}",
+                    //this template is disabled by default
+                    IsActive = false,
+                    EmailAccountId = eaGeneral.Id,
+                },
+                new MessageTemplate
+                {
                     Name = MessageTemplateSystemNames.OrderRefundedCustomerNotification,
                     Subject = "%Store.Name%. Order #%Order.OrderNumber% refunded",
                     Body = $"<p>{Environment.NewLine}<a href=\"%Store.URL%\">%Store.Name%</a>{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Hello %Order.CustomerFullName%,{Environment.NewLine}<br />{Environment.NewLine}Thanks for buying from <a href=\"%Store.URL%\">%Store.Name%</a>. Order #%Order.OrderNumber% has been has been refunded. Please allow 7-14 days for the refund to be reflected in your account.{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Amount refunded: %Order.AmountRefunded%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Below is the summary of the order.{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order Number: %Order.OrderNumber%{Environment.NewLine}<br />{Environment.NewLine}Order Details: <a href=\"%Order.OrderURLForCustomer%\" target=\"_blank\">%Order.OrderURLForCustomer%</a>{Environment.NewLine}<br />{Environment.NewLine}Date Ordered: %Order.CreatedOn%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Billing Address{Environment.NewLine}<br />{Environment.NewLine}%Order.BillingFirstName% %Order.BillingLastName%{Environment.NewLine}<br />{Environment.NewLine}%Order.BillingAddress1%{Environment.NewLine}<br />{Environment.NewLine}%Order.BillingCity% %Order.BillingZipPostalCode%{Environment.NewLine}<br />{Environment.NewLine}%Order.BillingStateProvince% %Order.BillingCountry%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}%if (%Order.Shippable%) Shipping Address{Environment.NewLine}<br />{Environment.NewLine}%Order.ShippingFirstName% %Order.ShippingLastName%{Environment.NewLine}<br />{Environment.NewLine}%Order.ShippingAddress1%{Environment.NewLine}<br />{Environment.NewLine}%Order.ShippingCity% %Order.ShippingZipPostalCode%{Environment.NewLine}<br />{Environment.NewLine}%Order.ShippingStateProvince% %Order.ShippingCountry%{Environment.NewLine}<br />{Environment.NewLine}<br /{Environment.NewLine}>Shipping Method: %Order.ShippingMethod%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine} endif% %Order.Product(s)%{Environment.NewLine}</p>{Environment.NewLine}",
@@ -5657,6 +5666,15 @@ namespace Nop.Services.Installation
                 new MessageTemplate
                 {
                     Name = MessageTemplateSystemNames.OrderPaidVendorNotification,
+                    Subject = "%Store.Name%. Order #%Order.OrderNumber% paid",
+                    Body = $"<p>{Environment.NewLine}<a href=\"%Store.URL%\">%Store.Name%</a>{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order #%Order.OrderNumber% has been just paid.{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order Number: %Order.OrderNumber%{Environment.NewLine}<br />{Environment.NewLine}Date Ordered: %Order.CreatedOn%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}%Order.Product(s)%{Environment.NewLine}</p>{Environment.NewLine}",
+                    //this template is disabled by default
+                    IsActive = false,
+                    EmailAccountId = eaGeneral.Id,
+                },
+                new MessageTemplate
+                {
+                    Name = MessageTemplateSystemNames.OrderPaidAffiliateNotification,
                     Subject = "%Store.Name%. Order #%Order.OrderNumber% paid",
                     Body = $"<p>{Environment.NewLine}<a href=\"%Store.URL%\">%Store.Name%</a>{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order #%Order.OrderNumber% has been just paid.{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}Order Number: %Order.OrderNumber%{Environment.NewLine}<br />{Environment.NewLine}Date Ordered: %Order.CreatedOn%{Environment.NewLine}<br />{Environment.NewLine}<br />{Environment.NewLine}%Order.Product(s)%{Environment.NewLine}</p>{Environment.NewLine}",
                     //this template is disabled by default
@@ -5885,7 +5903,7 @@ namespace Nop.Services.Installation
             {
                 UseSystemEmailForContactUsForm = true,
                 UseStoredProceduresIfSupported = true,
-                UseStoredProcedureForLoadingCategories = false,
+                UseStoredProcedureForLoadingCategories = true,
                 SitemapEnabled = true,
                 SitemapIncludeCategories = true,
                 SitemapIncludeManufacturers = true,
@@ -6047,6 +6065,7 @@ namespace Nop.Services.Installation
                 IncludeShortDescriptionInCompareProducts = false,
                 IncludeFullDescriptionInCompareProducts = false,
                 IncludeFeaturedProductsInNormalLists = false,
+                UseLinksInRequiredProductWarnings = true,
                 DisplayTierPricesWithDiscounts = true,
                 IgnoreDiscounts = false,
                 IgnoreFeaturedProducts = false,
@@ -6069,9 +6088,12 @@ namespace Nop.Services.Installation
                 DefaultManufacturerPageSize = 6,
                 ShowProductReviewsTabOnAccountPage = true,
                 ProductReviewsPageSizeOnAccountPage = 10,
+                ProductReviewsSortByCreatedDateAscending = true,
                 ExportImportProductAttributes = true,
                 ExportImportProductSpecificationAttributes = true,
-                ExportImportUseDropdownlistsForAssociatedEntities = true
+                ExportImportUseDropdownlistsForAssociatedEntities = true,
+                ExportImportProductsCountInOneFile = 500,
+                ExportImportSplitProductsFile = false
             });
 
             settingService.SaveSetting(new LocalizationSettings
@@ -6303,7 +6325,8 @@ namespace Nop.Services.Installation
                 EnableXsrfProtectionForAdminArea = true,
                 EnableXsrfProtectionForPublicStore = true,
                 HoneypotEnabled = false,
-                HoneypotInputName = "hpinput"
+                HoneypotInputName = "hpinput",
+                AllowNonAsciiCharactersInHeaders = true
             });
 
             settingService.SaveSetting(new ShippingSettings

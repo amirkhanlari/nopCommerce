@@ -111,6 +111,10 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         public int ProductReviewsPageSizeOnAccountPage { get; set; }
         public bool ProductReviewsPageSizeOnAccountPage_OverrideForStore { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ProductReviewsSortByCreatedDateAscending")]
+        public bool ProductReviewsSortByCreatedDateAscending { get; set; }
+        public bool ProductReviewsSortByCreatedDateAscending_OverrideForStore { get; set; }
+
         [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.EmailAFriendEnabled")]
         public bool EmailAFriendEnabled { get; set; }
         public bool EmailAFriendEnabled_OverrideForStore { get; set; }
@@ -254,6 +258,10 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ExportImportAllowDownloadImages")]
         public bool ExportImportAllowDownloadImages { get; set; }
         public bool ExportImportAllowDownloadImages_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ExportImportSplitProductsFile")]
+        public bool ExportImportSplitProductsFile { get; set; }
+        public bool ExportImportSplitProductsFile_OverrideForStore { get; set; }
 
         [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.IgnoreDiscounts")]
         public bool IgnoreDiscounts { get; set; }

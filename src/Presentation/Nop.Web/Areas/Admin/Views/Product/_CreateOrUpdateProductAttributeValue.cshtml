@@ -37,12 +37,14 @@
         $('#group-customer-enters-qty').hide();
         $('#group-quantity').hide();
         $('#group-price-adjustment').show();
+        $('#group-price-adjustment-percentage').show();
         $('#group-weight-adjustment').show();
         $('#group-cost').show();
     } else if (selectedProductTypeId == @(((int) AttributeValueType.AssociatedToProduct).ToString())) {
         $('#group-associated-product').show();
         $('#group-customer-enters-qty').show();
         $('#group-price-adjustment').hide();
+        $('#group-price-adjustment-percentage').hide();
         $('#group-weight-adjustment').hide();
         $('#group-cost').hide();
         toggleCustomerEntersQty();
@@ -62,7 +64,7 @@
 <div class="content">
     <div class="form-horizontal">
         <div class="panel-group">
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_product_attribute_value_details_top", additionalData = Model })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.ProductAttributeValueDetailsTop, additionalData = Model })
             <div class="panel panel-default panel-popup panel-popup">
                 <div class="panel-body">
                     <div class="form-group">
@@ -187,6 +189,15 @@
                             <span asp-validation-for="PriceAdjustment"></span>
                         </div>
                     </div>
+                    <div class="form-group" id="group-price-adjustment-percentage">
+                        <div class="col-sm-3">
+                            <nop-label asp-for="PriceAdjustmentUsePercentage" />
+                        </div>
+                        <div class="col-sm-9">
+                            <nop-editor asp-for="PriceAdjustmentUsePercentage" />
+                            <span asp-validation-for="PriceAdjustmentUsePercentage"></span>
+                        </div>
+                    </div>
                     <div class="form-group" id="group-weight-adjustment">
                         <div class="col-sm-3">
                             <nop-label asp-for="WeightAdjustment" />
@@ -255,7 +266,7 @@
                     </div>
                 </div>
             </div>
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_product_attribute_value_details_bottom", additionalData = Model })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.ProductAttributeValueDetailsBottom, additionalData = Model })
         </div>
     </div>
 </div>

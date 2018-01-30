@@ -1792,8 +1792,14 @@
     <Value>Price adjustment</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustment.Hint">
-    <Value>The price adjustment applied when choosing this attribute value e.g. '10' to add 10 dollars.</Value>
+    <Value>The price adjustment applied when choosing this attribute value. For example '10' to add 10 dollars. Or 10% if 'Use percentage' is ticked.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustmentUsePercentage">
+    <Value>Price adjustment. Use percentage</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.PriceAdjustmentUsePercentage.Hint">
+    <Value>Determines whether to apply a percentage to the product. If not enabled, a fixed value is used.</Value>
+  </LocaleResource>   
   <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.PredefinedValues.Fields.WeightAdjustment">
     <Value>Weight adjustment</Value>
   </LocaleResource>
@@ -1860,6 +1866,15 @@
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Info">
     <Value>Attribute info</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts">
+    <Value>Used by products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Product">
+    <Value>Product</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Published">
+    <Value>Published</Value>
+  </LocaleResource>  
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options">
     <Value>Options</Value>
   </LocaleResource>
@@ -3667,7 +3682,13 @@
     <Value>Price adjustment</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustment.Hint">
-    <Value>The price adjustment applied when choosing this attribute value e.g. '10' to add 10 dollars.</Value>
+    <Value>The price adjustment applied when choosing this attribute value. For example '10' to add 10 dollars. Or 10% if 'Use percentage' is ticked.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustmentUsePercentage">
+    <Value>Price adjustment. Use percentage</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustmentUsePercentage.Hint">
+    <Value>Determines whether to apply a percentage to the product. If not enabled, a fixed value is used.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.Quantity">
     <Value>Product quantity</Value>
@@ -3966,6 +3987,9 @@
   <LocaleResource Name="Admin.Common.Cancel">
     <Value>Cancel</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Common.CancelChanges">
+    <Value>Cancel changes</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Common.Change">
     <Value>Change</Value>
   </LocaleResource>
@@ -4058,6 +4082,9 @@
   </LocaleResource>
   <LocaleResource Name="Admin.Common.Save">
     <Value>Save</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Common.SaveChanges">
+    <Value>Save changes</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Common.SaveContinue">
     <Value>Save and Continue Edit</Value>
@@ -5349,6 +5376,12 @@
   <LocaleResource Name="Admin.Configuration.Settings.Catalog.ExportImportProductCategoryBreadcrumb.Hint">
     <Value>Check if products should be exported/imported with a full category name including names of all its parents.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ExportImportSplitProductsFile">
+    <Value>Export/Import products. Allow splitting file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ExportImportSplitProductsFile.Hint">
+    <Value>Check if you want to import products from individual files of the optimal size, which were automatically created from the main file. This function will help you import a large amount of data with a smaller delay.</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Settings.Catalog.IgnoreDiscounts">
     <Value>Ignore discounts (sitewide)</Value>
   </LocaleResource>
@@ -5445,6 +5478,12 @@
   <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductReviewsMustBeApproved.Hint">
     <Value>Check if product reviews must be approved by administrator.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductReviewsSortByCreatedDateAscending">
+    <Value>Sort by ascending</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductReviewsSortByCreatedDateAscending.Hint">
+    <Value>Check if the product reviews should be sorted by creation date as ascending</Value>
+  </LocaleResource>      
   <LocaleResource Name="Admin.Configuration.Settings.Catalog.ProductsAlsoPurchasedEnabled">
     <Value>'Products also purchased' enabled</Value>
   </LocaleResource>
@@ -8355,12 +8394,6 @@
   <LocaleResource Name="Admin.Configuration.Stores.Fields.Name.Required">
     <Value>Please provide a name.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Configuration.Stores.Fields.SecureUrl">
-    <Value>Secure URL</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Configuration.Stores.Fields.SecureUrl.Hint">
-    <Value>The secure URL of your store e.g. https://www.yourstore.com/ or http://sharedssl.yourstore.com/. Leave it empty if you want nopCommerce to detect secure URL automatically.</Value>
-  </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Stores.Fields.SslEnabled">
     <Value>SSL enabled</Value>
   </LocaleResource>
@@ -8374,7 +8407,7 @@
     <Value>Store URL</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Stores.Fields.Url.Hint">
-    <Value>The URL of your store e.g. http://www.yourstore.com/.</Value>
+    <Value>The URL of your store e.g. http://www.yourstore.com/ or https://www.yourstore.com/mystore/.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Stores.Fields.Url.Required">
     <Value>Please provide a store URL.</Value>
@@ -8793,6 +8826,9 @@
   <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderCompleted.CustomerNotification">
 	  <Value>This message template is used to notify a customer that the certain order was completed. The order gets the order status Complete when it''s paid and delivered, or it can be changed manually to Complete in Sales - Orders.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPaid.AffiliateNotification">
+    <Value>This message template is used to notify an affiliate that the certain order was paid. The order gets the status Paid when the amount was charged.</Value>
+  </LocaleResource>   
   <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPaid.CustomerNotification">
 	  <Value>This message template is used to notify a customer that the certain order was paid. The order gets the payment status Paid when the amount was charged, or it can be changed manually Sales - Orders by clicking Mark as paid button in Payment status.</Value>
   </LocaleResource>
@@ -8802,6 +8838,9 @@
   <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPaid.VendorNotification">
 	  <Value>This message template is used to notify a vendor that the certain order was paid. The order gets the status Paid when the amount was charged.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPlaced.AffiliateNotification">
+    <Value>This message template is used to notify an affiliate that the certain order was placed.</Value>
+  </LocaleResource>    
   <LocaleResource Name="Admin.ContentManagement.MessageTemplates.Description.OrderPlaced.CustomerNotification">
 	  <Value>This message template is used to notify a customer that the certain order was placed. Orders can be viewed by a customer on the account page.</Value>
   </LocaleResource>
@@ -9477,8 +9516,8 @@
   <LocaleResource Name="Admin.ContentManagement.Widgets.Fields.SystemName">
     <Value>System name</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.CurrentCarts">
-    <Value>Current shopping carts</Value>
+  <LocaleResource Name="Admin.CurrentCarts.CartsAndWishlists">
+    <Value>Shopping carts and wishlists</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.CurrentCarts.Customer">
     <Value>Customer</Value>
@@ -9491,7 +9530,7 @@
   </LocaleResource>
   <LocaleResource Name="Admin.CurrentCarts.Store">
     <Value>Store</Value>
-  </LocaleResource>
+  </LocaleResource>  
   <LocaleResource Name="Admin.CurrentCarts.Total">
     <Value>Total</Value>
   </LocaleResource>
@@ -9503,9 +9542,6 @@
   </LocaleResource>
   <LocaleResource Name="Admin.CurrentCarts.UpdatedOn">
     <Value>Updated on</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.CurrentWishlists">
-    <Value>Current wishlists</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Customers">
     <Value>Customers</Value>
@@ -9798,11 +9834,8 @@
   <LocaleResource Name="Admin.Customers.Customers.OnlyAdminCanDeleteAdmin">
     <Value>You're not allowed to delete administrators. Only administrators can do it.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Customers.Customers.CurrentShoppingCart">
+  <LocaleResource Name="Admin.Customers.Customers.ShoppingCartAndWishlist">
     <Value>Current shopping cart</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Customers.Customers.CurrentWishlist">
-    <Value>Current wishlist</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Customers.Customers.Deleted">
     <Value>The customer has been deleted successfully.</Value>
@@ -12591,6 +12624,12 @@
   <LocaleResource Name="Admin.SearchTermReport.Keyword">
     <Value>Keyword</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.ShoppingCartType.ShoppingCartType">
+    <Value>Shopping cart type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ShoppingCartType.ShoppingCartType.Hint">
+    <Value>Choose a shopping cart type.</Value>
+  </LocaleResource>    
   <LocaleResource Name="Admin.StockQuantityHistory.Messages.CancelOrder">
     <Value>The stock quantity has been increased by canceling the order #{0}</Value>
   </LocaleResource>

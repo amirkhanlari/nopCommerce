@@ -21,7 +21,7 @@
 <div class="content">
     <div class="row">
         <div class="col-md-12">
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_top" })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardTop })
             @if (!Model.IsLoggedInAsVendor)
             {
                 <div class="row">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_news_after" })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardNewsAfter })
             @if (!Model.IsLoggedInAsVendor && canManageOrders && canManageCustomers && canManageProducts && canManageReturnRequests)
             {
                 <div class="row">
@@ -39,48 +39,38 @@
                     </div>
                 </div>
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_commonstatistics_after" })
-            @if (!Model.IsLoggedInAsVendor && ( canManageOrders || canManageCustomers ))
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardCommonstatisticsAfter })
+            @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageCustomers))
             {
                 <div class="row">
-
                     @if (!Model.IsLoggedInAsVendor && canManageOrders)
                     {
                         <div class="col-md-6">
                             @await Html.PartialAsync("_OrderStatistics")
                         </div>
-
                     }
-
                     @if (!Model.IsLoggedInAsVendor && canManageCustomers)
                     {
-
                         <div class="col-md-6">
                             @await Html.PartialAsync("_CustomerStatistics")
                         </div>
-
                     }
                 </div>
-
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_customerordercharts_after" })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardCustomerorderchartsAfter })
             @if (!Model.IsLoggedInAsVendor && canManageOrders)
             {
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         @await Html.PartialAsync("_OrderAverageReport")
                     </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         @await Html.PartialAsync("_OrderIncompleteReport")
                     </div>
                 </div>
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_orderreports_after" })
-            @if (!Model.IsLoggedInAsVendor && ( canManageOrders || canManageProducts ))
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardOrderreportsAfter })
+            @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageProducts))
             {
                 <div class="row">
                     @if (canManageOrders)
@@ -97,7 +87,7 @@
                     </div>
                 </div>
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_latestorders_searchterms_after" })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardLatestordersSearchtermsAfter })
             @if (canManageOrders)
             {
                 <div class="row">
@@ -109,7 +99,7 @@
                     </div>
                 </div>
             }
-            @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_dashboard_bottom" })
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardBottom })
         </div>
     </div>
 </div>
