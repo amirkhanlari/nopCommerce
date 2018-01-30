@@ -26,22 +26,34 @@
             }
             else
             {
-                <div id="home-category-slider" class="home-category-slider">
+                <div id="home-category-slider" class="home-category-slider owl-carousel owl-theme" style="opacity: 1; display: block;">
+                    <div class="owl-wrapper-outer">
+                        <div class="owl-wrapper">
                     @foreach (var item in Model)
                     {
-                        <div class="item-box col-xs-12 col-sm-12 col-md-12">
-                            <div class="category-item product-category-item">
-                                <div class="picture">
-                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title" class="product-img">
-                                        <img class="owl-lazy" data-src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
-                                    </a>
-                                    <div class="title">
-                                        <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title"> @item.Name</a>
+                        <div class="owl-item">
+                                
+
+                            <div class="item-box col-xs-12 col-sm-12 col-md-12">
+                                <div class="category-item product-category-item">
+                                    <div class="picture">
+                                        <div class="img-scale">
+                                            <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title" class="product-img">
+                                                <img class="owl-lazy" data-src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title"/>
+                                            </a>
+                                        </div>
+                                        <div class="title">
+                                            <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title"> @item.Name</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     }
+                        </div>
+                    </div>
+
                 </div>
             }
         </div>

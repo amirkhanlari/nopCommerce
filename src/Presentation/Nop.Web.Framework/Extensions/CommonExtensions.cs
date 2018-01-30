@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Infrastructure;
 using Nop.Services.Helpers;
+using Nop.Services.Localization;
 using Nop.Web.Framework.Kendoui;
 
 namespace Nop.Web.Framework.Extensions
@@ -76,46 +77,47 @@ namespace Nop.Web.Framework.Extensions
 
             if (delta > 0)
             {
+                var locService = EngineContext.Current.Resolve<ILocalizationService>();
                 if (delta < 60) // 60 (seconds)
                 {
-                    result = ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
+                    result = ts.Seconds == 1 ? locService.GetResource("Common.one_second_ago") : ts.Seconds +" "+ locService.GetResource("Common.second_ago");
                 }
                 else if (delta < 120) //2 (minutes) * 60 (seconds)
                 {
-                    result = "a minute ago";
+                    result = locService.GetResource("Common.a_minute_ago");
                 }
                 else if (delta < 2700) // 45 (minutes) * 60 (seconds)
                 {
-                    result = ts.Minutes + " minutes ago";
+                    result = ts.Minutes +" "+ locService.GetResource("Common.minute_ago");
                 }
                 else if (delta < 5400) // 90 (minutes) * 60 (seconds)
                 {
-                    result = "an hour ago";
+                    result = locService.GetResource("Common.a_hour_ago");
                 }
                 else if (delta < 86400) // 24 (hours) * 60 (minutes) * 60 (seconds)
                 {
                     var hours = ts.Hours;
                     if (hours == 1)
                         hours = 2;
-                    result = hours + " hours ago";
+                    result = hours +" "+ locService.GetResource("Common.hour_ago");
                 }
                 else if (delta < 172800) // 48 (hours) * 60 (minutes) * 60 (seconds)
                 {
-                    result = "yesterday";
+                    result = locService.GetResource("Common.yesterday");
                 }
                 else if (delta < 2592000) // 30 (days) * 24 (hours) * 60 (minutes) * 60 (seconds)
                 {
-                    result = ts.Days + " days ago";
+                    result = ts.Days +" "+ locService.GetResource("Common.Days");
                 }
                 else if (delta < 31104000) // 12 (months) * 30 (days) * 24 (hours) * 60 (minutes) * 60 (seconds)
                 {
                     var months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                    result = months <= 1 ? "one month ago" : months + " months ago";
+                    result = months <= 1 ? locService.GetResource("Common.one_month_ago") : months +" "+ locService.GetResource("Common.month_ago");
                 }
                 else
                 {
                     var years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-                    result = years <= 1 ? "one year ago" : years + " years ago";
+                    result = years <= 1 ? locService.GetResource("Common.one_year_ago"): years + " " + locService.GetResource("Common.year_ago");
                 }
             }
             else
