@@ -16,7 +16,7 @@ namespace Nop.Plugin.Api.Validators
                     .WithMessage("invalid category_id")
                     .DependentRules(mapping =>
                     {
-                        mapping.RuleFor(a => a.ProductId)
+                        RuleFor(a => a.ProductId)
                             .Must(productId => productId > 0)
                             .WithMessage("invalid product_id");
                     });

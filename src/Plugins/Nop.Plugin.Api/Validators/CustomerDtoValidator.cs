@@ -86,7 +86,7 @@ namespace Nop.Plugin.Api.Validators
                    .NotNull()
                    .Must(roles => roles.Count > 0)
                    .WithMessage("role_ids required")
-                   .DependentRules(dependentRules => dependentRules.RuleFor(dto => dto.RoleIds)
+                   .DependentRules(dependentRules => RuleFor(dto => dto.RoleIds)
                        .Must(roleIds =>
                        {
                            if (customerRoles == null)
@@ -101,7 +101,7 @@ namespace Nop.Plugin.Api.Validators
                            return !isInGuestAndRegisterRoles;
                        })
                        .WithMessage("must not be in guest and register roles simultaneously")
-                       .DependentRules(dependentRule => dependentRules.RuleFor(dto => dto.RoleIds)
+                       .DependentRules(dependentRule => RuleFor(dto => dto.RoleIds)
                             .Must(roleIds =>
                             {
                                 if (customerRoles == null)

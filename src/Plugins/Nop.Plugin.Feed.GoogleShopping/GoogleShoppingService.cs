@@ -329,7 +329,7 @@ namespace Nop.Plugin.Feed.GoogleShopping
                         //up to 10 pictures
                         const int maximumPictures = 10;
                         var storeLocation = _securitySettings.ForceSslForAllPages ? 
-                            (!string.IsNullOrWhiteSpace(store.SecureUrl) ? store.SecureUrl : store.Url.Replace("http://", "https://")): 
+                            (!string.IsNullOrWhiteSpace(store.Url) ?  store.Url.Replace("http://", "https://"):""): 
                             store.Url;
                         var pictures = _pictureService.GetPicturesByProductId(product.Id, maximumPictures);
                         for (int i = 0; i < pictures.Count; i++)

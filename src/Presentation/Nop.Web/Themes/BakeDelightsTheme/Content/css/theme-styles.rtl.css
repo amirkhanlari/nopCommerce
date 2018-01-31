@@ -738,39 +738,27 @@ form#small-search-box-form .form-group {
     margin-bottom: 20px;
 }
 
-.main-menu.goToTop .navbar.navbar-inverse.category-menu {
+.navbar.navbar-inverse.category-menu {
     margin: 0 auto;
     width: 1140px !important;
 }
 
-.header-menu .main-menu {
-    left: 0px;
-    background: url(../images/menubar-background.jpg);
+.main-menu.goToTop {
+    margin: 0 auto !important;
     width: 100% !important;
+}
+
+.header-menu .main-menu {
+    padding: 0px !important;
+    margin: 0px 10px 0px 15px !important;
+    right: 0px;
+    background: url(../images/menubar-background.jpg);
+    width: 1283px !important;
     transition: all 0.5s ease-in-out 0s;
 }
 
-    .header-menu .main-menu::before {
-        content: "";
-        float: left;
-        background: url(../images/menubar-left.png) no-repeat left center;
-        height: 65px;
-        width: 120px;
-        position: absolute;
-        left: -90px;
-        top: 0;
-    }
 
-    .header-menu .main-menu::after {
-        content: "";
-        float: right;
-        background: url(../images/menubar-right.png) no-repeat right center;
-        height: 65px;
-        width: 120px;
-        position: absolute;
-        right: -90px;
-        top: 0;
-    }
+
 
 .main-menu.goToTop {
     right: 0px;
@@ -814,10 +802,11 @@ form#small-search-box-form .form-group {
         margin-right: 05px;
     }
 
-#index-page .header-menu { /* background:url(../images/main-menubar-background.png); */
-    margin-bottom: 0px;
-    width: 95%;
-    margin-right: 25px;
+#index-page .header-menu {
+    /* background:url(../images/main-menubar-background.png); */
+    /* margin: 0px 11px 0px 15px; */
+    width: 100%;
+    /* margin-right: 25px; */
 }
 
 .theme-custom .nivo-controlNav a {
@@ -1676,19 +1665,19 @@ div#newsletter-subscribe-block .options {
 
 .owl-next {
     background: url("../images/next-arrow.png") no-repeat scroll 0 0;
-    float: right;
+    float: left;
     height: 50px;
     position: absolute;
-    right: -70px;
+    left: -70px;
     text-indent: -9999px;
     width: 70px;
 }
 
 .owl-prev {
     background: url("../images/previous-arrow.png") no-repeat scroll 0 0;
-    float: right;
+    float: left;
     height: 50px;
-    left: -70px;
+    right: -70px;
     position: absolute;
     text-indent: -9999px;
     width: 70px;

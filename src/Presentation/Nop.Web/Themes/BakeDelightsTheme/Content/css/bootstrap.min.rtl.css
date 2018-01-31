@@ -1854,7 +1854,7 @@ pre {
 
 @media (min-width:1200px) {
     .container {
-        width: 1170px
+        width: 100%;
     }
 }
 
@@ -4622,6 +4622,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     padding-bottom: 10px;
     width: 100%;
 }
+
 .product-details-page .product-specs-box .panel {
     border: none
 }
@@ -6562,27 +6563,27 @@ a.list-group-item-danger, button.list-group-item-danger {
     float: right;
 }
 
-.wishlist-page .share-info .share-label {
-    font-weight: 700;
-}
+    .wishlist-page .share-info .share-label {
+        font-weight: 700;
+    }
 
 .wishlist-page .buttons .common-buttons {
     overflow: hidden;
     margin: 30px 0px;
 }
 
-.wishlist-page .buttons .common-buttons .btn.btn-primary, .wishlist-page .buttons .common-buttons .btn.btn-default {
-    text-transform: uppercase;
-}
+    .wishlist-page .buttons .common-buttons .btn.btn-primary, .wishlist-page .buttons .common-buttons .btn.btn-default {
+        text-transform: uppercase;
+    }
 
 .wishlist-page .share-info a.share-link {
     color: #2d9c6d;
     text-decoration: none;
 }
 
-.wishlist-page .share-info a.share-link:hover {
-    color: #303133;
-}
+    .wishlist-page .share-info a.share-link:hover {
+        color: #303133;
+    }
 
 .wishlist-page .buttons .common-buttons .email-a-friend-wishlist-button {
     background: url(../images/wishlist-email-icon.png) no-repeat 20px 11px #555555;
@@ -6590,9 +6591,9 @@ a.list-group-item-danger, button.list-group-item-danger {
     text-transform: uppercase;
 }
 
-.wishlist-page .buttons .common-buttons .email-a-friend-wishlist-button:hover {
-    background: url(../images/wishlist-email-icon.png) no-repeat 20px 11px #2d9c6d;
-}
+    .wishlist-page .buttons .common-buttons .email-a-friend-wishlist-button:hover {
+        background: url(../images/wishlist-email-icon.png) no-repeat 20px 11px #2d9c6d;
+    }
 
 .wishlist-page .buttons .common-buttons .wishlist-add-to-cart-button {
     background: url(../images/product-cart-icon.png) no-repeat 20px center #2d9c6d;
@@ -6600,9 +6601,9 @@ a.list-group-item-danger, button.list-group-item-danger {
     padding-left: 50px;
 }
 
-.wishlist-page .buttons .common-buttons .wishlist-add-to-cart-button:hover {
-    background: url(../images/product-cart-icon.png) no-repeat 20px center #555555;
-}
+    .wishlist-page .buttons .common-buttons .wishlist-add-to-cart-button:hover {
+        background: url(../images/product-cart-icon.png) no-repeat 20px center #555555;
+    }
 
 .terms-of-service label {
     font-weight: normal;
@@ -6619,6 +6620,7 @@ a.list-group-item-danger, button.list-group-item-danger {
 .removefromcart {
     display: none;
 }
+
 .panel-warning {
     border-color: #faebcc
 }
