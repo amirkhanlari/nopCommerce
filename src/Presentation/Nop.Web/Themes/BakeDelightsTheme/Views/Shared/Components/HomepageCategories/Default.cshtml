@@ -26,47 +26,31 @@
             }
             else
             {
-                <div id="home-category-slider" class="home-category-slider owl-carousel owl-theme" style="opacity: 1; display: block;">
-                    <div class="owl-wrapper-outer">
-                        <div class="owl-wrapper" style="width: 3900px; left: 0px; display: block; transition: all 200ms ease; transform: translate3d(-390px, 0px, 0px);">
-                            @foreach (var item in Model)
-                            {
-                                <div class="owl-item" style="width: 390px;">
+                <div id="home-category-slider" class="home-category-slider owl-carousel owl-theme">
+                    @foreach (var item in Model)
+                    {
+                        <div class="owl-item">
 
 
-                                    <div class="item-box col-xs-12 col-sm-12 col-md-12">
-                                        <div class="category-item product-category-item">
-                                            <div class="picture">
-                                                <div class="img-scale">
-                                                    <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title" class="product-img">
-                                                        <img class="owl-lazy" data-src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
-                                                    </a>
-                                                </div>
-                                                <div class="title">
-                                                    <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title"> @item.Name</a>
-                                                </div>
+                            <div class="item-box product-grid col-xs-12 col-sm-12 col-md-12 clearfix">
+                                <div class="thumbnail">
+                                    <div class="category-item product-category-item clearfix">
+                                        <div class="picture">
+                                            <div class="img-scale">
+                                                <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title" class="product-img">
+                                                    <img class="owl-lazy" data-src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title"/>
+                                                </a>
+                                            </div>
+                                            <div class="title">
+                                                <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title"> @item.Name</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            }
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-
-                <div class="owl-controls clickable">
-                    <div class="owl-pagination">
-                        <div class="owl-page active"><span class=""></span>
-                        </div>
-                        <div class="owl-page"><span class=""></span>
-                        </div>
-                    </div>
-                    <div class="owl-buttons">
-                        <div class="owl-prev">prev</div>
-                        <div class="owl-next">next</div>
-                    </div>
+                    }
                 </div>
             }
         </div>

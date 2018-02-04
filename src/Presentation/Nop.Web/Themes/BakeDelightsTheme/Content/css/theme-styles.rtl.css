@@ -1581,69 +1581,6 @@ div#newsletter-subscribe-block .options {
 
 
 
-/* PRODUCT SLIDER STYLE */
-.owl-carousel .owl-wrapper:after {
-    content: ".";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
-}
-
-.owl-carousel {
-    display: none;
-    position: relative;
-    width: 100%;
-    -ms-touch-action: pan-y;
-}
-
-    .owl-carousel .owl-wrapper {
-        display: none;
-        position: relative;
-        -webkit-transform: translate3d(0px, 0px, 0px);
-    }
-
-    .owl-carousel .owl-wrapper-outer {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-    }
-
-        .owl-carousel .owl-wrapper-outer.autoHeight {
-            -webkit-transition: height 500ms ease-in-out;
-            -moz-transition: height 500ms ease-in-out;
-            -ms-transition: height 500ms ease-in-out;
-            -o-transition: height 500ms ease-in-out;
-            transition: height 500ms ease-in-out;
-        }
-
-    .owl-carousel .owl-item {
-        float: right;
-    }
-
-.owl-controls .owl-page,
-.owl-controls .owl-buttons div {
-    cursor: pointer;
-}
-
-.owl-controls {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.owl-carousel .owl-wrapper,
-.owl-carousel .owl-item {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-}
 
 .owl-carousel.owl-theme {
     position: relative;
@@ -1662,64 +1599,6 @@ div#newsletter-subscribe-block .options {
 .product-grid.cross-sells {
     margin-top: 20px;
 }
-
-.owl-next {
-    background: url("../images/next-arrow.png") no-repeat scroll 0 0;
-    float: left;
-    height: 50px;
-    position: absolute;
-    left: -70px;
-    text-indent: -9999px;
-    width: 70px;
-}
-
-.owl-prev {
-    background: url("../images/previous-arrow.png") no-repeat scroll 0 0;
-    float: left;
-    height: 50px;
-    right: -70px;
-    position: absolute;
-    text-indent: -9999px;
-    width: 70px;
-}
-
-.owl-next:hover {
-    background: url("../images/next-arrow.png") no-repeat scroll 0px -70px;
-}
-
-.owl-prev:hover {
-    background: url("../images/previous-arrow.png") no-repeat scroll 0px -70px;
-}
-
-.picture-thumbs .owl-next {
-    background: url("../images/thumb-next-slider.png") no-repeat scroll 0 0;
-    float: right;
-    height: 30px;
-    position: absolute;
-    right: -70px;
-    text-indent: -9999px;
-    width: 30px;
-}
-
-.picture-thumbs .owl-prev {
-    background: url("../images/thumb-prev-slider.png") no-repeat scroll 0 0;
-    float: right;
-    height: 30px;
-    left: -70px;
-    position: absolute;
-    text-indent: -9999px;
-    width: 30px;
-}
-
-.picture-thumbs .owl-next:hover {
-    background: url("../images/thumb-next-slider.png") no-repeat scroll 0px -50px;
-}
-
-.picture-thumbs .owl-prev:hover {
-    background: url("../images/thumb-prev-slider.png") no-repeat scroll 0px -50px;
-}
-
-
 
 /* CATEGORY BOX STYLE*/
 .product-category-item .picture, .product-category-item .img-scale {
