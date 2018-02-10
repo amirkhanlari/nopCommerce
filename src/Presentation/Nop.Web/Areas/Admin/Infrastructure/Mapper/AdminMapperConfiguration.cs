@@ -79,6 +79,8 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.CountryEnabled, mo => mo.Ignore())
                 .ForMember(dest => dest.CountryRequired, mo => mo.Ignore())
                 .ForMember(dest => dest.StateProvinceEnabled, mo => mo.Ignore())
+                .ForMember(dest => dest.CountyEnabled, mo => mo.Ignore())
+                .ForMember(dest => dest.CountyRequired, mo => mo.Ignore())
                 .ForMember(dest => dest.CityEnabled, mo => mo.Ignore())
                 .ForMember(dest => dest.CityRequired, mo => mo.Ignore())
                 .ForMember(dest => dest.StreetAddressEnabled, mo => mo.Ignore())
@@ -265,6 +267,15 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             CreateMap<VendorModel, Vendor>()
                 .ForMember(dest => dest.VendorNotes, mo => mo.Ignore())
                 .ForMember(dest => dest.Deleted, mo => mo.Ignore());
+            //vendor attributes
+            CreateMap<VendorAttribute, VendorAttributeModel>()
+                .ForMember(dest => dest.AttributeControlTypeName, mo => mo.Ignore())
+                .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
+                .ForMember(dest => dest.Form, mo => mo.Ignore());
+            CreateMap<VendorAttributeModel, VendorAttribute>()
+                .ForMember(dest => dest.AttributeControlType, mo => mo.Ignore())
+                .ForMember(dest => dest.VendorAttributeValues, mo => mo.Ignore());
 
             //products
             CreateMap<Product, ProductModel>()
@@ -855,7 +866,8 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.ActiveShippingRateComputationMethodSystemNames, mo => mo.Ignore())
                 .ForMember(dest => dest.ActivePickupPointProviderSystemNames, mo => mo.Ignore())
                 .ForMember(dest => dest.ReturnValidOptionsIfThereAreAny, mo => mo.Ignore())
-                .ForMember(dest => dest.UseCubeRootMethod, mo => mo.Ignore());
+                .ForMember(dest => dest.UseCubeRootMethod, mo => mo.Ignore())
+                .ForMember(dest => dest.ShipSeparatelyOneItemEach, mo => mo.Ignore());
             CreateMap<CatalogSettings, CatalogSettingsModel>()
                 .ForMember(dest => dest.ActiveStoreScopeConfiguration, mo => mo.Ignore())
                 .ForMember(dest => dest.AllowViewUnpublishedProductPage_OverrideForStore, mo => mo.Ignore())

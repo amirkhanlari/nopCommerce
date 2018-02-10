@@ -224,6 +224,270 @@ set @resources='
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.PriceAdjustment.Hint">
     <Value>The price adjustment applied when choosing this attribute value. For example ''10'' to add 10 dollars. Or 10% if ''Use percentage'' is ticked.</Value>
   </LocaleResource> 
+  <LocaleResource Name="Admin.Vendors.VendorAttributes">
+    <Value>Vendor attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Added">
+    <Value>The new attribute has been added successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.AddNew">
+    <Value>Add new vendor attribute</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.BackToList">
+    <Value>back to vendor settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Deleted">
+    <Value>The attribute has been deleted successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Description">
+    <Value>You can manage additional vendor attributes below.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.EditAttributeDetails">
+    <Value>Edit vendor attribute details</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.AttributeControlType">
+    <Value>Control type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.AttributeControlType.Hint">
+    <Value>Choose how to display your attribute values.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.DisplayOrder">
+    <Value>Display order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.DisplayOrder.Hint">
+    <Value>The vendor attribute display order. 1 represents the first item in the list.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.IsRequired">
+    <Value>Required</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.IsRequired.Hint">
+    <Value>When an attribute is required, vendors must choose an appropriate attribute value before they can continue.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.Name">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.Name.Hint">
+    <Value>The name of the vendor attribute.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Fields.Name.Required">
+    <Value>Please provide a name.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Info">
+    <Value>Attribute info</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Updated">
+    <Value>The attribute has been updated successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values">
+    <Value>Attribute values</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.AddNew">
+    <Value>Add a new attribute value</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.EditValueDetails">
+    <Value>Edit attribute value details</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.DisplayOrder">
+    <Value>Display order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.DisplayOrder.Hint">
+    <Value>The display order of the attribute value. 1 represents the first item in attribute value list.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.IsPreSelected">
+    <Value>Pre-selected</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.IsPreSelected.Hint">
+    <Value>Determines whether this attribute value is pre-selected.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.Name">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.Name.Hint">
+    <Value>The name of the vendor attribute value.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.Fields.Name.Required">
+    <Value>Please provide a name.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Vendors.VendorAttributes.Values.SaveBeforeEdit">
+    <Value>You need to save the vendor attribute before you can add values for it.</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.AddNewVendorAttribute">
+    <Value>Added a new vendor attribute (ID = {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.AddNewVendorAttributeValue">
+    <Value>Added a new vendor attribute value (ID = {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.DeleteVendorAttribute">
+    <Value>Deleted a vendor attribute (ID = {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.DeleteVendorAttributeValue">
+    <Value>Deleted a vendor attribute value (ID = {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.EditVendorAttribute">
+    <Value>Edited a vendor attribute (ID = {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ActivityLog.EditVendorAttributeValue">
+    <Value>Edited a vendor attribute value (ID = {0})</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Account.Fields.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.Fields.County.Required">
+    <Value>County is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Address.Fields.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Address.Fields.County.Required">
+    <Value>County is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Address.Fields.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Address.Fields.County.Hint">
+    <Value>Enter county.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Address.Fields.County.Required">
+    <Value>County is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.AddressFormFields.CountyEnabled">
+    <Value>''County'' enabled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.AddressFormFields.CountyEnabled.Hint">
+    <Value>Set if ''County'' is enabled.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.AddressFormFields.CountyRequired">
+    <Value>''County'' required</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.AddressFormFields.CountyRequired.Hint">
+    <Value>Check if ''County'' is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.CountyEnabled">
+    <Value>''County'' enabled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.CountyEnabled.Hint">
+    <Value>Set if ''County'' is enabled.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.CountyRequired">
+    <Value>''County'' required</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.CountyRequired.Hint">
+    <Value>Check if ''County'' is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.Fields.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.Fields.County.Hint">
+    <Value>The county.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.Fields.County.Required">
+    <Value>County is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Address.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.List.County">
+    <Value>County</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.List.County.Hint">
+    <Value>Search by a specific county.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.Import.CategoriesWithSameNameNotSupported">
+    <Value>Categories with the same name are not supported in the same category level. Check your category list in "Catalog -> Categories" page</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayApplyVendorAccountFooterItem">
+    <Value>Display "Apply for vendor account"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayApplyVendorAccountFooterItem.Hint">
+    <Value>Check if "Apply for vendor account" menu item should be displayed in the footer. Vendor functionality should be also enabled in this case.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayBlogFooterItem">
+    <Value>Display "Blog"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayBlogFooterItem.Hint">
+    <Value>Check if "Blog" menu item should be displayed in the footer. Blog functionality should be also enabled in this case.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCompareProductsFooterItem">
+    <Value>Display "Compare products list"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCompareProductsFooterItem.Hint">
+    <Value>Check if "Compare products list" menu item should be displayed in the footer. Compare products functionality should be also enabled in this case.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayContactUsFooterItem">
+    <Value>Display "Contact us"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayContactUsFooterItem.Hint">
+    <Value>Check if "Contact us" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerAddressesFooterItem">
+    <Value>Display "Addresses"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerAddressesFooterItem.Hint">
+    <Value>Check if "Addresses" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerInfoFooterItem">
+    <Value>Display "My account"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerInfoFooterItem.Hint">
+    <Value>Check if "My account" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerOrdersFooterItem">
+    <Value>Display "Orders"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayCustomerOrdersFooterItem.Hint">
+    <Value>Check if "Orders" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayForumsFooterItem">
+    <Value>Display "Forums"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayForumsFooterItem.Hint">
+    <Value>Check if "Forums" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayNewProductsFooterItem">
+    <Value>Display "New products"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayNewProductsFooterItem.Hint">
+    <Value>Check if "New products" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayNewsFooterItem">
+    <Value>Display "News"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayNewsFooterItem.Hint">
+    <Value>Check if "News" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayProductSearchFooterItem">
+    <Value>Display "Search"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayProductSearchFooterItem.Hint">
+    <Value>Check if "Search" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayRecentlyViewedProductsFooterItem">
+    <Value>Display "Recently viewed products"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayRecentlyViewedProductsFooterItem.Hint">
+    <Value>Check if "Recently viewed products" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayShoppingCartFooterItem">
+    <Value>Display "Shopping cart"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayShoppingCartFooterItem.Hint">
+    <Value>Check if "Shopping cart" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplaySitemapFooterItem">
+    <Value>Display "Sitemap"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplaySitemapFooterItem.Hint">
+    <Value>Check if "Sitemap" menu item should be displayed in the footer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayWishlistFooterItem">
+    <Value>Display "Wishlist"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.DisplayWishlistFooterItem.Hint">
+    <Value>Check if "Wishlist" menu item should be displayed in the footer.</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.BlockTitle.FooterItems">
+    <Value>Footer items</Value>
+  </LocaleResource> 
 </Language>
 '
 
@@ -493,4 +757,263 @@ GO
 UPDATE [Setting]
 SET [Value] = N'true'
 WHERE [Name] = N'commonsettings.usestoredprocedureforloadingcategories'
+GO
+
+--vendor attributes
+IF NOT EXISTS (SELECT 1 FROM sys.objects WHERE object_id = object_id(N'[VendorAttribute]') AND objectproperty(object_id, N'IsUserTable') = 1)
+BEGIN
+	CREATE TABLE [dbo].[VendorAttribute]
+	(
+		[Id] INT IDENTITY(1,1) NOT NULL,
+		[Name] NVARCHAR(400) NOT NULL,
+		[IsRequired] BIT NOT NULL,
+		[AttributeControlTypeId] INT NOT NULL,
+		[DisplayOrder] INT NOT NULL,
+
+		PRIMARY KEY CLUSTERED ( [Id] ASC ) 
+			WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+	)
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects WHERE object_id = object_id(N'[VendorAttributeValue]') and objectproperty(object_id, N'IsUserTable') = 1)
+BEGIN
+	CREATE TABLE [dbo].[VendorAttributeValue]
+	(
+		[Id] INT IDENTITY(1,1) NOT NULL,
+		[VendorAttributeId] INT NOT NULL,
+		[Name] NVARCHAR(400) NOT NULL,
+		[IsPreSelected] BIT NOT NULL,
+		[DisplayOrder] INT NOT NULL,
+
+		PRIMARY KEY CLUSTERED ( [Id] ASC ) 
+			WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+	)
+END
+GO
+
+IF EXISTS (SELECT 1 FROM sys.objects WHERE NAME = 'VendorAttributeValue_VendorAttribute' AND PARENT_OBJECT_ID = object_id('VendorAttributeValue') AND objectproperty(object_id, N'IsForeignKey') = 1)
+BEGIN
+	ALTER TABLE dbo.VendorAttributeValue DROP CONSTRAINT [VendorAttributeValue_VendorAttribute]
+END
+GO
+
+ALTER TABLE [dbo].[VendorAttributeValue] WITH CHECK 
+	ADD CONSTRAINT [VendorAttributeValue_VendorAttribute] FOREIGN KEY([VendorAttributeId]) REFERENCES [dbo].[VendorAttribute] ([Id]) ON DELETE CASCADE
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'AddNewVendorAttribute')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'AddNewVendorAttribute', N'Add a new vendor attribute', N'true')
+END
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'EditVendorAttribute')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'EditVendorAttribute', N'Edit a vendor attribute', N'true')
+END
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'DeleteVendorAttribute')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'DeleteVendorAttribute', N'Delete a vendor attribute', N'true')
+END
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'AddNewVendorAttributeValue')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'AddNewVendorAttributeValue', N'Add a new vendor attribute value', N'true')
+END
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'EditVendorAttributeValue')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'EditVendorAttributeValue', N'Edit a vendor attribute value', N'true')
+END
+GO
+
+--new activity type
+IF NOT EXISTS (SELECT 1 FROM [ActivityLogType] WHERE [SystemKeyword] = N'DeleteVendorAttributeValue')
+BEGIN
+	INSERT [ActivityLogType] ([SystemKeyword], [Name], [Enabled])
+	VALUES (N'DeleteVendorAttributeValue', N'Delete a vendor attribute value', N'true')
+END
+GO
+
+--new column
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = object_id('[Address]') AND NAME = 'County')
+BEGIN
+	ALTER TABLE [Address]
+	ADD [County] NVARCHAR (MAX) NULL
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayApplyVendorAccountFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayApplyVendorAccountFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayBlogFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayBlogFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayCompareProductsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayCompareProductsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayContactUsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayContactUsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayCustomerAddressesFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayCustomerAddressesFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayCustomerInfoFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayCustomerInfoFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayCustomerOrdersFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayCustomerOrdersFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayForumsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayForumsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayNewProductsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayNewProductsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayNewsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayNewsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'addresssettings.countyenabled')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'addresssettings.countyenabled', N'false', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayProductSearchFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayProductSearchFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'addresssettings.countyrequired')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'addresssettings.countyrequired', N'false', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayRecentlyViewedProductsFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayRecentlyViewedProductsFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'customersettings.countyenabled')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'customersettings.countyenabled', N'false', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayShoppingCartFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayShoppingCartFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'customersettings.countyrequired')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'customersettings.countyrequired', N'false', 0)
+END
+GO
+
+--new setting    
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplaySitemapFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplaySitemapFooterItem', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [Name] = N'shippingsettings.shipseparatelyoneitemeach')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'shippingsettings.shipseparatelyoneitemeach', N'true', 0)
+END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'displaydefaultfooteritemsettings.DisplayWishlistFooterItem')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'displaydefaultfooteritemsettings.DisplayWishlistFooterItem', N'true', 0)
+END
 GO

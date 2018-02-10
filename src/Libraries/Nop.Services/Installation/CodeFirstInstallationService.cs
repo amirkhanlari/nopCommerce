@@ -6142,6 +6142,8 @@ namespace Nop.Services.Installation
                 StreetAddress2Enabled = false,
                 ZipPostalCodeEnabled = false,
                 CityEnabled = false,
+                CountyEnabled = false,
+                CountyRequired = false,
                 CountryEnabled = false,
                 CountryRequired = false,
                 StateProvinceEnabled = false,
@@ -6172,6 +6174,8 @@ namespace Nop.Services.Installation
                 ZipPostalCodeRequired = true,
                 CityEnabled = true,
                 CityRequired = true,
+                CountyEnabled = false,
+                CountyRequired = false,
                 CountryEnabled = true,
                 StateProvinceEnabled = true,
                 PhoneEnabled = true,
@@ -6348,7 +6352,8 @@ namespace Nop.Services.Installation
                 ReturnValidOptionsIfThereAreAny = true,
                 BypassShippingMethodSelectionIfOnlyOne = false,
                 UseCubeRootMethod = true,
-                ConsiderAssociatedProductsDimensions = true
+                ConsiderAssociatedProductsDimensions = true,
+                ShipSeparatelyOneItemEach = true
             });
 
             settingService.SaveSetting(new PaymentSettings
@@ -6498,6 +6503,25 @@ namespace Nop.Services.Installation
                 DisplayBlogMenuItem = !installSampleData,
                 DisplayForumsMenuItem = !installSampleData,
                 DisplayContactUsMenuItem = !installSampleData
+            });
+
+            settingService.SaveSetting(new DisplayDefaultFooterItemSettings
+            {
+                DisplaySitemapFooterItem = true,
+                DisplayContactUsFooterItem = true,
+                DisplayProductSearchFooterItem = true,
+                DisplayNewsFooterItem = true,
+                DisplayBlogFooterItem = true,
+                DisplayForumsFooterItem = true,
+                DisplayRecentlyViewedProductsFooterItem = true,
+                DisplayCompareProductsFooterItem = true,
+                DisplayNewProductsFooterItem = true,
+                DisplayCustomerInfoFooterItem = true,
+                DisplayCustomerOrdersFooterItem = true,
+                DisplayCustomerAddressesFooterItem = true,
+                DisplayShoppingCartFooterItem = true,
+                DisplayWishlistFooterItem = true,
+                DisplayApplyVendorAccountFooterItem = true
             });
         }
 
@@ -11141,6 +11165,18 @@ namespace Nop.Services.Installation
                 },
                 new ActivityLogType
                 {
+                    SystemKeyword = "AddNewVendorAttribute",
+                    Enabled = true,
+                    Name = "Add a new vendor attribute"
+                },
+                new ActivityLogType
+                {
+                    SystemKeyword = "AddNewVendorAttributeValue",
+                    Enabled = true,
+                    Name = "Add a new vendor attribute value"
+                },
+                new ActivityLogType
+                {
                     SystemKeyword = "AddNewWarehouse",
                     Enabled = true,
                     Name = "Add a new warehouse"
@@ -11381,6 +11417,18 @@ namespace Nop.Services.Installation
                 },
                 new ActivityLogType
                 {
+                    SystemKeyword = "DeleteVendorAttribute",
+                    Enabled = true,
+                    Name = "Delete a vendor attribute"
+                },
+                new ActivityLogType
+                {
+                    SystemKeyword = "DeleteVendorAttributeValue",
+                    Enabled = true,
+                    Name = "Delete a vendor attribute value"
+                },
+                new ActivityLogType
+                {
                     SystemKeyword = "DeleteWarehouse",
                     Enabled = true,
                     Name = "Delete a warehouse"
@@ -11606,6 +11654,18 @@ namespace Nop.Services.Installation
                     SystemKeyword = "EditVendor",
                     Enabled = true,
                     Name = "Edit a vendor"
+                },
+                new ActivityLogType
+                {
+                    SystemKeyword = "EditVendorAttribute",
+                    Enabled = true,
+                    Name = "Edit a vendor attribute"
+                },
+                new ActivityLogType
+                {
+                    SystemKeyword = "EditVendorAttributeValue",
+                    Enabled = true,
+                    Name = "Edit a vendor attribute value"
                 },
                 new ActivityLogType
                 {
