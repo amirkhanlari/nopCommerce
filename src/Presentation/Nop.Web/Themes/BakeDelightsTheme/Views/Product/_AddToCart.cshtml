@@ -1,5 +1,6 @@
 ﻿@model ProductDetailsModel.AddToCartModel
 @using Nop.Core.Domain.Orders
+@using Nop.Web.Framework.Infrastructure
 @if (Model.UpdatedShoppingCartItemId > 0)
 {
     <input asp-for="UpdatedShoppingCartItemId" type="hidden" />
@@ -78,6 +79,6 @@
             }
 	    </div>
     }
-    @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_add_info", additionalData = Model.ProductId })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsAddInfo, additionalData = Model })
 </div>
 }

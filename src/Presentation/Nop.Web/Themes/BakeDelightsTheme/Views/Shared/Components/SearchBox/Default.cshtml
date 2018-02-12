@@ -1,9 +1,10 @@
 ﻿@model SearchBoxModel
 @using System.Text.Encodings.Web
+@using Nop.Web.Framework.Infrastructure
 <form asp-route="ProductSearch" method="get" id="small-search-box-form" class="navbar-form navbar-left">
     <div class="form-group">
         <input type="text" class="search-nav form-control" id="small-searchterms" autocomplete="off" placeholder="@T("Search.SearchBox.Tooltip")" name="q" />
-       @await Component.InvokeAsync("Widget", new { widgetZone = "searchbox_before_search_button" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.SearchBoxBeforeSearchButton })
         <input type="submit" class="btn search-box-button" value="@T("Search.SearchBox.Value")" />
         @if (Model.SearchTermMinimumLength > 0)
         {
@@ -44,6 +45,6 @@
                 });
             </script>
         }
-        @await Component.InvokeAsync("Widget", new { widgetZone = "searchbox" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.SearchBox })
     </div>
 </form>

@@ -105,7 +105,8 @@
                                                  asp-end-year="@(DateTime.Now.Year)"
                                                  asp-selected-day="@Model.DateOfBirthDay"
                                                  asp-selected-month="@Model.DateOfBirthMonth"
-                                                 asp-selected-year="@Model.DateOfBirthYear" />
+                                                 asp-selected-year="@Model.DateOfBirthYear"
+                                asp-localize-labels="true" />
                                 @if (Model.DateOfBirthRequired)
                                 {
                                     <nop-required />
@@ -207,11 +208,12 @@
                 </div>
             </fieldset>
             }
-            @if (Model.StreetAddressEnabled ||
-            Model.StreetAddress2Enabled ||
-            Model.ZipPostalCodeEnabled ||
-            Model.CityEnabled ||
-            Model.CountryEnabled)
+        @if (Model.StreetAddressEnabled ||
+             Model.StreetAddress2Enabled ||
+             Model.ZipPostalCodeEnabled ||
+             Model.CityEnabled ||
+             Model.CountyEnabled ||
+             Model.CountryEnabled)
             {
             <fieldset>
                 <div><h3>@T("Account.YourAddress")</h3></div>
@@ -268,6 +270,18 @@
                         </div>
 
                         }
+                    @if (Model.CountyEnabled)
+                    {
+                        <div class="inputs">
+                            <label asp-for="County" asp-postfix=":"></label>
+                            <input asp-for="County" />
+                            @if (Model.CountyRequired)
+                            {
+                                <nop-required />
+                            }
+                            <span asp-validation-for="County"></span>
+                        </div>
+                    }
                     @if (Model.CityEnabled)
                         {
                         <div class="form-group">

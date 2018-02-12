@@ -1,5 +1,6 @@
 ﻿@model ProductDetailsModel.ProductBreadcrumbModel
 @using Nop.Core.Domain.Common
+@using Nop.Web.Framework.Infrastructure
 @inject CommonSettings commonSettings
 @{
     var breadcrumbDelimiter = commonSettings.BreadcrumbDelimiter;
@@ -8,7 +9,7 @@
 {
 <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
-        @await Component.InvokeAsync("Widget", new { widgetZone = "productbreadcrumb_before", additionalData = Model.ProductId })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBreadcrumbBefore, additionalData = Model })
         <li>
             <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="@Url.RouteUrl("HomePage")" itemprop="url">
@@ -31,7 +32,7 @@
         <li>
             <strong class="active">@Model.ProductName</strong>
             @*<strong class="current-item"><a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })" itemprop="url">@Model.ProductName</a></strong>*@
-            @await Component.InvokeAsync("Widget", new { widgetZone = "productbreadcrumb_after", additionalData = Model.ProductId })
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBreadcrumbAfter, additionalData = Model })
         </li>
     </ol>
 </div>

@@ -57,14 +57,23 @@
                         </label>
                         @if (!string.IsNullOrEmpty(Model.PictureUrl))
                         {
-                        <div class="vendor-picture">
-                            <img src="@(Model.PictureUrl)" alt="picture" />
-                            <input type="submit" name="remove-picture" class="btn btn-primary remove-picture-button" value="@T("Account.VendorInfo.Picture.Remove")" />
-                        </div>
+                            <div class="vendor-picture">
+                                <img src="@(Model.PictureUrl)" alt="picture" />
+                                <input type="submit" name="remove-picture" class="btn btn-primary remove-picture-button" value="@T("Account.VendorInfo.Picture.Remove")" />
+                            </div>
                         }
                     </div>
                 </div>
             </div>
+            @if (Model.VendorAttributes.Count > 0)
+            {
+                <div class="fieldset">
+                    <div class="form-fields">
+                        @await Html.PartialAsync("_VendorAttributes", Model.VendorAttributes)
+                    </div>
+                </div>
+            }
+
             <div class="form-group row">
                 <div class="buttons col-sm-offset-2 col-md-offset-2 col-md-5">
                     <input type="submit" value="@T("Common.Save")" name="save-info-button" class="btn btn-primary save-vendorinfo-button" />

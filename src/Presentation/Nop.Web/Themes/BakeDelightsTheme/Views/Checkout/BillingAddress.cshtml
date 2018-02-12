@@ -91,25 +91,43 @@
                                             @item.Address2
                                         </li>
                                     }
-                                    @if (item.CityEnabled || item.StateProvinceEnabled || item.ZipPostalCodeEnabled)
+                                    @if (item.CityEnabled && !string.IsNullOrEmpty(item.City) ||
+                            item.CountyEnabled && !string.IsNullOrEmpty(item.County) ||
+                            item.StateProvinceEnabled && !string.IsNullOrEmpty(item.StateProvinceName) ||
+                            item.ZipPostalCodeEnabled && !string.IsNullOrEmpty(item.ZipPostalCode))
                                     {
                                         <li class="city-state-zip">
-                                            @if (item.CityEnabled)
-                                                {
+                                            @if (item.CityEnabled && !string.IsNullOrEmpty(item.City))
+                                            {
                                                 @item.City
-                                                }
-                                            @if (item.CityEnabled && (item.StateProvinceEnabled || item.ZipPostalCodeEnabled))
+                                                if (item.CountyEnabled && !string.IsNullOrEmpty(item.County) ||
+                                    item.StateProvinceEnabled && !string.IsNullOrEmpty(item.StateProvinceName) ||
+                                    item.ZipPostalCodeEnabled && !string.IsNullOrEmpty(item.ZipPostalCode))
                                                 {
-                                                <text>,</text>
+                                                    <text>,</text>
                                                 }
-                                            @if (item.StateProvinceEnabled)
+                                            }
+                                            @if (item.CountyEnabled && !string.IsNullOrEmpty(item.County))
+                                            {
+                                                @item.County
+                                                if (item.StateProvinceEnabled && !string.IsNullOrEmpty(item.StateProvinceName) ||
+                                    item.ZipPostalCodeEnabled && !string.IsNullOrEmpty(item.ZipPostalCode))
                                                 {
+                                                    <text>,</text>
+                                                }
+                                            }
+                                            @if (item.StateProvinceEnabled && !string.IsNullOrEmpty(item.StateProvinceName))
+                                            {
                                                 @item.StateProvinceName
-                                                }
-                                            @if (item.ZipPostalCodeEnabled)
+                                                if (item.ZipPostalCodeEnabled && !string.IsNullOrEmpty(item.ZipPostalCode))
                                                 {
-                                                @item.ZipPostalCode
+                                                    <text>,</text>
                                                 }
+                                            }
+                                            @if (item.ZipPostalCodeEnabled && !string.IsNullOrEmpty(item.ZipPostalCode))
+                                            {
+                                                @item.ZipPostalCode
+                                            }
                                         </li>
                                     }
                                     @if (item.CountryEnabled && !string.IsNullOrEmpty(item.CountryName))
