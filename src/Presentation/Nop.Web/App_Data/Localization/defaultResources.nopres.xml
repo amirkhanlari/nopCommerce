@@ -3507,9 +3507,24 @@
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.Fields.StockQuantity.Hint">
     <Value>The current stock quantity of this combination.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.Generate">
+    <Value>Generate</Value>
+  </LocaleResource>  
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.GenerateAll">
     <Value>Generate all possible combinations</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.GenerateSeveral">
+    <Value>Generate several combinations</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.GenerateSeveralTitle">
+    <Value>Choose some attribute values to generate necessary combinations</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.RequiredAttribute">
+    <Value>* - required attribute</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.SelectRequiredAttributes">
+    <Value>There are required attributes: {0}</Value>
+  </LocaleResource>  
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes">
     <Value>Attributes</Value>
   </LocaleResource>
@@ -6884,6 +6899,12 @@
   </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.SitemapIncludeProductTags.Hint">
     <Value>Check if you want to include product tags in sitemap.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.SitemapPageSize">
+    <Value>Sitemap page size</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.SitemapPageSize.Hint">
+    <Value>A number of items displayed on one sitemap page.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.StoreClosed">
     <Value>Store closed</Value>
@@ -11313,6 +11334,12 @@
   <LocaleResource Name="Admin.Orders.List.BillingLastName.Hint">
     <Value>Filter by customer billing last name.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Orders.List.BillingPhone">
+    <Value>Billing phone number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.List.BillingPhone.Hint">
+    <Value>Filter by customer billing phone number.</Value>
+  </LocaleResource>  
   <LocaleResource Name="Admin.Orders.List.EndDate">
     <Value>End date</Value>
   </LocaleResource>

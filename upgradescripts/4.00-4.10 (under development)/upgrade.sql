@@ -488,6 +488,33 @@ set @resources='
   <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.BlockTitle.FooterItems">
     <Value>Footer items</Value>
   </LocaleResource> 
+  <LocaleResource Name="Admin.Orders.List.BillingPhone">
+    <Value>Billing phone number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.List.BillingPhone.Hint">
+    <Value>Filter by customer billing phone number.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.SitemapPageSize">
+    <Value>Sitemap page size</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.SitemapPageSize.Hint">
+    <Value>A number of items displayed on one sitemap page.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.GenerateSeveral">
+    <Value>Generate several combinations</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.GenerateSeveralTitle">
+    <Value>Choose some attribute values to generate necessary combinations</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.Generate">
+    <Value>Generate</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.RequiredAttribute">
+    <Value>* - required attribute</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.AttributeCombinations.SelectRequiredAttributes">
+    <Value>There are required attributes: {0}</Value>
+  </LocaleResource> 
 </Language>
 '
 
@@ -1016,4 +1043,18 @@ BEGIN
     INSERT [Setting] ([Name], [Value], [StoreId])
     VALUES (N'displaydefaultfooteritemsettings.DisplayWishlistFooterItem', N'true', 0)
 END
+GO
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'commonsettings.sitemappagesize')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'commonsettings.sitemappagesize', N'200', 0)
+END
+GO
+
+--rename setting
+UPDATE [Setting] 
+SET [Name] = N'adminareasettings.useisodateformatinjsonresult' 
+WHERE [Name] = N'adminareasettings.useisodatetimeconverterinjson'
 GO
