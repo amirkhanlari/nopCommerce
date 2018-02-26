@@ -4,7 +4,7 @@
   "SystemName": "Payments.ZarinPal",
   "Version": "1.04",
   "SupportedVersions": [ "4.10" ],
-  "Author": "GCC Team (Amir Hosein Khanlari)",
+  "Author": "GCC Team  (Amir Hosein Khanlari)",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugin.Payments.ZarinPal.dll",
   "Description": "This plugin allows paying with ZarinPall",
