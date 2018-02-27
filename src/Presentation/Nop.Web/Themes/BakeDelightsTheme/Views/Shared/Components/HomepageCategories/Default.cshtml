@@ -6,11 +6,11 @@
             <strong>@T("Categories")</strong>
         </div>
         <div class="row">
-            @if (Model.Count <= 3)
+            @if (Model.Count <= 4)
             {
                 foreach (var item in Model)
                 {
-                    <div class="item-box col-xs-12 col-sm-4 col-md-4">
+                    <div class="item-box col-xs-12 col-sm-4 col-md-3">
                         <div class="category-item product-category-item">
                             <div class="picture">
                                 <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})" title="@item.PictureModel.Title" class="product-img">

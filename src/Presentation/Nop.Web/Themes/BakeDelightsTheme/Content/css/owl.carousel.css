@@ -41,7 +41,7 @@
   .owl-carousel .owl-item {
     position: relative;
     min-height: 1px;
-    float: left;
+    float: right;
     -webkit-backface-visibility: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none; }
@@ -86,6 +86,12 @@
 /* No Js */
 .no-js .owl-carousel {
   display: block; }
+
+.owl-carousel .owl-wrapper-outer {
+    overflow: hidden;
+    position: relative;
+    width: 100%
+}
 
 /*
  *  Owl Carousel - Animate Plugin
@@ -168,3 +174,59 @@
   z-index: 1;
   height: 100%;
   width: 100%; }
+
+.owl-next {
+    background: url("../../Content/images/next-arrow.png") no-repeat scroll 0 0;
+    float: right;
+    height: 50px;
+    position: absolute;
+    right: 70px;
+    text-indent: -9999px;
+    width: 70px
+}
+
+.owl-prev {
+    background: url("../../Content/images/previous-arrow.png") no-repeat scroll 0 0;
+    float: right;
+    height: 50px;
+    left: 70px;
+    position: absolute;
+    text-indent: -9999px;
+    width: 70px
+}
+
+.owl-next:hover {
+    background: url("../../Content/images/next-arrow.png") no-repeat scroll 0 -70px
+}
+
+.owl-prev:hover {
+    background: url("../../Content/images/previous-arrow.png") no-repeat scroll 0 -70px
+}
+
+.picture-thumbs .owl-next {
+    background: url("../../Content/images/thumb-next-slider.png") no-repeat scroll 0 0;
+    float: right;
+    height: 30px;
+    position: absolute;
+    right: 70px;
+    text-indent: -9999px;
+    width: 30px
+}
+
+.picture-thumbs .owl-prev {
+    background: url("../../Content/images/thumb-prev-slider.png") no-repeat scroll 0 0;
+    float: right;
+    height: 30px;
+    left: 70px;
+    position: absolute;
+    text-indent: -9999px;
+    width: 30px
+}
+
+.picture-thumbs .owl-next:hover {
+    background: url("../../Content/images/thumb-next-slider.png") no-repeat scroll 0 -50px
+}
+
+.picture-thumbs .owl-prev:hover {
+    background: url("../../Content/images/thumb-prev-slider.png") no-repeat scroll 0 -50px
+}
