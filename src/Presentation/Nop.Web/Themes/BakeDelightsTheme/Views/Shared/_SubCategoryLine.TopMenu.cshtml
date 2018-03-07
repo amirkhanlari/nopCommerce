@@ -9,7 +9,7 @@
         }
     </a>
     @{
-        <ul class="dropdown-menu sub-menusublist first-level" role="menu">
+        <ul class="dropdown-menu sub-menusublist first-level " role="menu">
             @foreach (var subCategory in Model.SubCategories)
             {
                 @await Html.PartialAsync("_CategorySubCategoryLine.TopMenu", subCategory)

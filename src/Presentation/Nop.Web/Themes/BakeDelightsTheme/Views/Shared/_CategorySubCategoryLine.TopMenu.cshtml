@@ -5,12 +5,12 @@
 }
 else
 {
-    <li>
-        <a href="@Url.RouteUrl("Category", new { SeName = Model.SeName })">
+    <li >
+        <a href="@Url.RouteUrl("Category", new { SeName = Model.SeName })" class="fa fa-angle-left">
             @Model.Name
             @if (Model.NumberOfProducts.HasValue)
             {
-                <span class="head-number op-number">
+                <span class="head-number op-number ">
                     @if(Model.NumberOfProducts.Value < 0)
                     {
                         @:0@(Model.NumberOfProducts.Value)

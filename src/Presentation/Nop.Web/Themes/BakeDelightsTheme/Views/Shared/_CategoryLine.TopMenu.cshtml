@@ -10,7 +10,7 @@ else
         @Model.Category.Name
         @if (Model.Category.NumberOfProducts.HasValue)
         {
-            <span class="head-number op-number">
+            <span class="head-number op-number fa fa-angle-left">
                 @if (Model.Category.NumberOfProducts.Value < 0)
                 {
                     @:0@(Model.Category.NumberOfProducts.Value)
