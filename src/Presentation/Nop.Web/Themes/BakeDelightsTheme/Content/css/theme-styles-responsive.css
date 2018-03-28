@@ -295,7 +295,7 @@ select {
 .header-lower .search-box {
     float: right;
     position: relative;
-    margin-top: 5px;
+    margin-top: -55px;
 }
 
     .header-lower .search-box .search {
@@ -740,6 +740,7 @@ form#small-search-box-form .form-group {
 
 .navbar.navbar-inverse.category-menu {
     margin: 0 auto;
+    width: 100% !important;
 }
 
 .main-menu.goToTop {
@@ -749,7 +750,7 @@ form#small-search-box-form .form-group {
 
 .header-menu .main-menu {
     padding: 0px !important;
-    margin: 0px 10px 0px 15px !important;
+    margin: 0px !important;
     right: 0px;
     width: auto !important;
     background: seagreen;
@@ -780,7 +781,7 @@ form#small-search-box-form .form-group {
     .main-menu.goToTop::before {
         content: "";
         float: right;
-        background: url(../images/menubar-background.jpg);
+        /* background: url(../images/menubar-background.jpg); */
         height: 65px;
         width: 120px;
         position: absolute;
@@ -792,7 +793,7 @@ form#small-search-box-form .form-group {
     .main-menu.goToTop::after {
         content: "";
         float: right;
-        background: url(../images/menubar-background.jpg);
+        /* background: url(../images/menubar-background.jpg); */
         height: 65px;
         width: 120px;
         position: absolute;
@@ -10117,15 +10118,17 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         background: url(../images/submenu-arrow.png) no-repeat 57px 14px !important;
     }
 }
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .forum-topic-page .title .manage {
         float: none;
     }
 
-    .forum-topic-page .title .manage a {
-        padding: 2px !important;
-    }
+        .forum-topic-page .title .manage a {
+            padding: 2px !important;
+        }
 }
+
 @media (max-width:640px) {
     .footer-tax-shipping {
         display: block;

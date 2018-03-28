@@ -781,7 +781,7 @@ form#small-search-box-form .form-group {
     .main-menu.goToTop::before {
         content: "";
         float: right;
-        background: url(../images/menubar-background.jpg);
+        /* background: url(../images/menubar-background.jpg); */
         height: 65px;
         width: 120px;
         position: absolute;
@@ -793,7 +793,7 @@ form#small-search-box-form .form-group {
     .main-menu.goToTop::after {
         content: "";
         float: right;
-        background: url(../images/menubar-background.jpg);
+        /* background: url(../images/menubar-background.jpg); */
         height: 65px;
         width: 120px;
         position: absolute;
