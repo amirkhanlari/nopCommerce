@@ -1,11 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Nop.Web.Framework.Mvc.ModelBinding;
-using Nop.Web.Framework.Mvc.Models;
+using Nop.Web.Framework.Models;
 
 namespace Nop.Web.Areas.Admin.Models.Settings
 {
+    /// <summary>
+    /// Represents a reward points settings model
+    /// </summary>
     public partial class RewardPointsSettingsModel : BaseNopModel
     {
+        #region Properties
+
         public int ActiveStoreScopeConfiguration { get; set; }
 
         [NopResourceDisplayName("Admin.Configuration.Settings.RewardPoints.Enabled")]
@@ -63,5 +68,7 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         public bool PageSize_OverrideForStore { get; set; }
 
         public string PrimaryStoreCurrencyCode { get; set; }
+
+        #endregion
     }
 }

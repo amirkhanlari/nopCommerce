@@ -116,6 +116,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
                 .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
+                .ForMember(dest => dest.StateProvinceSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             //state/provinces
@@ -131,7 +132,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                 .ForMember(dest => dest.AvailableCurrencies, mo => mo.Ignore())
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
-                .ForMember(dest => dest.Search, mo => mo.Ignore())
+                .ForMember(dest => dest.LocaleResourceSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<LanguageModel, Language>()
@@ -225,6 +226,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.SelectedCustomerRoleIds, mo => mo.Ignore())
                 .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
+                .ForMember(dest => dest.CategoryProductSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<CategoryModel, Category>()
@@ -245,6 +247,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.SelectedCustomerRoleIds, mo => mo.Ignore())
                 .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
+                .ForMember(dest => dest.ManufacturerProductSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<ManufacturerModel, Manufacturer>()
@@ -262,6 +265,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.AddVendorNoteMessage, mo => mo.Ignore())
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
                 .ForMember(dest => dest.SeName, mo => mo.MapFrom(src => src.GetSeName(0, true, false)))
+                .ForMember(dest => dest.VendorNoteSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore())
                 .ForMember(dest => dest.VendorAttributes, mo => mo.Ignore());
@@ -272,6 +276,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             CreateMap<VendorAttribute, VendorAttributeModel>()
                 .ForMember(dest => dest.AttributeControlTypeName, mo => mo.Ignore())
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.VendorAttributeValueSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<VendorAttributeModel, VendorAttribute>()
@@ -322,6 +327,16 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.LastStockQuantity, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductEditorSettingsModel, mo => mo.Ignore())
                 .ForMember(dest => dest.StockQuantityHistory, mo => mo.Ignore())
+                .ForMember(dest => dest.RelatedProductSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.CrossSellProductSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.AssociatedProductSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductPictureSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductSpecificationAttributeSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductOrderSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.TierPriceSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.StockQuantityHistorySearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductAttributeMappingSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductAttributeCombinationSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductAttributesExist, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
@@ -439,7 +454,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<ProductAvailabilityRangeModel, ProductAvailabilityRange>();
             //shipping rate computation methods
-            CreateMap<IShippingRateComputationMethod, ShippingRateComputationMethodModel>()
+            CreateMap<IShippingRateComputationMethod, ShippingProviderModel>()
                 .ForMember(dest => dest.FriendlyName, mo => mo.MapFrom(src => src.PluginDescriptor.FriendlyName))
                 .ForMember(dest => dest.SystemName, mo => mo.MapFrom(src => src.PluginDescriptor.SystemName))
                 .ForMember(dest => dest.DisplayOrder, mo => mo.MapFrom(src => src.PluginDescriptor.DisplayOrder))
@@ -474,7 +489,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.ConfigurationUrl, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             //external authentication methods
-            CreateMap<IExternalAuthenticationMethod, AuthenticationMethodModel>()
+            CreateMap<IExternalAuthenticationMethod, ExternalAuthenticationMethodModel>()
                 .ForMember(dest => dest.FriendlyName, mo => mo.MapFrom(src => src.PluginDescriptor.FriendlyName))
                 .ForMember(dest => dest.SystemName, mo => mo.MapFrom(src => src.PluginDescriptor.SystemName))
                 .ForMember(dest => dest.DisplayOrder, mo => mo.MapFrom(src => src.PluginDescriptor.DisplayOrder))
@@ -507,12 +522,12 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             //newsLetter subscriptions
-            CreateMap<NewsLetterSubscription, NewsLetterSubscriptionModel>()
+            CreateMap<NewsLetterSubscription, NewsletterSubscriptionModel>()
                 .ForMember(dest => dest.StoreName, mo => mo.Ignore())
                 .ForMember(dest => dest.CreatedOn, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
-            CreateMap<NewsLetterSubscriptionModel, NewsLetterSubscription>()
+            CreateMap<NewsletterSubscriptionModel, NewsLetterSubscription>()
                 .ForMember(dest => dest.StoreId, mo => mo.Ignore())
                 .ForMember(dest => dest.CreatedOnUtc, mo => mo.Ignore())
                 .ForMember(dest => dest.NewsLetterSubscriptionGuid, mo => mo.Ignore());
@@ -588,6 +603,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.AvailableLanguages, mo => mo.Ignore())
                 .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
+                .ForMember(dest => dest.PollAnswerSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<PollModel, Poll>()
                 .ForMember(dest => dest.PollAnswers, mo => mo.Ignore())
@@ -607,12 +623,16 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             //product attributes
             CreateMap<ProductAttribute, ProductAttributeModel>()
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.PredefinedProductAttributeValueSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ProductAttributeProductSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<ProductAttributeModel, ProductAttribute>();
             //specification attributes
             CreateMap<SpecificationAttribute, SpecificationAttributeModel>()
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.SpecificationAttributeOptionSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.SpecificationAttributeProductSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<SpecificationAttributeModel, SpecificationAttribute>()
@@ -634,6 +654,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
                 .ForMember(dest => dest.ConditionAllowed, mo => mo.Ignore())
                 .ForMember(dest => dest.ConditionModel, mo => mo.Ignore())
+                .ForMember(dest => dest.CheckoutAttributeValueSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<CheckoutAttributeModel, CheckoutAttribute>()
@@ -645,6 +666,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             CreateMap<CustomerAttribute, CustomerAttributeModel>()
                 .ForMember(dest => dest.AttributeControlTypeName, mo => mo.Ignore())
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.CustomerAttributeValueSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<CustomerAttributeModel, CustomerAttribute>()
@@ -654,6 +676,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             CreateMap<AddressAttribute, AddressAttributeModel>()
                 .ForMember(dest => dest.AttributeControlTypeName, mo => mo.Ignore())
                 .ForMember(dest => dest.Locales, mo => mo.Ignore())
+                .ForMember(dest => dest.AddressAttributeValueSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<AddressAttributeModel, AddressAttribute>()
@@ -670,6 +693,10 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.AvailableRequirementGroups, mo => mo.Ignore())
                 .ForMember(dest => dest.GroupName, mo => mo.Ignore())
                 .ForMember(dest => dest.RequirementGroupId, mo => mo.Ignore())
+                .ForMember(dest => dest.DiscountUsageHistorySearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.DiscountProductSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.DiscountCategorySearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.DiscountManufacturerSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<DiscountModel, Discount>()
@@ -688,6 +715,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.PrimaryStoreCurrencyCode, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.PurchasedWithOrderNumber, mo => mo.Ignore())
+                .ForMember(dest => dest.GiftCardUsageHistorySearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<GiftCardModel, GiftCard>()
                 .ForMember(dest => dest.PurchasedWithOrderItemId, mo => mo.Ignore())
@@ -705,7 +733,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
             CreateMap<StoreModel, Store>();
 
             //Settings
-            CreateMap<CaptchaSettings, GeneralCommonSettingsModel.CaptchaSettingsModel>()
+            CreateMap<CaptchaSettings, CaptchaSettingsModel>()
                 .ForMember(dest => dest.AvailableReCaptchaVersions, mo => mo.Ignore())
                 .ForMember(dest => dest.Enabled_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ShowOnLoginPage_OverrideForStore, mo => mo.Ignore())
@@ -722,14 +750,13 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.ReCaptchaVersion_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
-            CreateMap<GeneralCommonSettingsModel.CaptchaSettingsModel, CaptchaSettings>()
+            CreateMap<CaptchaSettingsModel, CaptchaSettings>()
                 .ForMember(dest => dest.ReCaptchaTheme, mo => mo.Ignore())
                 .ForMember(dest => dest.ReCaptchaLanguage, mo => mo.Ignore());
             CreateMap<TaxSettings, TaxSettingsModel>()
                 .ForMember(dest => dest.DefaultTaxAddress, mo => mo.Ignore())
                 .ForMember(dest => dest.TaxDisplayTypeValues, mo => mo.Ignore())
                 .ForMember(dest => dest.TaxBasedOnValues, mo => mo.Ignore())
-                .ForMember(dest => dest.PaymentMethodAdditionalFeeTaxCategories, mo => mo.Ignore())
                 .ForMember(dest => dest.TaxCategories, mo => mo.Ignore())
                 .ForMember(dest => dest.EuVatShopCountries, mo => mo.Ignore())
                 .ForMember(dest => dest.ActiveStoreScopeConfiguration, mo => mo.Ignore())
@@ -840,6 +867,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.MaximumProductNumber_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.AllowVendorsToImportProducts_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ShowVendorOnOrderDetailsPage_OverrideForStore, mo => mo.Ignore())
+                .ForMember(dest => dest.VendorAttributeSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
             CreateMap<VendorSettingsModel, VendorSettings>()
                 .ForMember(dest => dest.DefaultVendorPageSizeOptions, mo => mo.Ignore());
@@ -941,6 +969,7 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.ExportImportProductCategoryBreadcrumb_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportCategoriesUsingCategoryName_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportAllowDownloadImages_OverrideForStore, mo => mo.Ignore())
+                .ForMember(dest => dest.SortOptionSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportImportSplitProductsFile_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.RemoveRequiredProducts_OverrideForStore, mo => mo.Ignore());
@@ -1006,6 +1035,8 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.CustomOrderNumberMask_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.ExportWithProducts_OverrideForStore, mo => mo.Ignore())
                 .ForMember(dest => dest.AllowAdminsToBuyCallForPriceProducts_OverrideForStore, mo => mo.Ignore())
+                .ForMember(dest => dest.ReturnRequestActionSearchModel, mo => mo.Ignore())
+                .ForMember(dest => dest.ReturnRequestReasonSearchModel, mo => mo.Ignore())
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore())
                 .ForMember(dest => dest.DeleteGiftCardUsageHistory_OverrideForStore, mo => mo.Ignore());
@@ -1064,20 +1095,20 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(dest => dest.ImageSquarePictureSize, mo => mo.Ignore())
                 .ForMember(dest => dest.AutoCompleteSearchThumbPictureSize, mo => mo.Ignore())
                 .ForMember(dest => dest.AzureCacheControlHeader, mo => mo.Ignore());
-            CreateMap<CustomerSettings, CustomerUserSettingsModel.CustomerSettingsModel>()
+            CreateMap<CustomerSettings, CustomerSettingsModel>()
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
-            CreateMap<CustomerUserSettingsModel.CustomerSettingsModel, CustomerSettings>()
+            CreateMap<CustomerSettingsModel, CustomerSettings>()
                 .ForMember(dest => dest.HashedPasswordFormat, mo => mo.Ignore())
                 .ForMember(dest => dest.AvatarMaximumSizeBytes, mo => mo.Ignore())
                 .ForMember(dest => dest.DownloadableProductsValidateUser, mo => mo.Ignore())
                 .ForMember(dest => dest.OnlineCustomerMinutes, mo => mo.Ignore())
                 .ForMember(dest => dest.SuffixDeletedCustomers, mo => mo.Ignore())
                 .ForMember(dest => dest.DeleteGuestTaskOlderThanMinutes, mo => mo.Ignore());
-            CreateMap<AddressSettings, CustomerUserSettingsModel.AddressSettingsModel>()
+            CreateMap<AddressSettings, AddressSettingsModel>()
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
                 .ForMember(dest => dest.Form, mo => mo.Ignore());
-            CreateMap<CustomerUserSettingsModel.AddressSettingsModel, AddressSettings>()
+            CreateMap<AddressSettingsModel, AddressSettings>()
                 .ForMember(dest => dest.PreselectCountryIfOnlyOne, mo => mo.Ignore());
             CreateMap<ProductEditorSettings, ProductEditorSettingsModel>()
                 .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())

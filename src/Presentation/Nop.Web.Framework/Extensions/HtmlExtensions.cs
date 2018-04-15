@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Core.Infrastructure;
 using Nop.Services.Localization;
 using Nop.Services.Stores;
-using Nop.Web.Framework.Localization;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using Microsoft.AspNetCore.Routing;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using Nop.Web.Framework.Models;
 
 namespace Nop.Web.Framework.Extensions
 {
@@ -46,7 +38,7 @@ namespace Nop.Web.Framework.Extensions
             Func<T, HelperResult> standardTemplate,
             bool ignoreIfSeveralStores = false)
             where T : ILocalizedModel<TLocalizedModelLocal>
-            where TLocalizedModelLocal : ILocalizedModelLocal
+            where TLocalizedModelLocal : ILocalizedLocaleModel
         {
             var localizationSupported = helper.ViewData.Model.Locales.Count > 1;
             if (ignoreIfSeveralStores)
@@ -213,43 +205,6 @@ namespace Nop.Web.Framework.Extensions
             }
         }
 
-        public static IHtmlContent ToJson (this IHtmlHelper helper, object obj)
-        {
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-            settings.Converters.Add(new JavaScriptDateTimeConverter());
-            return helper.Raw(JsonConvert.SerializeObject(obj, settings));
-        }
-
         #endregion
-    }
-    public static class HttpRequestExtensions
-    {
-        private const string RequestedWithHeader = "X-Requested-With";
-        private const string XmlHttpRequest = "XMLHttpRequest";
-
-        public static bool IsAjaxRequest (this HttpRequest request)
-        {
-            if (request == null)
-            {
-                throw new ArgumentNullException("request");
-            }
-
-            if (request.Headers != null)
-            {
-                return request.Headers[RequestedWithHeader] == XmlHttpRequest;
-            }
-
-            return false;
-        }
-    }
-    public class AjaxOnlyAttribute : ActionMethodSelectorAttribute
-    {
-        public override bool IsValidForRequest (RouteContext routeContext, ActionDescriptor action)
-        {
-            return routeContext.HttpContext.Request.IsAjaxRequest();
-        }
     }
 }
