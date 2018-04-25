@@ -30,7 +30,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Controllers
         private readonly localization.ILocalizedEntityService _localizedEntityService;
         private readonly ISettingService _settingService;
         private readonly IStoreService _storeService;
-        private readonly IWorkContext _workContext;
+        private readonly IStoreContext _storeContext;
         private readonly IRewardPointsOnDateSettingsService _rewardPointsOnDateSettingsService;
         private readonly IPermissionService _permissionService;
 
@@ -44,7 +44,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Controllers
             localization.ILocalizedEntityService localizedEntityService,
             ISettingService settingService,
             IStoreService storeService,
-            IWorkContext workContext,
+            IStoreContext storeContext,
             IRewardPointsOnDateSettingsService rewardPointsOnDateSettingsService,
             IPermissionService permissionService)
         {
@@ -54,7 +54,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Controllers
             this._localizedEntityService = localizedEntityService;
             this._settingService = settingService;
             this._storeService = storeService;
-            this._workContext = workContext;
+            this._storeContext = storeContext;
             this._rewardPointsOnDateSettingsService = rewardPointsOnDateSettingsService;
             this._permissionService = permissionService;
         }
@@ -129,7 +129,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Controllers
                 IsMultistore = _storeService.GetAllStores().Count > 1
             };
 
-            var storeScope = GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
 
             //prepare models
             PrepareModel(_settingService.LoadSetting<RewardPointsForBlogCommentsSettings>(storeScope), model.ForBlogComments, storeScope,
@@ -174,7 +174,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Controllers
             if (!ModelState.IsValid)
                 return Configure();
 
-            var storeScope = GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
 
             //save settings
             SaveSettings(_settingService.LoadSetting<RewardPointsForBlogCommentsSettings>(storeScope), model.ForBlogComments, storeScope);

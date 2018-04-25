@@ -1115,21 +1115,21 @@ form#small-search-box-form .form-group {
 
 #newsletter-subscribe-block #newsletter-email {
     float: right;
-    width: 300px;
+    width: 200px;
     height: 45px;
     color: #303133;
     border-radius: 30px;
 }
 
 #newsletter-subscribe-block #newsletter-subscribe-button {
-    float: left;
+    float: right;
     width: auto;
 }
 
 #newsletter-subscribe-button {
     font-size: 15px;
     text-transform: uppercase;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     background-color: #2d9c6d;
 }
 
@@ -1156,12 +1156,12 @@ form#small-search-box-form .form-group {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: #fff;
+    color: black;
     font-family: 'Marck Script', cursive;
 }
 
 .newsletter-result-block {
-    color: #fff;
+    color: black;
     clear: both;
     text-align: center;
     float: right;
@@ -1354,7 +1354,7 @@ form#small-search-box-form .form-group {
 }
 
 div#newsletter-subscribe-block .options label {
-    color: #fff;
+    color: black;
 }
 
 div#newsletter-subscribe-block .options {

@@ -20,6 +20,7 @@ using System.ServiceModel;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework;
 using Nop.Services.Security;
+// ReSharper disable All
 
 namespace Nop.Plugin.Payments.ZarinPal.Controllers
 {
@@ -84,7 +85,7 @@ namespace Nop.Plugin.Payments.ZarinPal.Controllers
                 return AccessDeniedView();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var ZarinPalPaymentSettings = _settingService.LoadSetting<ZarinPalPaymentSettings>(storeScope);
 
             var model = new ConfigurationModel();
@@ -125,7 +126,7 @@ namespace Nop.Plugin.Payments.ZarinPal.Controllers
                 return Configure();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var ZarinPalPaymentSettings = _settingService.LoadSetting<ZarinPalPaymentSettings>(storeScope);
 
             //save settings

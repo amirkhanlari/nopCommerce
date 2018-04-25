@@ -17,7 +17,7 @@ namespace Nop.Plugin.Payments.CashOnDelivery.Controllers
     {
         #region Fields
 
-        private readonly IWorkContext _workContext;
+        private readonly IStoreContext _storeContext;
         private readonly IStoreService _storeService;
         private readonly ISettingService _settingService;
         private readonly ILocalizationService _localizationService;
@@ -28,14 +28,14 @@ namespace Nop.Plugin.Payments.CashOnDelivery.Controllers
 
         #region Ctor
 
-        public PaymentCashOnDeliveryController(IWorkContext workContext,
+        public PaymentCashOnDeliveryController(IStoreContext storeContext,
             IStoreService storeService, 
             ISettingService settingService,
             ILocalizationService localizationService,
             ILanguageService languageService,
             IPermissionService permissionService)
         {
-            this._workContext = workContext;
+            this._storeContext = storeContext;
             this._storeService = storeService;
             this._settingService = settingService;
             this._localizationService = localizationService;
@@ -53,7 +53,7 @@ namespace Nop.Plugin.Payments.CashOnDelivery.Controllers
                 return AccessDeniedView();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var cashOnDeliveryPaymentSettings = _settingService.LoadSetting<CashOnDeliveryPaymentSettings>(storeScope);
 
             var model = new ConfigurationModel {DescriptionText = cashOnDeliveryPaymentSettings.DescriptionText};
@@ -90,7 +90,7 @@ namespace Nop.Plugin.Payments.CashOnDelivery.Controllers
                 return Configure();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var cashOnDeliveryPaymentSettings = _settingService.LoadSetting<CashOnDeliveryPaymentSettings>(storeScope);
 
             //save settings

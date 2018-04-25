@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Web.Framework.Localization;
+using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
-using Nop.Web.Framework.Mvc.Models;
 
 namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Models
 {
@@ -73,7 +73,7 @@ namespace Nop.Plugin.Misc.ExtendedRewardPointsProgram.Models
         public IList<LocalizedModel> Locales { get; set; }
     }
 
-    public class LocalizedModel : ILocalizedModelLocal
+    public class LocalizedModel : ILocalizedLocaleModel
     {
         public int LanguageId { get; set; }
 

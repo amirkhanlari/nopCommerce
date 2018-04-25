@@ -95,7 +95,7 @@ a:focus {
 
 .form-control {
     border-radius: 30px;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 input[type="file"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
@@ -295,7 +295,7 @@ select {
 .header-lower .search-box {
     float: right;
     position: relative;
-    margin-top: -55px;
+    /* margin-top: -55px; */
 }
 
     .header-lower .search-box .search {
@@ -1115,8 +1115,8 @@ form#small-search-box-form .form-group {
 
 #newsletter-subscribe-block #newsletter-email {
     float: right;
-    width: 300px;
-    height: 45px;
+    /* width: 300px; */
+    /* height: 45px; */
     color: #303133;
     border-radius: 30px;
 }
@@ -1156,12 +1156,12 @@ form#small-search-box-form .form-group {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: #fff;
+    color: black;
     font-family: 'Marck Script', cursive;
 }
 
 .newsletter-result-block {
-    color: #fff;
+    color: black;
     clear: both;
     text-align: center;
     float: right;
@@ -1178,7 +1178,7 @@ form#small-search-box-form .form-group {
 }
 
     .footer-middle .title {
-        margin-bottom: 12px
+        margin-bottom: 12px;
     }
 
         .footer-middle .title strong {
@@ -1354,7 +1354,7 @@ form#small-search-box-form .form-group {
 }
 
 div#newsletter-subscribe-block .options label {
-    color: #fff;
+    color: black;
 }
 
 div#newsletter-subscribe-block .options {
@@ -8161,7 +8161,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .main-menu.goToTop .navbar.navbar-inverse.category-menu {
-        width: 940px !important;
+        width: 100% !important;
     }
 
     .product-details-page .product-reviews-overview .product-review-box {
@@ -10604,7 +10604,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .newsletter-subscribe-block .form-group, .newsletter-subscribe-block .buttons {
-        float: left;
+        float: right;
     }
 }
 

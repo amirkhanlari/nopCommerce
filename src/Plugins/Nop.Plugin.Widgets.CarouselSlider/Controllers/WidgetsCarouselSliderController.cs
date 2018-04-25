@@ -16,14 +16,14 @@ namespace Nop.Plugin.Widgets.CarouselSlider.Controllers
     [Area(AreaNames.Admin)]
     public class WidgetsCarouselSliderController : BasePluginController
     {
-        private readonly IWorkContext _workContext;
+        private readonly IStoreContext _storeContext;
         private readonly IStoreService _storeService;
         private readonly IPermissionService _permissionService;
         private readonly IPictureService _pictureService;
         private readonly ISettingService _settingService;
         private readonly ILocalizationService _localizationService;
 
-        public WidgetsCarouselSliderController(IWorkContext workContext,
+        public WidgetsCarouselSliderController(IStoreContext storeContext,
             IStoreService storeService,
             IPermissionService permissionService, 
             IPictureService pictureService,
@@ -31,7 +31,7 @@ namespace Nop.Plugin.Widgets.CarouselSlider.Controllers
             ICacheManager cacheManager,
             ILocalizationService localizationService)
         {
-            this._workContext = workContext;
+            this._storeContext = storeContext;
             this._storeService = storeService;
             this._permissionService = permissionService;
             this._pictureService = pictureService;
@@ -45,7 +45,7 @@ namespace Nop.Plugin.Widgets.CarouselSlider.Controllers
                 return AccessDeniedView();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var CarouselSliderSettings = _settingService.LoadSetting<CarouselSliderSettings>(storeScope);
             var model = new ConfigurationModel
             {
@@ -96,7 +96,7 @@ namespace Nop.Plugin.Widgets.CarouselSlider.Controllers
                 return AccessDeniedView();
 
             //load settings for a chosen store scope
-            var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var CarouselSliderSettings = _settingService.LoadSetting<CarouselSliderSettings>(storeScope);
 
             //get previous picture identifiers

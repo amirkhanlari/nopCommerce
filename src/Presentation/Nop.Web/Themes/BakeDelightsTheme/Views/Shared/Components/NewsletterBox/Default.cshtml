@@ -3,7 +3,6 @@
     <div class="listbox">
         <div id="newsletter-subscribe-block" class="newsletter-subscribe-block">
             <div class="newsletter-email">
-                <strong>@T("Newsletter.Title")</strong>
                 <div class="form-group">
                     <input asp-for="NewsletterEmail" id="newsletter-email" class="newsletter-subscribe-text form-control" placeholder=@T("Newsletter.Email.Placeholder") />
                     <input type="button" value="@T(Model.AllowToUnsubscribe ? "Newsletter.Options.Send" : "Newsletter.Options.Subscribe")" id="newsletter-subscribe-button" class="btn btn-default newsletter-subscribe-button" />

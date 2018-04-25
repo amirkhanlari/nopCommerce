@@ -22,14 +22,14 @@
     <div class="row">
         <div class="col-md-12">
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardTop })
-            @if (!Model.IsLoggedInAsVendor)
+            @*@if (!Model.IsLoggedInAsVendor)
             {
                 <div class="row">
                     <div class="col-md-12">
                         @await Component.InvokeAsync("NopCommerceNews")
                     </div>
                 </div>
-            }
+            }*@
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardNewsAfter })
             @if (!Model.IsLoggedInAsVendor && canManageOrders && canManageCustomers && canManageProducts && canManageReturnRequests)
             {
@@ -61,10 +61,10 @@
             @if (!Model.IsLoggedInAsVendor && canManageOrders)
             {
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         @await Html.PartialAsync("_OrderAverageReport")
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         @await Html.PartialAsync("_OrderIncompleteReport")
                     </div>
                 </div>
