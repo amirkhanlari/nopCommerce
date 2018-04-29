@@ -5,7 +5,7 @@
     <div class="form-group">
         <input type="text" class="search-nav form-control" id="small-searchterms" autocomplete="off" placeholder="@T("Search.SearchBox.Tooltip")" name="q" />
         @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.SearchBoxBeforeSearchButton })
-        <input type="submit" class="btn search-box-button" value="@T("Search.SearchBox.Value")" />
+        <input type="submit" class="btn search-box-button " title="" value="" />
         @if (Model.SearchTermMinimumLength > 0)
         {
         <script type="text/javascript" asp-location="Footer">

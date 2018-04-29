@@ -8,6 +8,8 @@
     var supportRtl = workContext.WorkingLanguage.Rtl;
     var themeName = themeContext.WorkingThemeName;
     var isIe8 = userAgentHelper.IsIe8();
+    var ismobile = userAgentHelper.IsMobileDevice();
+
 
     //add browser specific CSS files
     if (isIe8)
@@ -18,15 +20,28 @@
     //add main CSS file
     if (supportRtl)
     {
-        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles-responsive.css");
-        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles.rtl.css");
+        if (ismobile)
+        {
+            Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles-responsive.css");
+        }
+        else
+        {
+            Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles.rtl.css");
+        }
         Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/fontawesome-all.min.css");
         Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/bootstrap.min.rtl.css");
     }
     else
     {
-        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles-responsive.css");
-        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles.css");
+        if (ismobile)
+        {
+            Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles-responsive.css");
+        }
+        else
+        {
+
+            Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/theme-styles.css");
+        }
         Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/fontawesome-all.min.css");
         Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/bootstrap.min.css");
     }

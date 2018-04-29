@@ -3,7 +3,15 @@
  * Copyright 2017 Xcellence-IT.
  * Licensed under LICENSETYPE (http://www.nopaccelerate.com/terms/)
  */
+@font-face {
+    font-family: iran_sans;
+    src: url(../font/iran_sans.ttf)
+}
 
+@font-face {
+    font-family: web_Yekan;
+    src: url(../font/web_Yekan.ttf)
+}
 /* Web Styles for Bake Delights Theme */
 body {
     font-family: 'Montserrat', sans-serif;
@@ -174,9 +182,9 @@ select {
 }
 
 .header-upper {
-    background: #303133;
-    box-shadow: 0px 0px 3px #999;
-    -webkit-box-shadow: 0px 0px 3px #999;
+    /* background: #303133; */
+    /* box-shadow: 0px 0px 3px #999; */
+    /* -webkit-box-shadow: 0px 0px 3px #999; */
     -moz-box-shadow: 0px 0px 3px #999;
     height: 46px;
     width: 100% !important;
@@ -189,15 +197,15 @@ select {
 }
 
 .header-selectors-wrapper select {
-    background: #303133 url("/Themes/BakeDelightsTheme/Content/images/down-caret.png") no-repeat scroll right center !important;
+    /* background: #303133 url("/Themes/BakeDelightsTheme/Content/images/down-caret.png") no-repeat scroll right center !important; */
     -moz-appearance: none;
-    color: #fff;
+    color: #7f848f;
     width: 80px;
     margin-top: 0px !important;
-    padding: 0px 12px 0 0 !important;
+    padding: 0px !important;
     height: 30px;
     font-size: 14px;
-    border: none !important;
+    /* border: none !important; */
     -webkit-appearance: none;
 }
 
@@ -295,7 +303,7 @@ select {
 .header-lower .search-box {
     float: right;
     position: relative;
-    /* margin-top: -55px; */
+    /* margin-top: 30px; */
 }
 
     .header-lower .search-box .search {
@@ -617,9 +625,12 @@ form#small-search-box-form .form-group {
         text-align: right !important;
     }
 
+.header {
+    background: url(../images/header_bg.png);
+}
+
 .header-lower {
     position: relative;
-    /* background: url(../images/header_bg.png); */
     width: 100% !important;
     margin-right: 0px !important;
 }
@@ -1115,7 +1126,7 @@ form#small-search-box-form .form-group {
 
 #newsletter-subscribe-block #newsletter-email {
     float: right;
-    /* width: 300px; */
+    width: 100%;
     /* height: 45px; */
     color: #303133;
     border-radius: 30px;
@@ -1129,7 +1140,7 @@ form#small-search-box-form .form-group {
 #newsletter-subscribe-button {
     font-size: 15px;
     text-transform: uppercase;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     background-color: #2d9c6d;
 }
 
@@ -1144,7 +1155,7 @@ form#small-search-box-form .form-group {
 
 .newsletter-wrapper .title, .newsletter-email {
     text-align: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .newsletter-wrapper .title {
@@ -1185,6 +1196,9 @@ form#small-search-box-form .form-group {
             font-size: 24px;
             color: #303133;
             font-family: 'Marck Script', cursive;
+            width: 100%;
+            text-align: right;
+            padding: 5px 15px 5px 5px;
         }
 
 .footer .footer-middle ul li a {
@@ -1372,7 +1386,7 @@ div#newsletter-subscribe-block .options {
 }
 
 #customerTaxType, #customerCurrency, #customerlanguage {
-    border: 1px solid #ddd;
+    border: 1px solid black;
 }
 
 .title.main-title {
@@ -2756,11 +2770,11 @@ div#newsletter-subscribe-block .options {
 }
 
 .page-title h1 {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     color: #303133;
     margin: 0;
-    text-align: left;
+    text-align: right;
     letter-spacing: 2px;
     font-family: 'Marck Script', cursive;
     padding-bottom: 10px;
@@ -8513,7 +8527,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .currency-selector, .language-selector {
         display: inline-block;
-        float: none;
+        float: right;
     }
 
     .header-selectors-wrapper {
@@ -8527,15 +8541,18 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         display: inline-block;
         text-align: center;
         width: 100%;
+        color: black;
     }
 
     .header-top-right ul li {
         display: inline-block;
-        float: none;
+        float: right;
+        color: black;
     }
 
         .header-top-right ul li.my-account a, .header-top-right ul li.register a {
             border-left: none;
+            color: black;
         }
 
         .header-top-right ul li a {
@@ -9211,12 +9228,12 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .header-logo {
         margin-bottom: 5px;
-        margin-top: 10px;
+        margin-top: -30px;
         text-align: center;
     }
 
     .header-lower .search-box {
-        position: static;
+        /* position: static; */
     }
 
         .header-lower .search-box .search-nav {
@@ -9242,9 +9259,9 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     #newsletter-subscribe-block #newsletter-email {
-        float: none;
+        float: right;
         display: inline-block;
-        width: 100%;
+        /* width: 100%; */
         margin-bottom: 10px;
     }
 
@@ -9259,8 +9276,9 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .newsletter-wrapper strong, #newsletter-subscribe-block #newsletter-subscribe-button, .newsletter-subscribe-block .newsletter-email {
-        float: none;
+        float: right;
         text-align: center;
+        width: 100%;
     }
 
     #newsletter-subscribe-block #newsletter-subscribe-button {
@@ -9955,18 +9973,41 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .listbox, .lt-ie9 .listbox, .footer-middle .nav.nav-list, .lt-ie9 .nav.nav-list {
         display: none;
-        text-align: left;
+        text-align: right;
     }
 
     .footer-middle .title {
-        background: url("../images/footer-toggle-down-arrow.png") no-repeat scroll right center;
+        /* background: url("../images/footer-toggle-down-arrow.png") no-repeat scroll right center; */
         cursor: pointer;
-        text-align: left;
+        text-align: right;
+        width: 100%;
     }
 
-        .footer-middle .title.arrow-up-down {
-            background: url("../images/footer-toggle-up-arrow.png") no-repeat scroll right center;
+    #footer-middle .column .fa-angle-down {
+        position: absolute;
+        right: 0px;
+        font-size: 30px;
+        color: black;
+        cursor: pointer;
+        z-index: 9;
+        -webkit-transition: all 0.2s;
+        -webkit-transition-timing-function: linear;
+        transition: all 0.2s;
+        transition-timing-function: linear;
+        margin: 5px 5px 5px 15px;
+    }
+
+        #footer-middle .column .fa-angle-down.rotate {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
         }
+
+    .footer-middle .title.arrow-up-down {
+        background: url("../images/footer-toggle-up-arrow.png") no-repeat scroll right center;
+    }
 
 
 
@@ -9978,6 +10019,8 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         position: absolute;
         right: 15px;
         z-index: 999;
+        margin-top: -70px;
+        width: 80%;
     }
 
     .newsletter-wrapper .title {
@@ -10013,7 +10056,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .header-lower .search-box .search-nav {
-        float: none;
+        float: right;
     }
 
 
@@ -10095,7 +10138,10 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .search-box .btn.search-box-button {
-        right: 31.3%;
+        width: 15% !important;
+        /* right: 31.3%; */
+        margin-right: -16.6%;
+        background: url(../images/search-icon.png) no-repeat center 8px;
     }
 
     .dropdown-menu.sub-menusublist.first-level li a {
@@ -10287,7 +10333,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
 @media (max-width:480px) {
     .header-lower .search-box .search-nav, .header-lower .search-box .ui-widget-content {
-        width: 200px !important;
+        width: 100% !important;
         margin: 0;
     }
 
@@ -10309,6 +10355,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .header-top-right ul li a {
         margin: 0;
+        color: black;
     }
 
     .lt-ie9 .box-shadow-wrapper, .box-shadow-wrapper {
