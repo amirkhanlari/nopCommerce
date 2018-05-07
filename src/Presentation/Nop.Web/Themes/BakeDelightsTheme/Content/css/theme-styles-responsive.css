@@ -4,13 +4,60 @@
  * Licensed under LICENSETYPE (http://www.nopaccelerate.com/terms/)
  */
 @font-face {
-    font-family: iran_sans;
-    src: url(../font/iran_sans.ttf)
+    font-family: web_Yekan;
+    src: url(../font/web_Yekan.woff)
 }
 
 @font-face {
-    font-family: web_Yekan;
-    src: url(../font/web_Yekan.ttf)
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/IRANSansWeb(FaNum)_Bold.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Bold.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Bold.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/IRANSansWeb(FaNum)_Medium.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Medium.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Medium.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/IRANSansWeb(FaNum)_Light.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Light.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Light.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/IRANSansWeb(FaNum)_UltraLight.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/IRANSansWeb(FaNum).eot');
+    src: url('../fonts/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum).woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum).woff') format('woff'),url('../fonts/IRANSansWeb(FaNum).ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans_EN_NUM;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/IRANSansWeb.eot');
+    src: url('../fonts/IRANSansWeb.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb.woff2') format('woff2'),url('../fonts/IRANSansWeb.woff') format('woff'),url('../fonts/IRANSansWeb.ttf') format('truetype')
+}
+
+* {
+    font-family: iran_sans,tahoma,serif
 }
 /* Web Styles for Bake Delights Theme */
 body {
@@ -8045,9 +8092,25 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         padding: 5px;
         margin-top: 10px;
     }
+    .condiytionofuse {
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 10px !important;
+    }
+
 }
 
 @media (max-width: 1199px) {
+    .condiytionofuse {
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 10px !important;
+    }
+
     .home-news-slider .owl-buttons, .crosssell-products-slider .owl-buttons, .home-bestseller-slider .owl-buttons, .home-features-slider .owl-buttons, .related-products-slider .owl-buttons, .also-purchased-products-slider .owl-buttons, .home-category-slider .owl-buttons {
         position: inherit;
         float: left;
@@ -8120,6 +8183,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (min-width:992px) and (max-width:1199px) {
+
     .lt-1024 body .responsive {
         display: none;
     }
@@ -8311,6 +8375,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (min-width:1024px) {
+
     /* Top Mobile, Tab Navigation Style  */
     .mobile {
         cursor: pointer;
@@ -8507,6 +8572,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:992px) {
+
     .responsive {
         display: none !important;
     }
@@ -8517,6 +8583,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:991px) {
+    .condiytionofuse {
+        padding-right: 15% !important;
+        padding-left: 15% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 8px !important;
+    }
+
     .lt-ie11 .login-page .checkbox input[type="checkbox"] {
         margin-left: 15px;
     }
@@ -8846,6 +8920,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (min-width:768px) and (max-width: 991px) {
+
     .responsive {
         display: none;
     }
@@ -9032,6 +9107,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (min-width: 768px) {
+
     .header-menu .navbar.navbar-inverse .nav.navbar-nav > li.dropdown:hover .dropdown-menu {
         display: block;
         top: 65px;
@@ -9058,6 +9134,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:767px) {
+    .condiytionofuse {
+        padding-right: 10% !important;
+        padding-left: 10% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 5px !important;
+    }
+
     .header-menu .navbar.navbar-inverse .nav.navbar-nav li a {
         font-weight: 600;
         color: #fff;
@@ -10176,6 +10260,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:640px) {
+    .condiytionofuse {
+        padding-right: 8% !important;
+        padding-left: 8% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 4px !important;
+    }
+
     .footer-tax-shipping {
         display: block;
         text-align: center;
@@ -10332,6 +10424,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
 
 @media (max-width:480px) {
+    .condiytionofuse {
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 4px !important;
+    }
+
     .header-lower .search-box .search-nav, .header-lower .search-box .ui-widget-content {
         width: 100% !important;
         margin: 0;
@@ -10403,6 +10503,13 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:360px) {
+    .condiytionofuse {
+        padding-right: 4% !important;
+        padding-left: 4% !important;
+    }
+    .condiytionofuse-ul {
+        padding-top: 10px !important;
+    }
     .form-control.password-w {
         width: 94%;
     }

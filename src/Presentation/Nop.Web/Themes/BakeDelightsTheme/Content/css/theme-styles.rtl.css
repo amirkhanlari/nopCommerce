@@ -3,18 +3,67 @@
  * Copyright 2017 Xcellence-IT.
  * Licensed under LICENSETYPE (http://www.nopaccelerate.com/terms/)
  */
-@font-face {
-    font-family: iran_sans;
-    src: url(../font/iran_sans.ttf)
-}
 
 @font-face {
     font-family: web_Yekan;
-    src: url(../font/web_Yekan.ttf)
+    src: url(../font/web_Yekan.woff)
 }
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/IRANSansWeb(FaNum)_Bold.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Bold.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Bold.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/IRANSansWeb(FaNum)_Medium.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Medium.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Medium.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/IRANSansWeb(FaNum)_Light.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_Light.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_Light.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/IRANSansWeb(FaNum)_UltraLight.eot');
+    src: url('../fonts/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),url('../fonts/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/IRANSansWeb(FaNum).eot');
+    src: url('../fonts/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb(FaNum).woff2') format('woff2'),url('../fonts/IRANSansWeb(FaNum).woff') format('woff'),url('../fonts/IRANSansWeb(FaNum).ttf') format('truetype')
+}
+
+@font-face {
+    font-family: iran_sans_EN_NUM;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/IRANSansWeb.eot');
+    src: url('../fonts/IRANSansWeb.eot?#iefix') format('embedded-opentype'),url('../fonts/IRANSansWeb.woff2') format('woff2'),url('../fonts/IRANSansWeb.woff') format('woff'),url('../fonts/IRANSansWeb.ttf') format('truetype')
+}
+
+* {
+    font-family: iran_sans,tahoma,serif
+}
+
 /* Web Styles for Bake Delights Theme */
 body {
-    font-family: iran_sans,'Montserrat', sans-serif;
+    font-family: iran_sans,web_Yekan,'Montserrat', sans-serif;
     background: #fff;
     color: #303133;
 }
@@ -230,7 +279,7 @@ select {
 .header-links-wrapper .header-top-right {
     float: right;
     width: auto;
-    position: relative;
+    position: absolute;
 }
 
 .header-top-right ul li {
@@ -242,6 +291,7 @@ select {
         padding: 8px 15px 8px 15px;
         float: right;
         font-size: 14px;
+        font-weight: 500;
         float: right;
         line-height: 18px;
         color: #7f848f;
@@ -283,7 +333,7 @@ select {
     .header-lower .ui-autocomplete li a {
         padding: 10px;
         border-radius: 0px;
-        font-family: iran_sans,'Open Sans', sans-serif;
+        font-family: iran_sans,web_Yekan,'Open Sans', sans-serif;
         font-size: 12px;
         background: #f5f5f5;
         cursor: pointer;
@@ -314,7 +364,7 @@ select {
 .header-lower .search-box {
     float: right;
     position: relative;
-    margin-top: -55px;
+    margin-top: -60px;
 }
 
     .header-lower .search-box .search {
@@ -323,7 +373,10 @@ select {
 
     .header-lower .search-box .navbar-form {
         padding-left: 0px;
-        width: 100% !important;
+        width: 90% !important;
+        z-index: 999 !important;
+        right: 0;
+        float: right !important;
     }
 
     .header-lower .search-box .search-nav {
@@ -403,7 +456,7 @@ form#small-search-box-form .form-group {
 
 .flyout-main-wrapper {
     float: right;
-    margin-top: -55px;
+    /* margin-top: -55px; */
     right: 0px;
     width: 100% !important;
 }
@@ -906,7 +959,7 @@ form#small-search-box-form .form-group {
     }
 
     .title.sub-title strong {
-        font-family: iran_sans,'Marck Script', cursive;
+        font-family: iran_sans,web_Yekan,'Marck Script', cursive;
         font-weight: 700;
         font-size: 30px;
         color: #303133;
@@ -1205,7 +1258,7 @@ form#small-search-box-form .form-group {
     font-size: 30px;
     font-weight: bold;
     color: black;
-    font-family: iran_sans,'Marck Script', cursive;
+    font-family: iran_sans,web_Yekan,'Marck Script', cursive;
 }
 
 .newsletter-result-block {
@@ -1232,7 +1285,7 @@ form#small-search-box-form .form-group {
         .footer-middle .title strong {
             font-size: 24px;
             color: #303133;
-            font-family: iran_sans,'Marck Script', cursive;
+            font-family: iran_sans,web_Yekan,'Marck Script', cursive;
         }
 
 .footer .footer-middle ul li a {
@@ -1749,7 +1802,7 @@ div#newsletter-subscribe-block .options {
 }
 
     .breadcrumb-wrapper .breadcrumb li a {
-        font-family: iran_sans,'Marck Script', cursive;
+        font-family: iran_sans,web_Yekan,'Marck Script', cursive;
         color: #303133;
         font-size: 15px;
         font-weight: 700;
@@ -1772,7 +1825,7 @@ div#newsletter-subscribe-block .options {
         }
 
     .breadcrumb-wrapper .breadcrumb li .current-item.active, .breadcrumb-wrapper .breadcrumb li .active {
-        font-family: iran_sans,'Marck Script', cursive;
+        font-family: iran_sans,web_Yekan,'Marck Script', cursive;
         color: #2d9c6d;
         font-size: 15px;
         font-weight: 700;
@@ -2810,12 +2863,12 @@ div#newsletter-subscribe-block .options {
     margin: 0;
     text-align: left;
     letter-spacing: 2px;
-    font-family: iran_sans,'Marck Script', cursive;
+    font-family: iran_sans,web_Yekan,'Marck Script', cursive;
     padding-bottom: 10px;
 }
 
 .page-title {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     padding: 0;
     display: inline-block;
 }
@@ -5463,13 +5516,13 @@ a.eu-cookie-privacyinfo-tag {
 
 /* CHECKOUT PAGE READ LINK POPUP */
 .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
-    font-family: iran_sans,'Montserrat', sans-serif;
+    font-family: iran_sans,web_Yekan,'Montserrat', sans-serif;
     border: none !important;
     clear: both;
 }
 
 .tooltip {
-    font-family: iran_sans,'Montserrat', sans-serif;
+    font-family: iran_sans,web_Yekan,'Montserrat', sans-serif;
 }
 
 .ui-corner-all {
@@ -8079,9 +8132,28 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         padding: 5px;
         margin-top: 10px;
     }
+
+    .condiytionofuse {
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 10px !important;
+    }
 }
 
 @media (max-width: 1199px) {
+    .condiytionofuse {
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 10px !important;
+    }
+
+
     .home-news-slider .owl-buttons, .crosssell-products-slider .owl-buttons, .home-bestseller-slider .owl-buttons, .home-features-slider .owl-buttons, .related-products-slider .owl-buttons, .also-purchased-products-slider .owl-buttons, .home-category-slider .owl-buttons {
         position: inherit;
         float: left;
@@ -8203,6 +8275,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     .product-tag-page .item-box.product-grid, .vendor-page .item-box.product-grid, .manufacturer-page .item-box.product-grid, .category-page .item-box.product-grid {
         margin-bottom: 20px;
     }
+
 
     #newsletter-subscribe-block #newsletter-email {
         width: 200px;
@@ -8551,6 +8624,96 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:991px) {
+    .condiytionofuse {
+        padding-right: 15% !important;
+        padding-left: 15% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 8px !important;
+    }
+
+    .shopping-cart-link > a > i {
+        color: #fff;
+        background-color: #303133;
+        padding: 2px 0px;
+        font-size: 13px;
+        border-radius: 10px 10px;
+        width: 100% !important;
+        /* margin-top: -95px !important; */
+    }
+
+    .header-lower .search-box {
+        float: right;
+        position: relative;
+        margin-top: -55px;
+        margin-right: -20px !important;
+    }
+
+    .flyout-main-wrapper {
+        float: right;
+        margin-top: -55px;
+        right: 0px;
+        width: 100% !important;
+        position: relative;
+    }
+
+    .header-lower .search-box .search {
+        float: right;
+    }
+
+    .header-lower .search-box .navbar-form {
+        padding-left: 0px;
+        right: 0px !important;
+        /* margin-right: -20px !important; */
+        width: 100% !important;
+        z-index: 999 !important;
+    }
+
+    .header-lower .search-box .search-nav {
+        float: right;
+        background: #fff;
+        border: 1px solid #303133;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        width: 70% !important;
+        height: 40px;
+        /* margin-left: 1% !important; */
+    }
+
+        .header-lower .search-box .search-nav.form-control::-moz-placeholder {
+            color: #303133 !important;
+        }
+
+        .forum-search-box .search-box-text:focus, .header-lower .search-box .search-nav:focus {
+            border-color: #2d9c6d;
+        }
+
+    .search-box .btn.search-box-button {
+        /* background-color: #555555; */
+        /* color: #fff; */
+        margin-right: -51px;
+        margin-left: 0px;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        width: 50px !important;
+        height: 40px;
+        transition: all 0.3s ease-in-out 0s;
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        -o-transition: all 0.3s ease-in-out 0s;
+        background: url(../images/search-icon.png) no-repeat center 10px;
+    }
+
+    /* HEADER SECTION STYLE */
+    .header-logo {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-top: -35px !important;
+    }
+
     .lt-ie11 .login-page .checkbox input[type="checkbox"] {
         margin-left: 15px;
     }
@@ -8575,11 +8738,15 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         display: inline-block;
         text-align: center;
         width: 100%;
+        font-size: 13px;
+        right: 0;
+        float: right;
     }
 
     .header-top-right ul li {
         display: inline-block;
-        float: none;
+        /* float: none; */
+        font-size: 13px !important;
     }
 
         .header-top-right ul li.my-account a, .header-top-right ul li.register a {
@@ -8590,10 +8757,13 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
             border-right: none;
             float: left;
             display: inline-block;
+            font-size: 13px !important;
+            font-weight: 500;
         }
 
     .header-upper-right {
-        float: none !important;
+        float: right !important;
+        text-align: right;
     }
 
     .search-box .btn.search-box-button {
@@ -8882,7 +9052,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .header-lower .search-box .search-nav, .header-lower .search-box .ui-widget-content {
-        width: 190px !important;
+        width: 100% !important;
         margin: 0;
     }
 
@@ -9094,6 +9264,15 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         color: #fff;
     }
 
+    .condiytionofuse {
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 3px !important;
+    }
+
     ul.dropdown-menu.sub-menusublist.first-level li {
         border-top: 1px solid #43a67c;
     }
@@ -9241,43 +9420,69 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .header-lower .search-box {
         text-align: center;
-        overflow: hidden;
+        /* overflow: hidden; */
         margin-bottom: 3px;
         width: 100%;
     }
 
     .search-box .btn.search-box-button {
-        position: inherit;
+        position: relative;
     }
 
     .search-box .navbar-form {
         width: auto;
         margin: 0 auto;
         padding: 0;
-        position: inherit;
+        position: absolute;
     }
 
     .header-logo {
         margin-bottom: 5px;
-        margin-top: 10px;
+        margin-top: -25px;
         text-align: center;
     }
 
     .header-lower .search-box {
-        position: static;
+        position: absolute;
+        margin-top: -80px;
+        width: 90% !important;
     }
 
-        .header-lower .search-box .search-nav {
-            margin: 0;
-            display: inline;
-        }
+    .shopping-cart-link > a > i {
+        color: #2d9c6b;
+        background-color: #303133;
+        padding: 2px 0px;
+        font-size: 16px;
+        border-radius: 10px 10px;
+        width: 100% !important;
+    }
+
+    .header-lower .search-box .search-nav {
+        margin: 0;
+        display: inline;
+    }
 
     .flyout-main-wrapper {
         text-align: center;
+        margin-top: -95px !important;
     }
 
         .flyout-main-wrapper .shopping-cart-link .ico-cart {
             margin-top: 10px;
+        }
+
+        .flyout-main-wrapper .shopping-cart-link .shopping-cart-title {
+            /* border-radius: 100%; */
+            color: #fff;
+            display: inline-block;
+            line-height: 25px;
+            min-height: 25px;
+            min-width: 25px;
+            padding: 10px 5px;
+            width: 80% !important;
+            border-right-style: solid;
+            border-width: thin;
+            font-size: 13px !important;
         }
 
     .footer-disclaimer {
@@ -10061,7 +10266,11 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .header-lower .search-box .search-nav {
-        float: none;
+        float: right;
+        /* margin-top: -35px; */
+        z-index: 9999 !important;
+        display: inline-block;
+        width: 78% !important;
     }
 
 
@@ -10143,7 +10352,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     }
 
     .search-box .btn.search-box-button {
-        right: 31.3%;
+        margin-right: -31.3%;
     }
 
     .dropdown-menu.sub-menusublist.first-level li a {
@@ -10178,6 +10387,13 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:640px) {
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 5% !important;
+        display: inline-block;
+    }
+
     .footer-tax-shipping {
         display: block;
         text-align: center;
@@ -10190,6 +10406,15 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 
     .item-box.product-grid .product-item .picture a img {
         width: 100%;
+    }
+
+    .condiytionofuse {
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 3px !important;
     }
 
     .manufacturer-grid .item-box .picture a img, .category-grid .item-box .picture a img, .sub-category-grid .item-box .picture a img {
@@ -10339,6 +10564,15 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         margin: 0;
     }
 
+    .condiytionofuse {
+        padding-right: 3% !important;
+        padding-left: 3% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 3px !important;
+    }
+
     .forum-topic-page .topic-header {
         clear: both;
     }
@@ -10406,6 +10640,15 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 @media (max-width:360px) {
     .form-control.password-w {
         width: 94%;
+    }
+
+    .condiytionofuse {
+        padding-right: 2% !important;
+        padding-left: 2% !important;
+    }
+
+    .condiytionofuse-ul {
+        padding-top: 2px !important;
     }
 
     .login-page .checkout-as-guest-or-register-block .buttons.buttons {
