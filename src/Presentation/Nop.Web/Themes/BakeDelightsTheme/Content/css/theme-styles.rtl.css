@@ -106,14 +106,30 @@ li {
     -moz-transition: all 0.3s ease-in-out 0s;
     -o-transition: all 0.3s ease-in-out 0s;
     padding: 10px 15px;
-    border-radius: 30px;
+    border-radius: 10px;
     vertical-align: initial !important;
 }
 
-    .btn.btn-primary:hover, .btn.btn-primary:focus {
-        background-color: #555555;
-        opacity: 1 !important;
-    }
+.login-page .btn.btn-primary {
+    background-color: #2d9c6d;
+    border: none;
+    color: #fff;
+    border-radius: 0px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out 0s;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    width: 87% !important;
+    margin-right: 6%;
+    border-radius: 10px;
+    vertical-align: initial !important;
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:focus {
+    background-color: #555555;
+    opacity: 1 !important;
+}
 
 .btn.btn-default {
     background-color: #555555;
@@ -439,7 +455,7 @@ form#small-search-box-form .form-group {
 /* FLYOUT CART STYLE */
 .flyout-main-wrapper .flyout-cart-wrapper {
     position: absolute;
-    top: 5px;
+    /* top: 55px; */
     z-index: 999999;
     width: 100%;
     /* box-shadow: 0 0 2px rgba(0,0,0,0.25); */
@@ -451,7 +467,7 @@ form#small-search-box-form .form-group {
     opacity: 0;
     visibility: hidden;
     /* right: 120px; */
-    /* top: 78px; */
+    top: 60px;
 }
 
 .flyout-main-wrapper {
@@ -2873,14 +2889,6 @@ div#newsletter-subscribe-block .options {
     display: inline-block;
 }
 
-    .page-title::after {
-        content: "";
-        background: #2d9c6d;
-        width: 30px;
-        height: 2px;
-        position: absolute;
-        /*left: 15px;*/
-    }
 
 .not-found-page ul li {
     list-style: none;
@@ -2908,26 +2916,34 @@ div#newsletter-subscribe-block .options {
 }
 
 .topic-html-content {
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
 }
 
     .topic-html-content .panel-heading {
         margin-bottom: 0px;
-        padding: 0;
+        padding: 0 5% 0 10%;
+        font-size: 18px;
+        font-weight: 500;
+        direction: rtl;
     }
 
-        .topic-html-content .panel-heading h1 {
-            margin-bottom: 0px;
-            padding: 0;
-            font-size: 24px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
+.topic-html-content-body {
+    padding: 0 5% 0 10%;
+    direction: rtl;
+}
 
-    .topic-page .page-body img, .topic-html-content .topic-html-content-body img, .category-description img, .manufacturer-description img, .product-details-tabs #description img, .news-item-page .news-body img, .blogpost-page .post-body img {
-        width: 100%;
-        height: auto;
-    }
+.topic-html-content .panel-heading h1 {
+    margin-bottom: 0px;
+    padding: 0;
+    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.topic-page .page-body img, .topic-html-content .topic-html-content-body img, .category-description img, .manufacturer-description img, .product-details-tabs #description img, .news-item-page .news-body img, .blogpost-page .post-body img {
+    width: 100%;
+    height: auto;
+}
 
 .page.topic-page .panel-heading h1 {
     text-align: center;
@@ -3365,7 +3381,7 @@ a.eu-cookie-privacyinfo-tag {
 
 .product-details-page .product-price label {
     display: inline;
-    font-size: 20px;
+    font-size: 14px;
     color: #303133;
 }
 
@@ -4121,9 +4137,52 @@ a.eu-cookie-privacyinfo-tag {
 
 
 /* LOGIN PAGE STYLE */
-.send-email-a-friend-button, .write-product-review-button, .login-page .register-button, .login-page .checkout-as-guest-button, .register-continue-button, .registration-page .register-next-step-button, .login-page .new-wrapper.register-block .register-button, .login-page .login-button, .password-recovery-page .password-recovery-button {
+.send-email-a-friend-button, .write-product-review-button, .login-page .checkout-as-guest-button, .register-continue-button, .registration-page .register-next-step-button, .login-page .new-wrapper.register-block .register-button, .login-page .login-button, .password-recovery-page .password-recovery-button {
     text-transform: uppercase;
+    line-height: 30px;
+    background: transparent;
+    border: none;
+    font-family: iran_sans,tahoma,serif;
 }
+
+.login-page .register-button {
+    text-transform: uppercase;
+    color: #2d9c6b !important;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px dashed;
+    margin-right: 20px !important;
+}
+
+.login-page .email {
+    width: 87% !important;
+    margin-right: 6%;
+}
+
+.login-page .fieldsetheader {
+    font-size: 16px !important;
+    font-weight: 500;
+}
+
+.login-page .register-block {
+    width: 87% !important;
+    margin-right: 6%;
+}
+
+.login-page .page-title {
+    text-align: center !important;
+    width: 100%;
+}
+
+.login-page .password {
+    width: 87% !important;
+    margin-right: 6%;
+}
+/*.login-page .register-button::after {
+    color: #2d9c6b;
+    width: 50px;
+    
+}*/
 
 .login-page .new-wrapper legend + *::before, .login-page .returning-wrapper legend + *::before {
     margin-bottom: 0px;
@@ -4151,8 +4210,9 @@ a.eu-cookie-privacyinfo-tag {
     border: 1px solid #ededed;
     border-radius: 0px;
     padding: 20px;
-    float: right;
-    width: 100%;
+    margin-right: 25% !important;
+    float: none !important;
+    /* width: 100%; */
     background: #fff;
     box-shadow: 0 0 10px #ccc;
     -webkit-box-shadow: 0 0 10px #ccc;
@@ -4201,8 +4261,12 @@ a.eu-cookie-privacyinfo-tag {
 
 .login-page .remember-me .checkbox {
     padding-top: 0;
-    padding-left: 35px;
+    /* padding-left: 35px; */
     line-height: 25px;
+}
+
+.login-page .remember-me {
+    margin-right: 8%;
 }
 
 .login-page .checkbox input[type="checkbox"] {
@@ -8133,6 +8197,16 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         margin-top: 10px;
     }
 
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bolder;
+    }
+
     .condiytionofuse {
         padding-right: 20% !important;
         padding-left: 20% !important;
@@ -8144,6 +8218,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width: 1199px) {
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 20% !important;
+        padding-left: 20% !important;
+        display: inline-block;
+    }
+
     .condiytionofuse {
         padding-right: 20% !important;
         padding-left: 20% !important;
@@ -8624,6 +8706,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 @media (max-width:991px) {
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 15% !important;
+        padding-left: 15% !important;
+        display: inline-block;
+    }
+
     .condiytionofuse {
         padding-right: 15% !important;
         padding-left: 15% !important;
@@ -9262,6 +9352,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     .header-menu .navbar.navbar-inverse .nav.navbar-nav li a {
         font-weight: 600;
         color: #fff;
+    }
+
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+        display: inline-block;
     }
 
     .condiytionofuse {
@@ -10408,6 +10506,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         width: 100%;
     }
 
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+        display: inline-block;
+    }
+
     .condiytionofuse {
         padding-right: 5% !important;
         padding-left: 5% !important;
@@ -10564,6 +10670,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
         margin: 0;
     }
 
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 3% !important;
+        padding-left: 3% !important;
+        display: inline-block;
+    }
+
     .condiytionofuse {
         padding-right: 3% !important;
         padding-left: 3% !important;
@@ -10640,6 +10754,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 @media (max-width:360px) {
     .form-control.password-w {
         width: 94%;
+    }
+
+    .page-title {
+        margin-bottom: 10px;
+        padding: 0;
+        padding-right: 2% !important;
+        padding-left: 2% !important;
+        display: inline-block;
     }
 
     .condiytionofuse {

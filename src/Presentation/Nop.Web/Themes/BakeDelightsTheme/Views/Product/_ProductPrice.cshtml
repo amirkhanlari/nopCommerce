@@ -41,10 +41,13 @@
                 }
             
                 @*render price*@
-                <span @if (string.IsNullOrWhiteSpace(Model.PriceWithDiscount)) 
-                      { 
-                          <text> itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" class="price-value-@(Model.ProductId)" </text>  
-                      }>
+            <span @if (string.IsNullOrWhiteSpace(Model.PriceWithDiscount))
+                  {
+
+                      <text> itemprop="price" content="@Model.PriceValue.ToString("0", System.Globalization.CultureInfo.InvariantCulture)" class="price-value-@(Model.ProductId)" </text>
+                  }>
+                    <label>@T("Products.Price"):</label>
+
                     @Html.Raw(Model.Price)
                 </span>
             </div>
@@ -53,7 +56,7 @@
                 @*discounted price*@
                 <div class="product-price discounted-price">
                     <label>@T("Products.Price.WithDiscount"):</label>
-                    <span itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" class="price-value-@(Model.ProductId)">
+                    <span itemprop="price" content="@Model.PriceValue.ToString("0", System.Globalization.CultureInfo.InvariantCulture)" class="price-value-@(Model.ProductId)">
                         @Html.Raw(Model.PriceWithDiscount)
                     </span>
                 </div>

@@ -1,4 +1,4 @@
-﻿@model TopicModel
+﻿﻿@model TopicModel
 @using Nop.Core.Domain.Seo
 @inject SeoSettings seoSettings
 @{
@@ -27,7 +27,7 @@
     Html.AppendPageCssClassParts("html-topic-page");
 }
 @if (Model.IsPasswordProtected)
-{  
+{
     <script type="text/javascript" asp-location="Footer">
         $(document).ready(function () {
             $('#button-password').click(function () {
@@ -68,7 +68,7 @@
             $('#ph-topic').hide();
             $('#ph-password #password').select().focus();
         });
-</script>
+    </script>
     <div class="topic-password" id="ph-password">
         <form asp-route="TopicAuthenticate" method="post">
             <input asp-for="Id" id="topic-@Model.Id" type="hidden" />
@@ -86,8 +86,7 @@
 <div class="page topic-page" id="ph-topic">
     <div id="ph-title">
         <div class="page-title panel-heading">
-            <h1>
-                @Model.Title</h1>
+            @Model.Title
         </div>
     </div>
     <div class="page-body">
