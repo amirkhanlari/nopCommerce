@@ -36,13 +36,13 @@ $(document).ready(function () {
     });
 
     //Used js for flayout cart
-    $("#flyout-cart").live("mouseenter", function () {
-        $('#flyout-cart-wrapper').addClass('active');
-    });
+    //$("#flyout-cart").live("mouseenter", function () {
+    //    $('#flyout-cart-wrapper').addClass('active');
+    //});
 
-    $("#flyout-cart").live("mouseleave", function () {
-        $('#flyout-cart-wrapper').removeClass('active');
-    });
+    //$("#flyout-cart").live("mouseleave", function () {
+    //    $('#flyout-cart-wrapper').removeClass('active');
+    //});
     //$(".shopping-cart-link").mouseenter(function () {
     //    $('#flyout-cart-wrapper').addClass('active');
     //});
@@ -182,4 +182,16 @@ function DecreaseQuantity(e) {
     return true;
 }
 
+// Used for lines on hover 
+window.onload = function () {
+    $(".header-menu ul a").click(function (e) {
+        var link = $(this);
+    }).each(function () {
+        var link = $(this);
+        if (link.get(0).href === location.href) {
+            link.parent('li').addClass('active');
+            return false;
+        }
+    });
+};
 
