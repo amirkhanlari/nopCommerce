@@ -38,8 +38,14 @@
     <Content Update="App_Data\DataProtectionKeys\*.xml" CopyToPublishDirectory="Never" />
 
     <Compile Remove="Plugins\**" />
+
+    <Compile Remove="Themes\BakeDelightsTheme\Content\scripts\**" />
+
+    <Content Remove="Themes\BakeDelightsTheme\Content\scripts\**" />
     <EmbeddedResource Remove="Plugins\**" />
+    <EmbeddedResource Remove="Themes\BakeDelightsTheme\Content\scripts\**" />
     <None Remove="Plugins\**" />
+    <None Remove="Themes\BakeDelightsTheme\Content\scripts\**" />
 
     <!-- We copy the entire \Plugins and \Themes directories.
 	    But we ignore cshtml and JSON files to avoid "Duplicate 'Content' items were included" error during publishing.
@@ -49,6 +55,7 @@
 
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
+    <Content Remove="Themes\BakeDelightsTheme\Content\scripts\jquery.3.2.1.min.js" />
     <None Include="Themes\BakeDelightsTheme\Views\BackInStockSubscription\CustomerSubscriptions.cshtml" />
     <None Include="Themes\BakeDelightsTheme\Views\BackInStockSubscription\SubscribePopup.cshtml" />
     <None Include="Themes\BakeDelightsTheme\Views\Blog\BlogPost.cshtml" />
@@ -259,6 +266,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Plugins\Widgets.CarouselSlider\Scripts\" />
     <Folder Include="Themes\BakeDelightsTheme\Views\Home\Components\HomepageBestSellers\" />
     <Folder Include="Themes\BakeDelightsTheme\Views\Home\Components\HomepageCategories\" />
     <Folder Include="Themes\BakeDelightsTheme\Views\Home\Components\HomePagePolls\" />
