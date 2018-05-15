@@ -11064,7 +11064,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 .qq-upload-button {
-    display: block;
+    display: inline-block;
     width: 105px;
     padding: 7px 0;
     text-align: center;
@@ -11091,6 +11091,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     z-index: 2;
     background: #FF9797;
     text-align: center;
+    display: inline-block;
 }
 
     .qq-upload-drop-area span {
@@ -11119,6 +11120,11 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     margin: 0;
     padding: 0;
     list-style: none;
+    display: inline-block;
+    width: 60%;
+    padding: 7px 5px;
+    position: relative;
+    top: 0px;
 }
 
     .qq-upload-list li {
@@ -11133,10 +11139,11 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 .qq-upload-cancel, .qq-upload-retry, .qq-upload-failed-text,
 .qq-upload-delete, .qq-upload-pause, .qq-upload-continue {
     margin-right: 12px;
-    display: inline;
+    display: inline-block;
 }
 
 .qq-upload-file {
+    font-size: 14px !important;
 }
 
 .qq-upload-spinner {
@@ -11203,6 +11210,7 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 .qq-upload-list li.qq-upload-success {
     background-color: #5DA30C;
     color: #FFFFFF;
+    width: 50%;
 }
 
 .qq-upload-list li.qq-upload-fail {
@@ -11229,6 +11237,7 @@ INPUT.qq-edit-filename {
     opacity: 0;
     filter: alpha(opacity=0);
     z-index: -1;
+    font-size: 14px !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
