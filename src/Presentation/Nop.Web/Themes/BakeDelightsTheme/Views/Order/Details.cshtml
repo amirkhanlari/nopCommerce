@@ -576,11 +576,11 @@
                                 <tr>
                                     @if (Model.ShowSku)
                                     {
-                                        <td class="a-left sku">
+                                        <td class="a-right sku">
                                             <span class="sku-number">@item.Sku</span>
                                         </td>
                                     }
-                                    <td class="a-left name">
+                                    <td class="a-right name">
                                         @if (!Model.PrintMode)
                                         {
                                             <em><a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a></em>
@@ -615,13 +615,13 @@
                                         }
                                         @await Component.InvokeAsync("Widget", new { widgetZone = "orderdetails_product_line", additionalData = item.Id })
                                     </td>
-                                    <td class="a-left price prices-alignment-right">
+                                    <td class="a-center price prices-alignment-right">
                                         <span class="product-unit-price">@item.UnitPrice</span>
                                     </td>
                                     <td class="a-center quantity">
                                         <span class="product-quantity">@item.Quantity</span>
                                     </td>
-                                    <td class="a-left total prices-alignment-right">
+                                    <td class="a-center total prices-alignment-right">
                                         <span class="product-subtotal">@item.SubTotal</span>
                                     </td>
                                 </tr>

@@ -4139,7 +4139,15 @@ a.eu-cookie-privacyinfo-tag {
 
 
 /* LOGIN PAGE STYLE */
-.send-email-a-friend-button, .write-product-review-button, .login-page .checkout-as-guest-button, .register-continue-button, .registration-page .register-next-step-button, .login-page .new-wrapper.register-block .register-button, .login-page .login-button, .password-recovery-page .password-recovery-button {
+.send-email-a-friend-button, .write-product-review-button, .login-page .checkout-as-guest-button, .register-continue-button, .registration-page .register-next-step-button, .login-page .new-wrapper.register-block .register-button, .password-recovery-page .password-recovery-button {
+    text-transform: uppercase;
+    line-height: 30px;
+    /* background: transparent; */
+    border: none;
+    font-family: iran_sans,tahoma,serif;
+}
+
+.login-page .login-button {
     text-transform: uppercase;
     line-height: 30px;
     background: transparent;
@@ -4200,7 +4208,7 @@ a.eu-cookie-privacyinfo-tag {
 }
 
 .alert {
-    padding: 5px !important;
+    /* padding: 5px !important; */
     clear: both;
 }
 
@@ -5675,6 +5683,19 @@ a.eu-cookie-privacyinfo-tag {
     width: 10%;
 }
 
+.a-center.price {
+    width: 8%;
+}
+
+.a-center.sku {
+    width: 10%;
+}
+
+.a-center.total {
+    width: 10%;
+    text-align: center !important;
+}
+
 .product.new-product-iteam {
     width: 100%;
 }
@@ -6055,11 +6076,12 @@ a.eu-cookie-privacyinfo-tag {
     -moz-box-shadow: 0px 0px 10px #ddd;
     border-color: #ededed;
     font-size: 14px;
+    width: 99% !important;
 }
 
     .reward-points-page .panel.panel-default table, .reward-points-page .panel.panel-default table thead tr th, .reward-points-page .panel.panel-default table tbody tr td, .compare-products-page .panel.panel-default table, .compare-products-page .panel.panel-default tbody tr td, .private-messages-page .panel.panel-default table tbody tr td, .private-messages-page .panel.panel-default table thead tr th, .private-messages-page .panel.panel-default table, .forum-subscriptions-page .subscription-list table thead tr th, .forum-subscriptions-page .subscription-list table tbody tr td, .forum-subscriptions-page .subscription-list table, .forums-table-section table thead tr th, .forums-table-section table tbody tr td, .forums-table-section table, .reward-points-page.panel.panel-default table thead tr th, .reward-points-page.panel.panel-default table tbody tr td, .reward-points-page.panel.panel-default table, .back-in-stock-subscription-list-page .panel.panel-default table thead tr th, .back-in-stock-subscription-list-page .panel.panel-default table tbody tr td, .back-in-stock-subscription-list-page .panel.panel-default table, .shipment-details-page .section .panel.panel-default table, .shipment-details-page .section .panel.panel-default table tbody tr td, .shipment-details-page .section .panel.panel-default table thead tr th, .order-details-page .section .panel.panel-default table, .order-details-page .section .panel.panel-default table tbody tr td, .order-details-page .section .panel.panel-default table thead tr th {
         border: none;
-        padding: 10px;
+        padding: 10px 0px;
         vertical-align: middle;
     }
 
@@ -6068,7 +6090,13 @@ a.eu-cookie-privacyinfo-tag {
         }
 
         .order-details-page .section .panel.panel-default table .a-center.name {
-            text-align: left;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .order-details-page .section .panel.panel-default table .a-right.name {
+            text-align: right;
+            padding-right: 10px;
         }
 
         .shipment-details-page .section .panel.panel-default table .a-left.name em, .order-details-page .section .panel.panel-default table .a-left.name em {
@@ -11064,13 +11092,14 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 }
 
 .qq-upload-button {
-    display: inline-block;
+    display: block;
     width: 105px;
     padding: 7px 0;
     text-align: center;
     background: #880000;
     border-bottom: 1px solid #DDD;
     color: #FFF;
+    z-index: 3;
 }
 
 .qq-upload-button-hover {
@@ -11091,7 +11120,6 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     z-index: 2;
     background: #FF9797;
     text-align: center;
-    display: inline-block;
 }
 
     .qq-upload-drop-area span {
@@ -11120,11 +11148,6 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
     margin: 0;
     padding: 0;
     list-style: none;
-    display: inline-block;
-    width: 60%;
-    padding: 7px 5px;
-    position: relative;
-    top: 0px;
 }
 
     .qq-upload-list li {
@@ -11139,11 +11162,10 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 .qq-upload-cancel, .qq-upload-retry, .qq-upload-failed-text,
 .qq-upload-delete, .qq-upload-pause, .qq-upload-continue {
     margin-right: 12px;
-    display: inline-block;
+    display: inline;
 }
 
 .qq-upload-file {
-    font-size: 14px !important;
 }
 
 .qq-upload-spinner {
@@ -11210,7 +11232,6 @@ doesnotexist:-o-prefocus, .new-wrapper.register-block legend, doesnotexist:-o-pr
 .qq-upload-list li.qq-upload-success {
     background-color: #5DA30C;
     color: #FFFFFF;
-    width: 50%;
 }
 
 .qq-upload-list li.qq-upload-fail {
@@ -11237,7 +11258,6 @@ INPUT.qq-edit-filename {
     opacity: 0;
     filter: alpha(opacity=0);
     z-index: -1;
-    font-size: 14px !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 

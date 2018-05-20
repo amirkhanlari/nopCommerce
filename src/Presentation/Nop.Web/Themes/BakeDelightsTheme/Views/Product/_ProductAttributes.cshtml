@@ -234,6 +234,9 @@
                                             if (responseJSON.success) {
                                                 $("#@(controlId + "downloadurl")").html("<a href='" + responseJSON.downloadUrl + "'>@T("Common.FileUploader.DownloadUploadedFile")</a>");
                                                 $("#@(controlId + "remove")").show();
+                                                $("#@($"product_attribute_input_{attribute.Id}") .qq-upload-drop-area-selector").hide();
+                                                $("#@($"product_attribute_input_{attribute.Id}") .qq-upload-button").hide();
+
                                             }
                                             if (responseJSON.message) {
                                                 alert(responseJSON.message);
@@ -243,20 +246,23 @@
                                         $("#@(controlId + "remove")").click(function(e) {
                                             $("#@(controlId + "downloadurl")").html("");
                                             $("#@(controlId)").val('');
+                                                $("#@($"product_attribute_input_{attribute.Id}") .qq-upload-drop-area-selector").show();
+                                                $("#@($"product_attribute_input_{attribute.Id}") .qq-upload-button").show();
+
                                             $(this).hide();
                                         });
                                     });
                                         </script>
-                                        <div id="@(controlId + "downloadurl")">
+                                        <div id="@(controlId + "downloadurl")" style="display:inline-block">
                                             @if (download != null)
                                             {
                                                 <a href="@(Url.Action("GetFileUpload", "Download", new {downloadId = download.DownloadGuid}))" class="download-uploaded-file">@T("Common.FileUploader.DownloadUploadedFile")</a>
                                             }
                                         </div>
-                                        <div>
+                                        <div style="display:inline-block">
                                             @if (download != null)
                                             {
-                                                <a id="@(controlId + "remove")" class="remove-download-button">@T("Common.FileUploader.RemoveDownload")</a>
+                                                <a id="@(controlId + "remove")" class="remove-download-button" >@T("Common.FileUploader.RemoveDownload")</a>
                                             }
                                             else
                                             {
