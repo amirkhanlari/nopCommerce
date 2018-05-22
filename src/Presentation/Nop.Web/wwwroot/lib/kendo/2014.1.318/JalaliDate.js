@@ -307,7 +307,7 @@
     }
 
     this.toDateString = function () {
-        return this.jalalidate[0] + "/" + this.jalalidate[1] + "/" + this.jalalidate[2];
+        return this.jalalidate[0] + "/" + (this.jalalidate[1]+1 )+ "/" + this.jalalidate[2];
     }
 
     this.toISOString = function () {
@@ -410,7 +410,7 @@ JalaliDate.parse = function (datestring) {
             var y = parseInt(datestring.substring(0, 4)),
             m = parseInt(datestring.substring(5, 7)),
             d = parseInt(datestring.substring(8, 10));
-            return new JalaliDate(y, m - 1 , d);
+            return new JalaliDate(y, m  , d);
         }
 
     } catch (e) {
