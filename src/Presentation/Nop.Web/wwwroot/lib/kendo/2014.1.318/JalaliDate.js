@@ -307,7 +307,7 @@
     }
 
     this.toDateString = function () {
-        return this.jalalidate[0] + "/" + (this.jalalidate[1]+1 )+ "/" + this.jalalidate[2];
+        return this.jalalidate[0] + "/" + (this.jalalidate[1] ).toString().padStart(2, "0") + "/" + this.jalalidate[2];
     }
 
     this.toISOString = function () {
