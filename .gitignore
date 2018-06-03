@@ -181,3 +181,4 @@ src/Presentation/Nop.Web/wwwroot/files/exportimport/*
 !src/Presentation/Nop.Web/wwwroot/files/exportimport/Index.htm
 src/packages/*
 /src/Presentation/Nop.Web/wwwroot/lib/kendo/2014.1.318
+*.ico

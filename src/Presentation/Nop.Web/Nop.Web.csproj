@@ -56,6 +56,12 @@
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
     <Content Remove="Themes\BakeDelightsTheme\Content\scripts\jquery.3.2.1.min.js" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.calendar.js" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.calendar.min.js.map" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.datepicker.js" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.datepicker.min.js.map" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.web.js" />
+    <Content Remove="wwwroot\lib\kendo\2014.1.318\kendo.web.min.js.map" />
     <None Include="Themes\BakeDelightsTheme\Views\BackInStockSubscription\CustomerSubscriptions.cshtml" />
     <None Include="Themes\BakeDelightsTheme\Views\BackInStockSubscription\SubscribePopup.cshtml" />
     <None Include="Themes\BakeDelightsTheme\Views\Blog\BlogPost.cshtml" />
