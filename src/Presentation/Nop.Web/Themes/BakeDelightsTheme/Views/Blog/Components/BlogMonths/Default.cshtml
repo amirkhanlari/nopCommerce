@@ -9,17 +9,18 @@
             <ul class="nav nav-list" id="blog-month-list">
                 @foreach (var yearItem in Model)
                 {
+                    var pc = new System.Globalization.PersianCalendar();
                     <li class="year">
-                        <strong>@(yearItem.Year)</strong>
+                        <strong class="number">@(pc.GetYear(new DateTime(yearItem.Year, 1, 1)))</strong>
                         <ul class="nav nav-list" id="blog-year-@(yearItem.Year)">
                             @foreach (var monthItem in yearItem.Months)
                             {
                                 <li class="month">
                                     <a href="@Url.RouteUrl("BlogByMonth", new { month = yearItem.Year + "-" + monthItem.Month })">
                                         @(new DateTime(yearItem.Year, monthItem.Month, 1).ToString("MMMM"))
-                                    (@(monthItem.BlogPostCount))
-                                </a>
-                            </li>
+                                        (@(monthItem.BlogPostCount))
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </li>

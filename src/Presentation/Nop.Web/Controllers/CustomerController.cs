@@ -36,6 +36,8 @@ using Nop.Web.Framework.Security;
 using Nop.Web.Framework.Security.Captcha;
 using Nop.Web.Framework.Validators;
 using Nop.Web.Models.Customer;
+using System.Globalization;
+
 
 namespace Nop.Web.Controllers
 {
@@ -535,6 +537,7 @@ namespace Nop.Web.Controllers
 
             var model = new RegisterModel();
             model = _customerModelFactory.PrepareRegisterModel(model, false, setDefaultValues: true);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
 
             return View(model);
         }
@@ -621,8 +624,16 @@ namespace Nop.Web.Controllers
                     _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.LastName, model.LastName);
                     if (_customerSettings.DateOfBirthEnabled)
                     {
-                        var dateOfBirth = model.ParseDateOfBirth();
-                        _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, dateOfBirth);
+
+                        PersianCalendar pc = new PersianCalendar();
+                        try
+                        {
+                            DateTime dt = new DateTime(model.DateOfBirthYear.Value, model.DateOfBirthMonth.Value, model.DateOfBirthDay.Value, pc);
+                            _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, dt);
+                        }
+                        catch { }
+                        //var dateOfBirth = model.ParseDateOfBirth();
+                        //_genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, dateOfBirth);
                     }
                     if (_customerSettings.CompanyEnabled)
                         _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Company, model.Company);
@@ -875,6 +886,7 @@ namespace Nop.Web.Controllers
 
             var model = new CustomerInfoModel();
             model = _customerModelFactory.PrepareCustomerInfoModel(model, _workContext.CurrentCustomer, false);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
 
             return View(model);
         }

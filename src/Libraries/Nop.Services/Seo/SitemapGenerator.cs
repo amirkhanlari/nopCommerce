@@ -340,7 +340,7 @@ namespace Nop.Services.Seo
 
                     writer.WriteStartElement("sitemap");
                     writer.WriteElementString("loc", location);
-                    writer.WriteElementString("lastmod", DateTime.UtcNow.ToString(DATE_FORMAT));
+                    writer.WriteElementString("lastmod", DateTime.UtcNow.Year + "-" + DateTime.UtcNow.Month.ToString("D2") + "-" + DateTime.UtcNow.Day.ToString("D2"));
                     writer.WriteEndElement();
                 }
 

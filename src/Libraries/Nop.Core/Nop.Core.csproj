@@ -47,4 +47,11 @@
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Persian">
+      <HintPath>..\..\Persian.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
 </Project>
