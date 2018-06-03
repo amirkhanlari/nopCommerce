@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using System.IO;
 using Nop.Core;
+using Nop.Core.Infrastructure;
+
 using Nop.Core.Plugins;
 using Nop.Services.Cms;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Media;
+using Nop.Web.Framework.Infrastructure;
+
 
 namespace Nop.Plugin.Widgets.CarouselSlider
 {
@@ -17,13 +21,17 @@ namespace Nop.Plugin.Widgets.CarouselSlider
         private readonly IPictureService _pictureService;
         private readonly ISettingService _settingService;
         private readonly IWebHelper _webHelper;
+        private readonly INopFileProvider _fileProvider;
 
-        public CarouselSliderPlugin(IPictureService pictureService,
-            ISettingService settingService, IWebHelper webHelper)
+
+        public CarouselSliderPlugin (IPictureService pictureService,
+            ISettingService settingService, IWebHelper webHelper, INopFileProvider fileProvider)
         {
             this._pictureService = pictureService;
             this._settingService = settingService;
             this._webHelper = webHelper;
+            this._fileProvider = fileProvider;
+
         }
 
         /// <summary>
@@ -59,7 +67,7 @@ namespace Nop.Plugin.Widgets.CarouselSlider
         public override void Install()
         {
             //pictures
-            var sampleImagesPath = CommonHelper.MapPath("~/Plugins/Widgets.CarouselSlider/Content/CarouselSlider/sample-images/");
+            var sampleImagesPath = _fileProvider.MapPath("~/Plugins/Widgets.CarouselSlider/Content/CarouselSlider/sample-images/");
             
             //settings
             var settings = new CarouselSliderSettings

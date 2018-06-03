@@ -293,11 +293,17 @@ namespace Nop.Core
         {
             //little hack here
             //always set culture to 'en-US' (Kendo UI has a bug related to editing decimal values in other cultures)
-            var culture = new CultureInfo("fa-IR");
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
+            var culture = new CultureInfo("en-US");
+            //CultureInfo.CurrentCulture = culture;
+            //CultureInfo.CurrentUICulture = culture;
+            CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture = new Persian.PersianCulture();
+
         }
 
+        public static CultureInfo GetPersianNopCulture ()
+        {
+            return new Persian.PersianCulture();
+        }
         /// <summary>
         /// Get difference in years
         /// </summary>

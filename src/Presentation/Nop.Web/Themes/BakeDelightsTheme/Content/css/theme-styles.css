@@ -622,9 +622,9 @@ div#newsletter-subscribe-block .options {
 .registration-page .date-birth-text .date-picker-wrapper > select, .customer-info-page .date-birth-text .date-picker-wrapper > select {
     border: 1px solid #ccc;
     padding: 5px 25px 5px 15px;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 .form-horizontal {
     clear:both;
@@ -1715,9 +1715,9 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
     width: auto;
     border: 1px solid #ccc;
     padding: 5px 25px 5px 10px;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 .product-details-page .attributes dd{margin:0;} 
 .product-details-page .attributes ul.color-squares li,.product-details-page .attributes ul.image-squares li{display:inline;margin-right:10px;position:relative;}

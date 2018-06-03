@@ -2950,7 +2950,8 @@ namespace Nop.Web.Areas.Admin.Controllers
             var nowDt = _dateTimeHelper.ConvertToUserTime(DateTime.Now);
             var timeZone = _dateTimeHelper.CurrentTimeZone;
 
-            var culture = new CultureInfo(_workContext.WorkingLanguage.LanguageCulture);
+            //var culture = new CultureInfo(_workContext.WorkingLanguage.LanguageCulture);
+            var culture = Nop.Core.CommonHelper.GetPersianNopCulture();
 
             switch (period)
             {

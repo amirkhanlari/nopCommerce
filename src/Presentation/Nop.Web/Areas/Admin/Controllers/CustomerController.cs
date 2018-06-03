@@ -1366,7 +1366,8 @@ namespace Nop.Web.Areas.Admin.Controllers
             var timeZone = _dateTimeHelper.CurrentTimeZone;
             var searchCustomerRoleIds = new[] { _customerService.GetCustomerRoleBySystemName(SystemCustomerRoleNames.Registered).Id };
 
-            var culture = new CultureInfo(_workContext.WorkingLanguage.LanguageCulture);
+            //var culture = new CultureInfo(_workContext.WorkingLanguage.LanguageCulture);
+            var culture = Nop.Core.CommonHelper.GetPersianNopCulture();
 
             switch (period)
             {

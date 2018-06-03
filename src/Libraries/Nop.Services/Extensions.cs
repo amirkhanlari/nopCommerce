@@ -50,5 +50,32 @@ namespace Nop.Services
         {
             return new SelectList(objList.Select(p => new { ID = p.Id, Name = selector(p) }), "ID", "Name");
         }
+        public static string ToString (this DateTime dt)
+        {
+            var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
+            var workContext = EngineContext.Current.Resolve<IWorkContext>();
+            if (workContext.WorkingLanguage.LanguageCulture == "fa-IR")
+            {
+                return new PersianDateTime(dt).ToString(PersianDateTimeFormat.DateTime);
+            }
+            else return dt.ToString();
+        }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to its equivalent string representation using the specified format.
+        /// </summary>
+        /// <param name="format">A custom date and time format string.</param>
+        /// <returns>A string representation of value of the current PersianDateTime object as specified by format.</returns>
+        public static string ToString (this DateTime dt, string format)
+        {
+            var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
+            var workContext = EngineContext.Current.Resolve<IWorkContext>();
+            if (workContext.WorkingLanguage.LanguageCulture == "fa-IR")
+            {
+                return new PersianDateTime(dt).ToString(format);
+            }
+            else return dt.ToString(format);
+        }
+
     }
 }

@@ -4931,7 +4931,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     }
 }
 
-@media (max-width:991px) {
+@media (min-width:768px) and (max-width:991px) {
     .visible-sm-inline-block {
         display: inline-block !important
     }

@@ -987,7 +987,7 @@ namespace Nop.Services.Messages
             if (language != null && !string.IsNullOrEmpty(language.LanguageCulture))
             {
                 var createdOn = _dateTimeHelper.ConvertToUserTime(order.CreatedOnUtc, TimeZoneInfo.Utc, _dateTimeHelper.GetCustomerTimeZone(order.Customer));
-                tokens.Add(new Token("Order.CreatedOn", createdOn.ToString("D", new CultureInfo(language.LanguageCulture))));
+                tokens.Add(new Token("Order.CreatedOn", createdOn.ToString("D", Nop.Core.CommonHelper.GetPersianNopCulture())));
             }
             else
             {
