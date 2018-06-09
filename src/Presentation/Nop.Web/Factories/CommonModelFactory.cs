@@ -418,10 +418,13 @@ namespace Nop.Web.Factories
                 })
                 .ToList()
             );
+            var customer = _workContext.CurrentCustomer;
 
             //model
             var model = new FooterModel
             {
+                IsAuthenticated = customer.IsRegistered(),
+
                 StoreName = _storeContext.CurrentStore.GetLocalized(x => x.Name),
                 WishlistEnabled = _permissionService.Authorize(StandardPermissionProvider.EnableWishlist),
                 ShoppingCartEnabled = _permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart),

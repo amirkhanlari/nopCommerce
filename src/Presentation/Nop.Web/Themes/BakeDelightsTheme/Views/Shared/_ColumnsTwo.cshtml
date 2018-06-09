@@ -34,7 +34,8 @@
         @RenderSection("Breadcrumb")
     }
 }
-<div class="sidebar col-md-3">
+
+<div class="sidebar-filter col-xs-12 col-sm-12 col-md-3 col-lg-3">
     @if (IsSectionDefined("left"))
     {
         @RenderSection("left")
@@ -52,8 +53,11 @@
         @await Component.InvokeAsync("Widget", new { widgetZone = "right_side_column_after" })
     }
 </div>
-<div class="side-content col-md-9">
+<div class="side-content col-xs-12 col-sm-12 col-md-9 col-lg-9">
     @await Component.InvokeAsync("Widget", new { widgetZone = "main_column_before" })
     @RenderBody()
     @await Component.InvokeAsync("Widget", new { widgetZone = "main_column_after" })
 </div>
+
+
+

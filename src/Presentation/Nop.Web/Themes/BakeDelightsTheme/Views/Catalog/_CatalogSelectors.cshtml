@@ -32,23 +32,21 @@
         </div>
     }
     @*view mode*@
-    @if (Model.AllowProductViewModeChanging)
+    @*@if (Model.AllowProductViewModeChanging)
     {
         <div class="product-viewmode col-xs-12 col-sm-2 col-md-2">
             <div class="row">
-                @*<div class="col-md-5 product-span">
-                    <label>@T("Catalog.ViewMode")</label>
-                </div>*@
+
                 @if (Model.AvailableViewModes.Count > 1)
                 {
                     var gridMode = Model.AvailableViewModes[0];
                     var listMode = Model.AvailableViewModes[1];
                     <div class="col-md-8 grid-list-icon">
-                        <a class="viewmode-icon grid @if(gridMode.Selected){<text>selected</text>}" href="@gridMode.Value" title="@gridMode.Text"><i class="fa fa-th"></i>@*@gridMode.Text*@</a>
-                        <a class="viewmode-icon list @if (listMode.Selected){<text>selected</text>}" href="@listMode.Value" title="@listMode.Text"><i class="fa fa-th-list"></i>@*@listMode.Text*@</a>
+                        <a class="viewmode-icon grid @if(gridMode.Selected){<text>selected</text>}" href="@gridMode.Value" title="@gridMode.Text"><i class="fa fa-th"></i></a>
+                        <a class="viewmode-icon list @if (listMode.Selected){<text>selected</text>}" href="@listMode.Value" title="@listMode.Text"><i class="fa fa-th-list"></i></a>
                     </div>
                 }
             </div>
         </div>
-    }
+    }*@
 </div>

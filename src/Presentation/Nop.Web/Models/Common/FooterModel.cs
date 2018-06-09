@@ -23,6 +23,7 @@ namespace Nop.Web.Models.Common
         public bool AllowCustomersToApplyForVendorAccount { get; set; }
         public bool DisplayTaxShippingInfoFooter { get; set; }
         public bool HidePoweredByNopCommerce { get; set; }
+        public bool IsAuthenticated { get; set; }
 
         public int WorkingLanguageId { get; set; }
 

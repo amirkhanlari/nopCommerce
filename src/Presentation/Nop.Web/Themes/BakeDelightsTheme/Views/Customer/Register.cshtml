@@ -193,11 +193,11 @@
                 </div>
             }
             @if (Model.StreetAddressEnabled ||
-            Model.StreetAddress2Enabled ||
-            Model.ZipPostalCodeEnabled ||
-            Model.CityEnabled ||
-            Model.CountyEnabled ||
-            Model.CountryEnabled)
+           Model.StreetAddress2Enabled ||
+           Model.ZipPostalCodeEnabled ||
+           Model.CityEnabled ||
+           Model.CountyEnabled ||
+           Model.CountryEnabled)
             {
                 <div class="fieldset">
                     <div>
@@ -258,15 +258,23 @@
                         </div>
                     }
                     @if (Model.CountyEnabled)
-                {
-                        <div class="inputs">
-                            <label asp-for="County" asp-postfix=":"></label>
-                            <input asp-for="County" />
-                            @if (Model.CountyRequired)
-                            {
-                                <nop-required />
-                            }
-                            <span asp-validation-for="County"></span>
+                    {
+
+
+                        <div class="form-group row">
+                            <label class="control-label col-sm-2 col-md-2" asp-for="County" asp-postfix=":"></label>
+                            <div class="visible-xs form-title-rquired"><nop-required /></div>
+                            <div class="col-sm-6 col-md-6 col-xs-12">
+                                <input class="form-control" asp-for="County" />
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-xs-12">
+                                @if (Model.CountyRequired)
+                                {
+                                    <div class="visible-lg visible-md visible-sm form-title-rquired"><nop-required /></div>
+                                }
+                                <span asp-validation-for="County"></span>
+                            </div>
+
                         </div>
                     }
                     @if (Model.CityEnabled)
@@ -383,7 +391,7 @@
                         </div>
                     }
                     @if (Model.CustomerAttributes.Count > 0)
-                {
+                    {
                         @await Html.PartialAsync("_CustomerAttributes", Model.CustomerAttributes)
                     }
                 </div>

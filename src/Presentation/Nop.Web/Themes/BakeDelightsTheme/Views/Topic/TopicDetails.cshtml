@@ -1,5 +1,6 @@
-﻿﻿@model TopicModel
+﻿@model TopicModel
 @using Nop.Core.Domain.Seo
+@inject Nop.Core.IWebHelper webHelper
 @inject SeoSettings seoSettings
 @{
     var isPopup = ViewBag.IsPopup;
