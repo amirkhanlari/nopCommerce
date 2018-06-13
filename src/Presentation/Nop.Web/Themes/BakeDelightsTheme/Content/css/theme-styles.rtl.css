@@ -1388,16 +1388,25 @@ form#small-search-box-form .form-group {
     }
 
 .footer-middle .payment-method ul li {
-    background: url(../../../../Plugins/Payments.ZarinPal/logo.jpg) no-repeat left center;
+  /*  background: url(../../../../Plugins/Payments.ZarinPal/logo.jpg) no-repeat left center;*/
     float: right;
-    width: 50px;
-    height: 30px;
+    width: 50px !important;
+    height: 30px !important;
     margin-left: 5px;
     margin-bottom: 5px;
 }
 
 .footer-middle .payment-method ul .payment-method2 {
     background-position: -59px center;
+    height:60px !important;
+}
+
+.payment-method2 > a >img
+{
+    max-width:100px;
+    width:100px;
+    max-height:70px;
+    margin-top:-15px;
 }
 
 .footer-middle .payment-method ul .payment-method3 {

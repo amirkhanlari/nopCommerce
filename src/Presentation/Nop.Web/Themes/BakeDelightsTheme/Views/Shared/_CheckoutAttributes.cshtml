@@ -87,14 +87,16 @@
                             {
                                 <textarea class="form-control" id="@(controlId)" name="@(controlId)">@attribute.DefaultValue</textarea>
                             }
-                        break;
+                            break;
                         case AttributeControlType.Datepicker:
                             {
+                                int year = ViewBag.Year;
+
                                 <nop-date-picker asp-day-name="@(controlId + "_day")"
                                                  asp-month-name="@(controlId + "_month")"
                                                  asp-year-name="@(controlId + "_year")"
-                                                 asp-begin-year="@(DateTime.Now.Year)"
-                                                 asp-end-year="@(DateTime.Now.Year + 1)"
+                                                 asp-begin-year="@(year)"
+                                                 asp-end-year="@(year + 1)"
                                                  asp-selected-day="@attribute.SelectedDay"
                                                  asp-selected-month="@attribute.SelectedMonth"
                                                  asp-selected-year="@attribute.SelectedYear" />

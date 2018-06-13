@@ -1284,6 +1284,8 @@ namespace Nop.Web.Controllers
                 .ToList();
             var model = new ShoppingCartModel();
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
+
             return View(model);
         }
         
@@ -1352,6 +1354,7 @@ namespace Nop.Web.Controllers
                 if (itemModel != null)
                     itemModel.Warnings = warningItem.Warnings.Concat(itemModel.Warnings).Distinct().ToList();
             }
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
 
             return View(model);
         }
@@ -1496,6 +1499,8 @@ namespace Nop.Web.Controllers
                 //something wrong, redisplay the page with warnings
                 var model = new ShoppingCartModel();
                 model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart, validateCheckoutAttributes: true);
+                ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
+
                 return View(model);
             }
 
@@ -1576,6 +1581,7 @@ namespace Nop.Web.Controllers
                 model.DiscountBox.Messages.Add(_localizationService.GetResource("ShoppingCart.DiscountCouponCode.WrongDiscount"));
 
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
 
             return View(model);
         }
@@ -1629,6 +1635,8 @@ namespace Nop.Web.Controllers
             }
 
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
+
             return View(model);
         }
         
@@ -1689,6 +1697,8 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
+
             return View(model);
         }
 
@@ -1712,6 +1722,8 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.Year = int.Parse(DateTime.Now.ToString("yyyy"));
+
             return View(model);
         }
         

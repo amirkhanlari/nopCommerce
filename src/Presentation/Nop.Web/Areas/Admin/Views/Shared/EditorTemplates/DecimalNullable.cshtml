@@ -12,7 +12,7 @@
         $("#@Html.IdForModel()").TouchSpin({
             min: @Html.Raw(decimal.MinValue),
             max: @Html.Raw(decimal.MaxValue),
-            decimals: 4, //always display 4 digits
+            decimals: 0, //always display 4 digits
             forcestepdivisibility: "none",
             verticalbuttons: true,
             postfix: "@postfix"
