@@ -1388,7 +1388,7 @@ form#small-search-box-form .form-group {
     }
 
 .footer-middle .payment-method ul li {
-  /*  background: url(../../../../Plugins/Payments.ZarinPal/logo.jpg) no-repeat left center;*/
+    /*  background: url(../../../../Plugins/Payments.ZarinPal/logo.jpg) no-repeat left center;*/
     float: right;
     width: 50px !important;
     height: 30px !important;
@@ -1398,15 +1398,14 @@ form#small-search-box-form .form-group {
 
 .footer-middle .payment-method ul .payment-method2 {
     background-position: -59px center;
-    height:60px !important;
+    height: 60px !important;
 }
 
-.payment-method2 > a >img
-{
-    max-width:100px;
-    width:100px;
-    max-height:70px;
-    margin-top:-15px;
+.payment-method2 > a > img {
+    max-width: 100px;
+    width: 100px;
+    max-height: 70px;
+    margin-top: -15px;
 }
 
 .footer-middle .payment-method ul .payment-method3 {
@@ -2112,7 +2111,7 @@ div#newsletter-subscribe-block .options {
     -moz-transition: all 500ms ease-in-out 0s;
     -webkit-transition: all 500ms ease-in-out 0s;
     -o-transition: all 500ms ease-in-out 0s;
-    margin-top: 15%;
+    /* margin-top: 15%; */
     left: 0;
     opacity: 0;
     z-index: 999;
@@ -2141,7 +2140,7 @@ div#newsletter-subscribe-block .options {
     -moz-transition: all 1000ms ease-in-out 0s;
     -webkit-transition: all 1000ms ease-in-out 0s;
     -o-transition: all 1000ms ease-in-out 0s;
-    margin-top: 15%;
+    /* margin-top: 85px; */
     left: 34%;
     opacity: 0;
     z-index: 999;
@@ -2168,7 +2167,7 @@ div#newsletter-subscribe-block .options {
     -moz-transition: all 1500ms ease-in-out 0s;
     -webkit-transition: all 1500ms ease-in-out 0s;
     -o-transition: all 1500ms ease-in-out 0s;
-    margin-top: 15%;
+    /* margin-top: 15%; */
     left: 68%;
     opacity: 0;
     z-index: 999;
@@ -2187,9 +2186,9 @@ div#newsletter-subscribe-block .options {
     background-color: white;
     position: absolute;
     text-align: center;
-    height: 70px;
+    height: 70px !important;
     width: 100%;
-    top: 126%;
+    top: 270px;
     z-index: 999;
     opacity: 0;
     transition: all 500ms ease-in 0s;
@@ -2203,10 +2202,12 @@ div#newsletter-subscribe-block .options {
 }
 
 .item-box .thumbnail:hover .picture .wishlist-compare-wrapper {
-    background-color: transparent;
-    margin-top: 62% !important;
+    background-color: white;
+    /* margin-top: 62% !important; */
     opacity: 1;
-    top: 5%;
+    height: 60px !important;
+    max-height: 60px !important;
+    top: 280px;
     transition: all 500ms ease-in-out 0s;
     -webkit-transition: all 500ms ease-in-out 0s;
     -moz-transition: all 500ms ease-in-out 0s;
