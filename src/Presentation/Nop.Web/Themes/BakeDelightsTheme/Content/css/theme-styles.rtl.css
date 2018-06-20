@@ -309,7 +309,7 @@ select {
 
 .header-links-wrapper .header-top-right {
     float: right;
-    width: auto;
+    width: 100% !important;
     position: absolute;
 }
 
@@ -9824,8 +9824,17 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
             background: none;
         }
 
-    .header-menu .navbar.navbar-inverse .nav.navbar-nav, .header-top-right ul li a {
-        margin: 0;
+    .header-top-right ul li a {
+        padding: 8px 5px 8px 5px;
+        float: right;
+        font-size: 14px;
+        font-weight: 500;
+        float: right;
+        line-height: 18px;
+        color: #7f848f;
+        text-decoration: none;
+        margin: 6px 0px;
+        text-transform: capitalize;
     }
 
     .header-menu li.dropdown .caret {
@@ -9939,46 +9948,41 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     .header-lower .search-box {
         float: right;
         position: relative;
-        margin-top: -65px;
+        margin-top: -45px;
+        margin-right: 150px;
     }
 
     .search-box .btn.search-box-button {
         position: inherit;
     }
 
-    .search-box .navbar-form {
-        width: auto;
-        margin: 0 auto;
-        padding: 0;
-        position: inherit;
+    .header-lower .search-box .navbar-form {
+        padding-left: 0px;
+        width: 90% !important;
+        z-index: 999 !important;
+        right: 0;
+        float: right !important;
     }
 
     .header-logo {
         margin-bottom: 5px;
-        margin-top: -40px;
+        margin-top: 5px;
         text-align: center;
     }
 
-    .header-lower .search-box {
-        /* position: static; */
+
+    .header-lower .search-box .search-nav {
+        float: right;
+        background: #fff;
+        border: 1px solid #303133;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        width: 100% !important;
+        height: 40px;
+        /* margin-left: 1% !important; */
     }
 
-        .header-lower .search-box .search-nav {
-            margin: 0;
-            display: inline;
-        }
-
-    .flyout-main-wrapper {
-        text-align: center;
-    }
-
-        .flyout-main-wrapper .shopping-cart-link .ico-cart {
-            float: right;
-            height: 40px;
-            /* padding-left: 30px; */
-            text-decoration: none;
-            width: 100% !important;
-        }
 
     .footer-disclaimer {
         display: block;
@@ -10716,7 +10720,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     }
 
     #footer-middle .column .fa-angle-down {
-        position: absolute;
+        position: relative;
         right: 0px;
         font-size: 30px;
         color: black;
@@ -10749,9 +10753,11 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
 
     .flyout-main-wrapper {
         float: right;
-        margin-top: -75px !important;
+        margin-top: -5px !important;
         right: 0px;
         width: 100% !important;
+        /* display: inline-block !important; */
+        /* position: absolute; */
     }
 
     .newsletter-wrapper .title {
@@ -10786,23 +10792,21 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         display: inline-block;
     }
 
-    .header-lower .search-box .search-nav {
-        float: right;
-    }
 
     #flyout-cart .shopping-cart-link {
-        height: 45px;
+        height: 30px;
     }
 
     .flyout-main-wrapper .shopping-cart-link .ico-cart {
         width: 100% !important;
         padding: 0px !important;
+        height: 30px !important;
     }
 
     .shopping-cart-link > a > i {
         color: #fff;
         background-color: #303133;
-        padding: 5px 0px 5px;
+        padding: 0px 0px;
         font-size: 16px;
         border-radius: 10px 10px;
         width: 100% !important;
@@ -10814,10 +10818,57 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         color: #fff;
         display: inline-block;
         line-height: 25px;
-        min-height: 15px;
-        min-width: 15px;
-        padding: 0;
-        font-size: 12px;
+        min-height: 25px;
+        min-width: 25px;
+        padding: 0 5px;
+        /* left: 0px; */
+        float: left;
+    }
+
+    .shopping-cart-title {
+        /* border-radius: 100%; */
+        color: #fff;
+        display: inline-block;
+        line-height: 15px;
+        min-height: 15px !important;
+        min-width: 15px !important;
+        padding: 0px 0px 0px 0px;
+        width: 28px !important;
+        border-right-style: none;
+        border-width: thin;
+        font-size: 15px;
+        /* margin-right: -60px; */
+        /* top: 0px; */
+        /* margin-top: 20px !important; */
+    }
+
+    .flyout-main-wrapper .shopping-cart-link .shopping-cart-title {
+        /* border-radius: 100%; */
+        color: #fff;
+        display: inline-block;
+        line-height: 25px;
+        min-height: 25px;
+        min-width: 25px;
+        padding: 10px 5px;
+        width: 80% !important;
+        border-right-style: solid;
+        border-width: thin;
+    }
+
+    .flyout-main-wrapper .flyout-cart-wrapper::before {
+        background: url(../images/flyout-arrow-top.png) no-repeat center center;
+        content: " ";
+        height: 30px;
+        /* margin-right: -40px; */
+        right: 0px;
+        position: absolute;
+        top: -20px;
+        width: 26px;
+    }
+
+    .flyout-cart-wrapper.active {
+        opacity: 1;
+        visibility: visible;
     }
 
     /* Sub Category Toggle*/
@@ -10862,7 +10913,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     }
 
     span.fa.fa-angle-down.visible-xs {
-        display: block !important;
+        display: none !important;
     }
 
     #mobile-menu .dropdown .dropdown-menu {
@@ -11171,18 +11222,6 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
             float: left;
         }
 
-        .flyout-main-wrapper .shopping-cart-link .shopping-cart-title {
-            /* border-radius: 100%; */
-            color: #fff;
-            display: inline-block;
-            line-height: 15px;
-            min-height: 15px !important;
-            min-width: 25px;
-            padding: 5px 8px;
-            width: 80% !important;
-            border-right-style: solid;
-            border-width: thin;
-        }
 
     .flyout-main-wrapper .flyout-cart-wrapper::before {
         background: url(../images/flyout-arrow-top.png) no-repeat center center;
@@ -11208,22 +11247,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         width: 100% !important;
     }
 
-    .shopping-cart-title {
-        /* border-radius: 100%; */
-        color: #fff;
-        display: inline-block;
-        line-height: 15px;
-        min-height: 15px !important;
-        min-width: 15px !important;
-        padding: 0px 0px 0px 0px;
-        width: 28px !important;
-        border-right-style: none;
-        border-width: thin;
-        font-size: 0px;
-        margin-right: -60px;
-        top: 0px;
-        margin-top: 20px !important;
-    }
+
 
     .flyout-main-wrapper .flyout-cart-wrapper::before {
         background: url(../images/flyout-arrow-top.png) no-repeat center center;
@@ -11493,7 +11517,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         -webkit-transition-timing-function: linear;
         transition: all 0.2s;
         transition-timing-function: linear;
-        margin: 5px 15px 5px 15px;
+        margin: 0px 15px 5px 15px;
     }
 
     .footer-middle .payment-method ul li {
@@ -12635,11 +12659,11 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     }
 
     .footer-upper {
-        padding: 10px 0;
+        padding: 30px 0px;
     }
 
     .newsletter-wrapper .title {
-        padding: 10px 0 0;
+        padding: 0;
     }
 
     #newsletter-subscribe-block #newsletter-email {
@@ -12665,18 +12689,80 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         width: 100% !important;
     }
 
-
-    .header-lower .search-box .search-nav {
+    .header-links-wrapper .header-top-right {
         float: right;
-        background: #fff;
-        border: 1px solid #303133;
+        width: auto;
+        position: absolute;
+        right: 3px;
+        font-size: 10px !important;
+    }
+
+    .header-top-right ul li a {
+        padding: 8px 2px 8px 3px;
+        float: right;
+        font-size: 10px;
+        font-weight: bold;
+        float: right;
+        line-height: 18px;
+        color: black;
+        text-decoration: none;
+        margin: 6px 0px;
+        text-transform: capitalize;
+    }
+
+    .header-logo {
+        margin-top: -35px;
+        padding-bottom: 5px;
+    }
+
+    .header-lower .search-box {
+        float: right;
+        position: relative;
+        margin-top: -77px;
+    }
+
+        .header-lower .search-box .navbar-form {
+            padding-left: 0px;
+            width: 100% !important;
+            z-index: 999 !important;
+            right: 0;
+            float: right !important;
+        }
+
+        .header-lower .search-box .search-nav {
+            float: right;
+            background: #fff;
+            border: 1px solid #303133;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            width: 100% !important;
+            height: 40px;
+            margin-right: -25px !important;
+            font-size: 12px !important;
+        }
+
+    .search-box .btn.search-box-button {
+        /* background-color: #555555; */
+        /* color: #fff; */
+        margin-right: -30px;
+        margin-left: 0px;
         border-radius: 5px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
-        width: 88% !important;
-        height: 40px;
-        margin-right: -25px !important;
+        width: 30px !important;
+        height: 40px !important;
+        transition: all 0.3s ease-in-out 0s;
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        -o-transition: all 0.3s ease-in-out 0s;
+        background: url(../images/search-icon.png) no-repeat center 8px;
     }
+
+        .search-box .btn.search-box-button:hover {
+            /* background-color: #57abdc; */
+            background: url(../images/search-icon.png) no-repeat center -25px;
+        }
 
     #flyout-cart .shopping-cart-link {
         height: 35px;
@@ -12694,10 +12780,11 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     .shopping-cart-link > a > i {
         color: #fff;
         background-color: #303133;
-        padding: 2px 0px 0px px;
+        padding: 2px 0px 0px 0px;
         font-size: 20px;
         border-radius: 10px 10px;
-        width: 70% !important;
+        width: 90% !important;
+        float: right;
     }
 
     .shopping-cart-title {
@@ -12749,7 +12836,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         min-width: 10px !important;
         padding: 0px !important;
         font-size: 10px !important;
-        margin-right: 2px !important;
+        margin-right: 5px !important;
         margin-top: -20px !important;
         width: 15px !important;
         z-index: 9999 !important;
@@ -12824,7 +12911,7 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
     #footer-middle .column .fa-angle-down {
         position: absolute;
         right: 0px;
-        font-size: 30px;
+        font-size: 15px;
         color: black;
         cursor: pointer;
         z-index: 9;
@@ -12832,13 +12919,20 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
         -webkit-transition-timing-function: linear;
         transition: all 0.2s;
         transition-timing-function: linear;
-        margin: 5px 15px 5px 15px;
+        margin: 2px 15px 5px 15px;
     }
 
     .footer-middle .title {
         margin-bottom: 12px;
-        padding-right: 20px;
+        padding-right: 25px;
     }
+
+
+        .footer-middle .title strong {
+            font-size: 14px;
+            color: #303133;
+            font-family: iran_sans,web_Yekan,'Marck Script', cursive;
+        }
 
     #footer-middle .column .fa-angle-down.rotate {
         -webkit-transform: rotate(180deg);
@@ -12850,5 +12944,25 @@ INPUT.qq-edit-filename.qq-editing ~ .qq-upload-cancel {
 
     .footer-middle .title.arrow-up-down {
         background: url("../images/footer-toggle-up-arrow.png") no-repeat scroll right center;
+    }
+
+    .footer-middle .newsletter-wrapper {
+        float: right;
+        padding: 0px !important;
+        /* margin-top: -30px !important; */
+        margin-right: -15px;
+    }
+
+    div#newsletter-subscribe-block .options {
+        text-align: right;
+        clear: both;
+        padding-right: 5px;
+    }
+
+
+    .newsletter-wrapper, .newsletter-email {
+        text-align: center;
+        margin-top: 25px;
+        padding-right: 5px;
     }
 }

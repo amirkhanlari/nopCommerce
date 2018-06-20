@@ -676,7 +676,8 @@ namespace Nop.Services.Catalog
         public virtual IList<Product> GetAllProductsDisplayedOnHomePage()
         {
             var query = from p in _productRepository.Table
-                        orderby p.DisplayOrder, p.Id
+                        orderby p.DisplayOrder
+                        orderby p.AvailableStartDateTimeUtc, p.Id descending                       
                         where p.Published &&
                         !p.Deleted &&
                         p.ShowOnHomePage
