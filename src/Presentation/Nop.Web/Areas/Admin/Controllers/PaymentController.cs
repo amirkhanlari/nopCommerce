@@ -8,12 +8,14 @@ using Nop.Core.Plugins;
 using Nop.Services.Configuration;
 using Nop.Services.Directory;
 using Nop.Services.Localization;
+using Nop.Services.Messages;
 using Nop.Services.Payments;
 using Nop.Services.Plugins;
 using Nop.Services.Security;
 using Nop.Web.Areas.Admin.Factories;
 using Nop.Web.Areas.Admin.Models.Payments;
 using Nop.Web.Framework.Mvc;
+using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Web.Areas.Admin.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
         private readonly ICountryService _countryService;
         private readonly ILocalizationService _localizationService;
+        private readonly INotificationService _notificationService;
         private readonly IPaymentModelFactory _paymentModelFactory;
         private readonly IPaymentService _paymentService;
         private readonly IPermissionService _permissionService;
@@ -36,6 +39,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
         public PaymentController(ICountryService countryService,
             ILocalizationService localizationService,
+            INotificationService notificationService,
             IPaymentModelFactory paymentModelFactory,
             IPaymentService paymentService,
             IPermissionService permissionService,
@@ -45,6 +49,7 @@ namespace Nop.Web.Areas.Admin.Controllers
         {
             this._countryService = countryService;
             this._localizationService = localizationService;
+            this._notificationService = notificationService;
             this._paymentModelFactory = paymentModelFactory;
             this._paymentService = paymentService;
             this._permissionService = permissionService;
@@ -87,7 +92,7 @@ namespace Nop.Web.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             var pm = _paymentService.LoadPaymentMethodBySystemName(model.SystemName);
-            if (pm.IsPaymentMethodActive(_paymentSettings))
+            if (_paymentService.IsPaymentMethodActive(pm))
             {
                 if (!model.IsActive)
                 {
@@ -130,6 +135,10 @@ namespace Nop.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        //we ignore this filter for increase RequestFormLimits
+        [AdminAntiForgery(true)]
+        //we use 2048 value because in some cases default value (1024) is too small for this action
+        [RequestFormLimits(ValueCountLimit = 2048)]
         [HttpPost, ActionName("MethodRestrictions")]
         public virtual IActionResult MethodRestrictionsSave(PaymentMethodsModel model)
         {
@@ -159,7 +168,7 @@ namespace Nop.Web.Areas.Admin.Controllers
                 _paymentService.SaveRestictedCountryIds(pm, newCountryIds);
             }
 
-            SuccessNotification(_localizationService.GetResource("Admin.Configuration.Payment.MethodRestrictions.Updated"));
+            _notificationService.SuccessNotification(_localizationService.GetResource("Admin.Configuration.Payment.MethodRestrictions.Updated"));
 
             //selected tab
             SaveSelectedTabName();

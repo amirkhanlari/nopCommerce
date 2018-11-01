@@ -4,7 +4,7 @@ using Nop.Core.Domain.Polls;
 using Nop.Services.Helpers;
 using Nop.Services.Localization;
 using Nop.Services.Polls;
-using Nop.Web.Areas.Admin.Extensions;
+using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Areas.Admin.Models.Polls;
 using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
@@ -111,13 +111,13 @@ namespace Nop.Web.Areas.Admin.Factories
                 Data = polls.Select(poll =>
                 {
                     //fill in model values from the entity
-                    var pollModel = poll.ToModel();
+                    var pollModel = poll.ToModel<PollModel>();
 
                     //convert dates to the user time
                     if (poll.StartDateUtc.HasValue)
-                        pollModel.StartDate = _dateTimeHelper.ConvertToUserTime(poll.StartDateUtc.Value, DateTimeKind.Utc);
+                        pollModel.StartDateUtc = _dateTimeHelper.ConvertToUserTime(poll.StartDateUtc.Value, DateTimeKind.Utc);
                     if (poll.EndDateUtc.HasValue)
-                        pollModel.EndDate = _dateTimeHelper.ConvertToUserTime(poll.EndDateUtc.Value, DateTimeKind.Utc);
+                        pollModel.EndDateUtc = _dateTimeHelper.ConvertToUserTime(poll.EndDateUtc.Value, DateTimeKind.Utc);
 
                     //fill in additional values (not existing in the entity)
                     pollModel.LanguageName = _languageService.GetLanguageById(poll.LanguageId)?.Name;
@@ -142,10 +142,10 @@ namespace Nop.Web.Areas.Admin.Factories
             if (poll != null)
             {
                 //fill in model values from the entity
-                model = model ?? poll.ToModel();
+                model = model ?? poll.ToModel<PollModel>();
 
-                model.StartDate = poll.StartDateUtc;
-                model.EndDate = poll.EndDateUtc;
+                model.StartDateUtc = poll.StartDateUtc;
+                model.EndDateUtc = poll.EndDateUtc;
 
                 //prepare nested search model
                 PreparePollAnswerSearchModel(model.PollAnswerSearchModel, poll);
@@ -188,14 +188,7 @@ namespace Nop.Web.Areas.Admin.Factories
             var model = new PollAnswerListModel
             {
                 //fill in model values from the entity
-                Data = pollAnswers.PaginationByRequestModel(searchModel).Select(pollAnswer => new PollAnswerModel
-                {
-                    Id = pollAnswer.Id,
-                    PollId = pollAnswer.PollId,
-                    Name = pollAnswer.Name,
-                    NumberOfVotes = pollAnswer.NumberOfVotes,
-                    DisplayOrder = pollAnswer.DisplayOrder
-                }),
+                Data = pollAnswers.PaginationByRequestModel(searchModel).Select(pollAnswer => pollAnswer.ToModel<PollAnswerModel>()),
                 Total = pollAnswers.Count
             };
 

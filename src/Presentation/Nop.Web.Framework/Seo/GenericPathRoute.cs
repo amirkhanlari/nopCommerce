@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
-using Nop.Core;
 using Nop.Core.Data;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Infrastructure;
 using Nop.Services.Events;
+using Nop.Services.Localization;
 using Nop.Services.Seo;
 using Nop.Web.Framework.Localization;
 
@@ -32,12 +32,12 @@ namespace Nop.Web.Framework.Seo
         /// </summary>
         /// <param name="target">Target</param>
         /// <param name="routeName">Route name</param>
-        /// <param name="routeTemplate">Route remplate</param>
+        /// <param name="routeTemplate">Route template</param>
         /// <param name="defaults">Defaults</param>
         /// <param name="constraints">Constraints</param>
         /// <param name="dataTokens">Data tokens</param>
         /// <param name="inlineConstraintResolver">Inline constraint resolver</param>
-        public GenericPathRoute(IRouter target, string routeName, string routeTemplate, RouteValueDictionary defaults, 
+        public GenericPathRoute(IRouter target, string routeName, string routeTemplate, RouteValueDictionary defaults,
             IDictionary<string, object> constraints, RouteValueDictionary dataTokens, IInlineConstraintResolver inlineConstraintResolver)
             : base(target, routeName, routeTemplate, defaults, constraints, dataTokens, inlineConstraintResolver)
         {
@@ -81,7 +81,7 @@ namespace Nop.Web.Framework.Seo
         /// <returns>Task of the routing</returns>
         public override Task RouteAsync(RouteContext context)
         {
-            if (!DataSettingsHelper.DatabaseIsInstalled())
+            if (!DataSettingsManager.DatabaseIsInstalled)
                 return Task.CompletedTask;
 
             //try to get slug from the route data
@@ -124,8 +124,7 @@ namespace Nop.Web.Framework.Seo
 
             //ensure that the slug is the same for the current language, 
             //otherwise it can cause some issues when customers choose a new language but a slug stays the same
-            var workContext = EngineContext.Current.Resolve<IWorkContext>();
-            var slugForCurrentLanguage = SeoExtensions.GetSeName(urlRecord.EntityId, urlRecord.EntityName, workContext.WorkingLanguage.Id);
+            var slugForCurrentLanguage = urlRecordService.GetSeName(urlRecord.EntityId, urlRecord.EntityName);
             if (!string.IsNullOrEmpty(slugForCurrentLanguage) && !slugForCurrentLanguage.Equals(slug, StringComparison.InvariantCultureIgnoreCase))
             {
                 //we should make validation above because some entities does not have SeName for standard (Id = 0) language (e.g. news, blog posts)

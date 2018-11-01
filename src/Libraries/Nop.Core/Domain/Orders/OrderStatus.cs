@@ -11,20 +11,15 @@ namespace Nop.Core.Domain.Orders
         Pending = 10,
 
         /// <summary>
-        /// PreProcessing 
-        /// </summary>
-        PreProcessing = 15,
-
-        /// <summary>
         /// Processing
         /// </summary>
         Processing = 20,
-
 
         /// <summary>
         /// Complete
         /// </summary>
         Complete = 30,
+
         /// <summary>
         /// Cancelled
         /// </summary>

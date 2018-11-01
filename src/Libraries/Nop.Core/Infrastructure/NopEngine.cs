@@ -87,7 +87,7 @@ namespace Nop.Core.Infrastructure
 
             //create and sort instances of dependency registrars
             var instances = dependencyRegistrars
-                //.Where(dependencyRegistrar => PluginManager.FindPlugin(dependencyRegistrar).Return(plugin => plugin.Installed, true)) //ignore not installed plugins
+                //.Where(dependencyRegistrar => PluginManager.FindPlugin(dependencyRegistrar)?.Installed ?? true) //ignore not installed plugins
                 .Select(dependencyRegistrar => (IDependencyRegistrar)Activator.CreateInstance(dependencyRegistrar))
                 .OrderBy(dependencyRegistrar => dependencyRegistrar.Order);
 
@@ -111,24 +111,22 @@ namespace Nop.Core.Infrastructure
         protected virtual void AddAutoMapper(IServiceCollection services, ITypeFinder typeFinder)
         {
             //find mapper configurations provided by other assemblies
-            var mapperConfigurations = typeFinder.FindClassesOfType<IMapperProfile>();
+            var mapperConfigurations = typeFinder.FindClassesOfType<IOrderedMapperProfile>();
 
             //create and sort instances of mapper configurations
             var instances = mapperConfigurations
                 .Where(mapperConfiguration => PluginManager.FindPlugin(mapperConfiguration)?.Installed ?? true) //ignore not installed plugins
-                .Select(mapperConfiguration => (IMapperProfile) Activator.CreateInstance(mapperConfiguration))
+                .Select(mapperConfiguration => (IOrderedMapperProfile)Activator.CreateInstance(mapperConfiguration))
                 .OrderBy(mapperConfiguration => mapperConfiguration.Order);
 
             //create AutoMapper configuration
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg => 
+            {
                 foreach (var instance in instances)
                 {
                     cfg.AddProfile(instance.GetType());
                 }
             });
-
-            //register AutoMapper
-            services.AddAutoMapper();
 
             //register
             AutoMapperConfiguration.Init(config);
@@ -174,9 +172,9 @@ namespace Nop.Core.Infrastructure
         /// Add and configure services
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
-        /// <param name="configuration">Configuration root of the application</param>
+        /// <param name="configuration">Configuration of the application</param>
         /// <returns>Service provider</returns>
-        public IServiceProvider ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
+        public IServiceProvider ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             //find startup configurations provided by other assemblies
             var typeFinder = new WebAppTypeFinder();
@@ -184,7 +182,7 @@ namespace Nop.Core.Infrastructure
 
             //create and sort instances of startup configurations
             var instances = startupConfigurations
-                .Where(startup => PluginManager.FindPlugin(startup)?.Installed ?? true) //ignore not installed plugins
+                //.Where(startup => PluginManager.FindPlugin(startup)?.Installed ?? true) //ignore not installed plugins
                 .Select(startup => (INopStartup)Activator.CreateInstance(startup))
                 .OrderBy(startup => startup.Order);
 
@@ -205,11 +203,7 @@ namespace Nop.Core.Infrastructure
 
             //resolve assemblies here. otherwise, plugins can throw an exception when rendering views
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-            //set App_Data path as base data directory (required to create and save SQL Server Compact database file in App_Data folder)
-            var fileProvider = Resolve<INopFileProvider>();
-            AppDomain.CurrentDomain.SetData("DataDirectory", fileProvider.MapPath("~/App_Data/"));
-
+            
             return _serviceProvider;
         }
 
@@ -225,7 +219,7 @@ namespace Nop.Core.Infrastructure
 
             //create and sort instances of startup configurations
             var instances = startupConfigurations
-                .Where(startup => PluginManager.FindPlugin(startup)?.Installed ?? true) //ignore not installed plugins
+                //.Where(startup => PluginManager.FindPlugin(startup)?.Installed ?? true) //ignore not installed plugins
                 .Select(startup => (INopStartup)Activator.CreateInstance(startup))
                 .OrderBy(startup => startup.Order);
 
@@ -293,6 +287,7 @@ namespace Nop.Core.Infrastructure
                     innerException = ex;
                 }
             }
+
             throw new NopException("No constructor was found that had all the dependencies satisfied.", innerException);
         }
 

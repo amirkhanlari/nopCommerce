@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nop.Core;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Plugins;
@@ -10,8 +9,9 @@ using Nop.Services.Directory;
 using Nop.Services.Localization;
 using Nop.Services.Shipping;
 using Nop.Services.Shipping.Date;
-using Nop.Web.Areas.Admin.Extensions;
+using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Areas.Admin.Models.Common;
+using Nop.Web.Areas.Admin.Models.Directory;
 using Nop.Web.Areas.Admin.Models.Shipping;
 using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
@@ -29,10 +29,9 @@ namespace Nop.Web.Areas.Admin.Factories
         private readonly IBaseAdminModelFactory _baseAdminModelFactory;
         private readonly ICountryService _countryService;
         private readonly IDateRangeService _dateRangeService;
+        private readonly ILocalizationService _localizationService;
         private readonly ILocalizedModelFactory _localizedModelFactory;
         private readonly IShippingService _shippingService;
-        private readonly IWebHelper _webHelper;
-        private readonly ShippingSettings _shippingSettings;
 
         #endregion
 
@@ -42,19 +41,17 @@ namespace Nop.Web.Areas.Admin.Factories
             IBaseAdminModelFactory baseAdminModelFactory,
             ICountryService countryService,
             IDateRangeService dateRangeService,
+            ILocalizationService localizationService,
             ILocalizedModelFactory localizedModelFactory,
-            IShippingService shippingService,
-            IWebHelper webHelper,
-            ShippingSettings shippingSettings)
+            IShippingService shippingService)
         {
             this._addressService = addressService;
             this._baseAdminModelFactory = baseAdminModelFactory;
             this._countryService = countryService;
             this._dateRangeService = dateRangeService;
+            this._localizationService = localizationService;
             this._localizedModelFactory = localizedModelFactory;
             this._shippingService = shippingService;
-            this._webHelper = webHelper;
-            this._shippingSettings = shippingSettings;
         }
 
         #endregion
@@ -160,12 +157,12 @@ namespace Nop.Web.Areas.Admin.Factories
                 Data = shippingProviders.PaginationByRequestModel(searchModel).Select(provider =>
                 {
                     //fill in model values from the entity
-                    var shippingProviderModel = provider.ToModel();
+                    var shippingProviderModel = provider.ToPluginModel<ShippingProviderModel>();
 
                     //fill in additional values (not existing in the entity)
-                    shippingProviderModel.IsActive = provider.IsShippingRateComputationMethodActive(_shippingSettings);
+                    shippingProviderModel.IsActive = _shippingService.IsShippingRateComputationMethodActive(provider);
                     shippingProviderModel.ConfigurationUrl = provider.GetConfigurationPageUrl();
-                    shippingProviderModel.LogoUrl = provider.PluginDescriptor.GetLogoUrl(_webHelper);
+                    shippingProviderModel.LogoUrl = PluginManager.GetLogoUrl(provider.PluginDescriptor);
 
                     return shippingProviderModel;
                 }),
@@ -210,12 +207,12 @@ namespace Nop.Web.Areas.Admin.Factories
                 Data = pickupPointProviders.PaginationByRequestModel(searchModel).Select(provider =>
                 {
                     //fill in model values from the entity
-                    var pickupPointProviderModel = provider.ToModel();
+                    var pickupPointProviderModel = provider.ToPluginModel<PickupPointProviderModel>();
 
                     //fill in additional values (not existing in the entity)
-                    pickupPointProviderModel.IsActive = provider.IsPickupPointProviderActive(_shippingSettings);
+                    pickupPointProviderModel.IsActive = _shippingService.IsPickupPointProviderActive(provider);
                     pickupPointProviderModel.ConfigurationUrl = provider.GetConfigurationPageUrl();
-                    pickupPointProviderModel.LogoUrl = provider.PluginDescriptor.GetLogoUrl(_webHelper);
+                    pickupPointProviderModel.LogoUrl = PluginManager.GetLogoUrl(provider.PluginDescriptor);
 
                     return pickupPointProviderModel;
                 }),
@@ -258,7 +255,7 @@ namespace Nop.Web.Areas.Admin.Factories
             var model = new ShippingMethodListModel
             {
                 //fill in model values from the entity
-                Data = shippingMethods.PaginationByRequestModel(searchModel).Select(method => method.ToModel()),
+                Data = shippingMethods.PaginationByRequestModel(searchModel).Select(method => method.ToModel<ShippingMethodModel>()),
                 Total = shippingMethods.Count
             };
 
@@ -280,13 +277,13 @@ namespace Nop.Web.Areas.Admin.Factories
             if (shippingMethod != null)
             {
                 //fill in model values from the entity
-                model = model ?? shippingMethod.ToModel();
+                model = model ?? shippingMethod.ToModel<ShippingMethodModel>();
 
                 //define localized model configuration action
                 localizedModelConfiguration = (locale, languageId) =>
                 {
-                    locale.Name = shippingMethod.GetLocalized(entity => entity.Name, languageId, false, false);
-                    locale.Description = shippingMethod.GetLocalized(entity => entity.Description, languageId, false, false);
+                    locale.Name = _localizationService.GetLocalized(shippingMethod, entity => entity.Name, languageId, false, false);
+                    locale.Description = _localizationService.GetLocalized(shippingMethod, entity => entity.Description, languageId, false, false);
                 };
             }
 
@@ -331,7 +328,7 @@ namespace Nop.Web.Areas.Admin.Factories
             var model = new DeliveryDateListModel
             {
                 //fill in model values from the entity
-                Data = deliveryDates.PaginationByRequestModel(searchModel).Select(date => date.ToModel()),
+                Data = deliveryDates.PaginationByRequestModel(searchModel).Select(date => date.ToModel<DeliveryDateModel>()),
                 Total = deliveryDates.Count
             };
 
@@ -352,12 +349,12 @@ namespace Nop.Web.Areas.Admin.Factories
             if (deliveryDate != null)
             {
                 //fill in model values from the entity
-                model = model ?? deliveryDate.ToModel();
+                model = model ?? deliveryDate.ToModel<DeliveryDateModel>();
 
                 //define localized model configuration action
                 localizedModelConfiguration = (locale, languageId) =>
                 {
-                    locale.Name = deliveryDate.GetLocalized(entity => entity.Name, languageId, false, false);
+                    locale.Name = _localizationService.GetLocalized(deliveryDate, entity => entity.Name, languageId, false, false);
                 };
             }
 
@@ -385,7 +382,8 @@ namespace Nop.Web.Areas.Admin.Factories
             var model = new ProductAvailabilityRangeListModel
             {
                 //fill in model values from the entity
-                Data = productAvailabilityRanges.PaginationByRequestModel(searchModel).Select(range => range.ToModel()),
+                Data = productAvailabilityRanges.PaginationByRequestModel(searchModel)
+                    .Select(range => range.ToModel<ProductAvailabilityRangeModel>()),
                 Total = productAvailabilityRanges.Count
             };
 
@@ -407,12 +405,12 @@ namespace Nop.Web.Areas.Admin.Factories
             if (productAvailabilityRange != null)
             {
                 //fill in model values from the entity
-                model = model ?? productAvailabilityRange.ToModel();
+                model = model ?? productAvailabilityRange.ToModel<ProductAvailabilityRangeModel>();
 
                 //define localized model configuration action
                 localizedModelConfiguration = (locale, languageId) =>
                 {
-                    locale.Name = productAvailabilityRange.GetLocalized(entity => entity.Name, languageId, false, false);
+                    locale.Name = _localizationService.GetLocalized(productAvailabilityRange, entity => entity.Name, languageId, false, false);
                 };
             }
 
@@ -456,11 +454,7 @@ namespace Nop.Web.Areas.Admin.Factories
             var model = new WarehouseListModel
             {
                 //fill in model values from the entity
-                Data = warehouses.PaginationByRequestModel(searchModel).Select(warehouse => new WarehouseModel
-                {
-                    Id = warehouse.Id,
-                    Name = warehouse.Name
-                }),
+                Data = warehouses.PaginationByRequestModel(searchModel).Select(warehouse => warehouse.ToModel<WarehouseModel>()),
                 Total = warehouses.Count
             };
 
@@ -479,18 +473,16 @@ namespace Nop.Web.Areas.Admin.Factories
             if (warehouse != null)
             {
                 //fill in model values from the entity
-                model = model ?? new WarehouseModel
+                if (model == null)
                 {
-                    Id = warehouse.Id,
-                    Name = warehouse.Name,
-                    AdminComment = warehouse.AdminComment
-                };
+                    model = warehouse.ToModel<WarehouseModel>();
+                }
             }
 
             //prepare address model
             var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
             if (!excludeProperties && address != null)
-                model.Address = address.ToModel();
+                model.Address = address.ToModel(model.Address);
             PrepareAddressModel(model.Address, address);
 
             return model;
@@ -507,17 +499,23 @@ namespace Nop.Web.Areas.Admin.Factories
                 throw new ArgumentNullException(nameof(model));
 
             var countries = _countryService.GetAllCountries(showHidden: true);
-            model.AvailableCountries = countries.Select(country => country.ToModel()).ToList();
+            model.AvailableCountries = countries.Select(country =>
+            {
+                var countryModel = country.ToModel<CountryModel>();
+                countryModel.NumberOfStates = country.StateProvinces?.Count ?? 0;
+
+                return countryModel;
+            }).ToList();
 
             foreach (var shippingMethod in _shippingService.GetAllShippingMethods())
             {
-                model.AvailableShippingMethods.Add(shippingMethod.ToModel());
+                model.AvailableShippingMethods.Add(shippingMethod.ToModel<ShippingMethodModel>());
                 foreach (var country in countries)
                 {
                     if (!model.Restricted.ContainsKey(country.Id))
                         model.Restricted[country.Id] = new Dictionary<int, bool>();
 
-                    model.Restricted[country.Id][shippingMethod.Id] = shippingMethod.CountryRestrictionExists(country.Id);
+                    model.Restricted[country.Id][shippingMethod.Id] = _shippingService.CountryRestrictionExists(shippingMethod, country.Id);
                 }
             }
 

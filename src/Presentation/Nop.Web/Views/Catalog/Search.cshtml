@@ -9,7 +9,7 @@
 }
 <script asp-location="Footer">
     $(document).ready(function () {
-        $("#@Html.IdFor(model => model.adv)").click(toggleAdvancedSearch);
+        $("#@Html.IdFor(model => model.adv)").on('click', toggleAdvancedSearch);
         toggleAdvancedSearch();
     });
 
@@ -36,7 +36,7 @@
                                 <nop-label asp-for="q"/>
                                 <nop-editor asp-for="q" class="search-text"/>
                             </div>
-                            @await Component.InvokeAsync("Widget", new {widgetZone = "productsearch_page_basic"})
+                            @await Component.InvokeAsync("Widget", new {widgetZone = PublicWidgetZones.ProductSearchPageBasic})
                             <div class="inputs reversed">
                                 <nop-editor asp-for="adv"/>
                                 <nop-label asp-for="adv"/>
@@ -78,7 +78,7 @@
                                 <nop-editor  asp-for="sid" />
                                 <nop-label asp-for="sid"/>
                             </div>
-                            @await Component.InvokeAsync("Widget", new {widgetZone = "productsearch_page_advanced"})
+                            @await Component.InvokeAsync("Widget", new {widgetZone = PublicWidgetZones.ProductSearchPageAdvanced})
                         </div>
                     </div>
                 </div>

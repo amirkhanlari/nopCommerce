@@ -330,8 +330,7 @@
                                 <nop-editor asp-for="DisplayDefaultFooterItemSettings.DisplayNewProductsFooterItem" />
                                 <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayNewProductsFooterItem"></span>
                             </div>
-                        </div>
-                        
+                        </div>                        
                         <div class="form-group">
                             <div class="col-md-3">
                                 <nop-override-store-checkbox asp-for="DisplayDefaultFooterItemSettings.DisplayCustomerInfoFooterItem_OverrideForStore" asp-input="DisplayDefaultFooterItemSettings.DisplayCustomerInfoFooterItem" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
@@ -596,6 +595,16 @@
                             <div class="col-md-9">
                                 <nop-editor asp-for="SeoSettings.EnableCssBundling" />
                                 <span asp-validation-for="SeoSettings.EnableCssBundling"></span>
+                            </div>
+                        </div>
+                        <div class="form-group advanced-setting">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="StoreInformationSettings.UseResponseCompression_OverrideForStore" asp-input="StoreInformationSettings.UseResponseCompression" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="StoreInformationSettings.UseResponseCompression" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="StoreInformationSettings.UseResponseCompression" />
+                                <span asp-validation-for="StoreInformationSettings.UseResponseCompression"></span>
                             </div>
                         </div>
                         <div class="form-group advanced-setting">
